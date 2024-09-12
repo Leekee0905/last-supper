@@ -1,5 +1,6 @@
 import ReactModal from 'react-modal';
 import useModalStore from '../../../../store/useModalStore';
+import ReactDOM from 'react-dom';
 
 const customStyles = {
   content: {
@@ -12,13 +13,16 @@ const customStyles = {
   }
 };
 
+ReactModal.setAppElement('#modal-root');
+
 const Modal = ({ children }) => {
   const hasModalOpen = useModalStore((state) => state.hasOpen);
   const setHasModalOpen = useModalStore((state) => state.setHasOpen);
-  return (
+  return ReactDOM.createPortal(
     <ReactModal isOpen={hasModalOpen} style={customStyles}>
       {children}
-    </ReactModal>
+    </ReactModal>,
+    document.getElementById('modal-root')
   );
 };
 
