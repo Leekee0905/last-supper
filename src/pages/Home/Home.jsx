@@ -2,9 +2,6 @@ import React from 'react';
 import useModalStore from '../../store/useModalStore';
 import Modal from '../MainPage/components/Modal/Modal';
 
-
-// Modal.setAppElement('#yourAppElement');
-
 const Home = () => {
   const hasOpenModal = useModalStore((state) => state.setHasOpen);
   const setHasModalOpen = useModalStore((state) => state.setHasOpen);
