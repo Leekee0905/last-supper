@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
-import { FiSearch } from 'react-icons/fi'; // 돋보기 아이콘
+import { useNavigate } from 'react-router-dom';
+import { FiSearch } from 'react-icons/fi'; 
 
 const Search = () => {
     const [searchInput, setSearchInput] = useState('');
-    const [searchParams, setSearchParams] = useSearchParams();
+    const navigate = useNavigate();
 
     const handleSearch = (e) => {
         e.preventDefault();
-        setSearchParams({ query: searchInput });
+        if (searchInput.trim() === '') return;
+
+        // 쿼리스트링을 포함한 리다이렉트
+        navigate(`/mainpage?query=${encodeURIComponent(searchInput)}`);
     };
 
     return (
@@ -37,7 +40,6 @@ const Search = () => {
                 >
                     검색
                 </button>
-
             </form>
         </div>
     );

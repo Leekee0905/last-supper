@@ -1,5 +1,5 @@
 import React from 'react';
-import { FiLogIn, FiLogOut, FiUserPlus, FiCalendar } from 'react-icons/fi';
+import { FiLogIn, FiLogOut, FiUserPlus, FiCalendar, FiBookmark } from 'react-icons/fi';
 
 // 호버 효과 스타일을 반환하는 함수
 const getHoverEffectStyles = () => `
@@ -8,22 +8,32 @@ const getHoverEffectStyles = () => `
   transition-transform duration-300
 `;
 
-const ModalItem = ({ icon, text, onClick, isLoggedIn }) => {
+const getIconStyles = () => `
+  text-2xl text-gray-600 
+`;
+
+const ModalItem = ({ icon, text, onClick, }) => {
   const renderIcon = () => {
     switch (icon) {
       case 'login':
-        return isLoggedIn ? (
-          <FiLogOut className="text-2xl text-gray-600 hover:text-red-500 transition-colors duration-300" />
-        ) : (
-          <FiLogIn className="text-2xl text-gray-600 hover:text-blue-500 transition-colors duration-300" />
+        return (
+          <FiLogIn className={getIconStyles()} />
+        );
+      case 'logout':
+        return (
+          <FiLogOut className={getIconStyles()} />
         );
       case 'signup':
         return (
-          <FiUserPlus className="text-2xl text-gray-600 hover:text-green-500 transition-colors duration-300" />
+          <FiUserPlus className={getIconStyles()} />
         );
       case 'calculator':
         return (
-          <FiCalendar className="text-2xl text-gray-600 hover:text-yellow-500 transition-colors duration-300" />
+          <FiCalendar className={getIconStyles()} />
+        );
+      case 'bookmark':
+        return (
+          <FiBookmark className={getIconStyles()} />
         );
       default:
         return null;
