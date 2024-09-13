@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Outlet, useSearchParams } from 'react-router-dom';
-import Sidebar from './components/Sidebar';
-import Modal from './components/Model';
+import Sidebar from './components/sidebar';
+import HambergerMenu from './components/HamburgerMenu';
 
 const Layout = () => {
   const [hasModalOpen, setIsModalOpen] = useState(false);
@@ -40,7 +40,7 @@ const Layout = () => {
         searchInput={searchInput}
         setSearchInput={setSearchInput}
       />
-      <Modal
+      <HambergerMenu
         hasModalOpen={hasModalOpen}
         toggleModal={toggleModal}
         hasLoggedIn={hasLoggedIn}
