@@ -3,11 +3,11 @@ import { Outlet, useSearchParams } from 'react-router-dom';
 import Sidebar from './components/Sidebar';
 import HamburgerMenu from './components/HamburgerMenu';
 import useModalStore from '../store/useModalStore';
-import Calculator from '../pages/MainPage/components/Calculator'; 
+import Calculator from '../pages/MainPage/components/Calculator';
 import Modal from '../pages/MainPage/components/Modal/Modal';
 
 const Layout = () => {
-  
+
   const { hasSidebarOpen: hasOpen, setHasSidebarOpen: setHasOpen, hasCalculatorOpen, setHasCalculatorOpen } = useModalStore((state) => ({
     hasSidebarOpen: state.hasOpen,
     setHasSidebarOpen: state.setHasOpen,
@@ -24,18 +24,10 @@ const Layout = () => {
     setIsModalOpen(!hasModalOpen);
   };
 
-  const handleLoginLogout = () => {
-    setIsLoggedIn(!hasLoggedIn);
-  };
-
-  const handleSignup = () => {
-    // 회원가입 처리
-  };
-
   const handleCalculator = () => {
     setHasCalculatorOpen(true);
-    if(hasOpen){
-        setHasOpen(false);
+    if (hasOpen) {
+      setHasOpen(false);
     }
   };
 
@@ -49,7 +41,7 @@ const Layout = () => {
   return (
     <div className="relative flex min-h-screen">
       <Modal>
-        {hasCalculatorOpen && <Calculator/>}
+        {hasCalculatorOpen && <Calculator />}
       </Modal>
 
       <Sidebar
@@ -61,9 +53,9 @@ const Layout = () => {
       <HamburgerMenu
         hasModalOpen={hasModalOpen}
         toggleModal={toggleModal}
-        hasLoggedIn={hasLoggedIn}
-        handleLoginLogout={handleLoginLogout}
-        handleSignup={handleSignup}
+        // hasLoggedIn={hasLoggedIn}
+        // handleLoginLogout={handleLoginLogout}
+        // handleSignup={handleSignup}
         handleCalculator={handleCalculator}
       />
       <main className="flex-1 p-4 bg-gray-50 ml-[400px]">

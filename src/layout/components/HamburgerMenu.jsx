@@ -51,6 +51,7 @@ const ModalContent = ({ hasLoggedIn, handleLoginLogout, handleSignup, handleCalc
       <HamburgerItem icon="calculator" text="전역일 계산기" onClick={handleCalculator} />
     </div>
   </header>
+  //root 로 빼야함
 );
 
 export default HamburgerMenu;
