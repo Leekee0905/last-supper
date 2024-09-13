@@ -3,11 +3,12 @@ import { Outlet, useSearchParams } from 'react-router-dom';
 import Sidebar from './components/Sidebar';
 import HamburgerMenu from './components/HamburgerMenu';
 import useModalStore from '../store/useModalStore';
-import Calculator from '../pages/MainPage/components/Calculator'; 
+import Calculator from '../pages/MainPage/components/Calculator';
 import Modal from '../pages/MainPage/components/Modal/Modal';
+import MyPage from '../pages/MainPage/components/MyPage/MyPage';
 
 const Layout = () => {
-  const setHasModalOpen  = useModalStore((state) => state.setHasOpen);
+  const setHasModalOpen = useModalStore((state) => state.setHasOpen);
   const [hasModalOpen, setIsModalOpen] = useState(false);
   const [hasLoggedIn, setIsLoggedIn] = useState(false);
   const [searchInput, setSearchInput] = useState('');
@@ -38,10 +39,10 @@ const Layout = () => {
 
   return (
     <div className="relative flex min-h-screen">
-      <Modal>
+      {/* <Modal>
         <Calculator/>
-      </Modal>
-
+      </Modal> */}
+      <MyPage />
       <Sidebar
         toggleModal={toggleModal}
         handleSearch={handleSearch}

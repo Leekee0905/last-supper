@@ -1,12 +1,18 @@
 import { FiX } from 'react-icons/fi';
-import ModalItem from './HamburgerItem';
+import HambergerItem from './HamburgerItem';
+import useModalStore from './../../store/useModalStore.js';
 
-const HamburgerMenu = ({ hasModalOpen, toggleModal, hasLoggedIn, handleLoginLogout, handleSignup, handleCalculator }) => {
+const HamburgerMenu = ({
+  hasModalOpen,
+  toggleModal,
+  hasLoggedIn,
+  handleLoginLogout,
+  handleSignup,
+  handleCalculator
+}) => {
   return (
     <>
-      {hasModalOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-40"></div>
-      )}
+      {hasModalOpen && <div className="fixed inset-0 bg-black bg-opacity-40"></div>}
       <div
         className={`fixed top-0 left-0 h-full w-[320px] bg-gray-100 shadow-md transform ${
           hasModalOpen ? 'translate-x-0' : '-translate-x-full'
@@ -28,20 +34,24 @@ const HamburgerMenu = ({ hasModalOpen, toggleModal, hasLoggedIn, handleLoginLogo
   );
 };
 
-const ModalContent = ({ hasLoggedIn, handleLoginLogout, handleSignup, handleCalculator }) => (
-  <header className="p-4">
-    <div className="flex flex-col items-start space-y-4 pl-4">
-      <HambergerItem
-        icon={hasLoggedIn ? 'logout' : 'login'}
-        text={hasLoggedIn ? '로그아웃' : '로그인'}
-        onClick={handleLoginLogout}
-        isLoggedIn={hasLoggedIn}
-      />
-      {!hasLoggedIn && <HambergerItem icon="signup" text="회원가입" onClick={handleSignup} />}
-      {hasLoggedIn && <HambergerItem icon="bookmark" text="마이페이지" onClick={openMyPageModal} />}
-      <HambergerItem icon="calculator" text="전역일 계산기" onClick={handleCalculator} />
-    </div>
-  </header>
-);
+const ModalContent = ({ hasLoggedIn, handleLoginLogout, handleSignup, handleCalculator }) => {
+  const setHasModalOpen = useModalStore((state) => state.setHasOpen);
+
+  return (
+    <header className="p-4">
+      <div className="flex flex-col items-start space-y-4 pl-4">
+        <HambergerItem
+          icon={hasLoggedIn ? 'logout' : 'login'}
+          text={hasLoggedIn ? '로그아웃' : '로그인'}
+          onClick={handleLoginLogout}
+          isLoggedIn={hasLoggedIn}
+        />
+        {!hasLoggedIn && <HambergerItem icon="signup" text="회원가입" onClick={handleSignup} />}
+        {hasLoggedIn && <HambergerItem icon="bookmark" text="마이페이지" onClick={setHasModalOpen} />}
+        <HambergerItem icon="calculator" text="전역일 계산기" onClick={handleCalculator} />
+      </div>
+    </header>
+  );
+};
 
 export default HamburgerMenu;

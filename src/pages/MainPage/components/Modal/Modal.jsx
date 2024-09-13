@@ -19,16 +19,15 @@ const customStyles = {
   }
 };
 
-ReactModal.setAppElement('#modal-root');
+ReactModal.setAppElement('#root');
 
-const Modal = ({ children }) => {
+const Modal = ({ children, }) => {
   const hasModalOpen = useModalStore((state) => state.hasOpen);
   const setHasModalOpen = useModalStore((state) => state.setHasOpen);
-  return ReactDOM.createPortal(
+  return (
     <ReactModal isOpen={hasModalOpen} style={customStyles}>
       {children}
-    </ReactModal>,
-    document.getElementById('modal-root')
+    </ReactModal>
   );
 };
 
