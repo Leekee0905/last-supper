@@ -39,8 +39,7 @@ const ModalContent = ({ hasLoggedIn, handleLoginLogout, handleSignup, handleCalc
       {!hasLoggedIn && (
         <ModalItem icon="signup" text="회원가입" onClick={handleSignup} />
       )}
-      <ModalItem icon="calculator" text="전역일 계산기" onClick={handleCalculator} />
-      {hasLoggedIn && (
+       {hasLoggedIn && (
         <ModalItem
           icon="bookmark"
           text="즐겨찾기"
@@ -49,6 +48,7 @@ const ModalContent = ({ hasLoggedIn, handleLoginLogout, handleSignup, handleCalc
           }}
         />
       )}
+      <ModalItem icon="calculator" text="전역일 계산기" onClick={handleCalculator} />
     </div>
   </header>
 );
