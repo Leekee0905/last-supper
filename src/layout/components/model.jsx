@@ -1,5 +1,5 @@
 import { FiX } from 'react-icons/fi';
-import ModalItem from './modalItem';
+import ModalItem from './ModalItem';
 
 const Modal = ({ hasModalOpen, toggleModal, hasLoggedIn, handleLoginLogout, handleSignup, handleCalculator }) => {
   return (
