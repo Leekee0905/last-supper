@@ -9,6 +9,8 @@ import LoginModal from '../pages/MainPage/components/Login/LoginModal';
 
 const Layout = () => {
   const setHasModalOpen = useModalStore((state) => state.setHasOpen);
+  const setModalType = useModalStore((state) => state.setModalType);
+  const modalType = useModalStore((state) => state.modalType);
   const [hasModalOpen, setIsModalOpen] = useState(false);
   const [hasLoggedIn, setIsLoggedIn] = useState(false);
   const [searchInput, setSearchInput] = useState('');
@@ -27,7 +29,8 @@ const Layout = () => {
   };
 
   const handleCalculator = () => {
-    setHasModalOpen();
+    setHasModalOpen(true);
+    setModalType('calculator');
   };
 
   const handleSearch = (e) => {
@@ -37,31 +40,36 @@ const Layout = () => {
     setSearchParams({ query: searchInput });
   };
 
+  const renderModalType = () => {
+    switch (modalType) {
+      case 'calculator': {
+        return <Calculator />;
+      }
+      case 'login':
+        return <LoginModal />;
+    }
+  };
+
   return (
     <div className="relative flex min-h-screen">
-      <Modal>
-        <Calculator />
-      </Modal>
-
+      {/* <Calculator /> */}
+      <LoginModal setIsModalOpen={setIsModalOpen} />
       <Sidebar
         toggleModal={toggleModal}
         handleSearch={handleSearch}
         searchInput={searchInput}
         setSearchInput={setSearchInput}
       />
+
       <HamburgerMenu
         hasModalOpen={hasModalOpen}
         toggleModal={toggleModal}
-        hasLoggedIn={hasLoggedIn}
-        handleLoginLogout={handleLoginLogout}
-        handleSignup={handleSignup}
         setIsModalOpen={setIsModalOpen}
-        handleCalculator={handleCalculator}
+        // handleCalculator={handleCalculator}
       />
       <main className="flex-1 p-4 bg-gray-50 ml-[400px]">
         <Outlet />
       </main>
-      <LoginModal setIsModalOpen={setIsModalOpen} />
     </div>
   );
 };
