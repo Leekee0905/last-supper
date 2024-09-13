@@ -2,9 +2,13 @@ import { useState } from 'react';
 import { Outlet, useSearchParams } from 'react-router-dom';
 import Sidebar from './components/Sidebar';
 import HamburgerMenu from './components/HamburgerMenu';
+import useModalStore from '../store/useModalStore';
+import Calculator from '../pages/MainPage/components/Calculator';
+import Modal from '../pages/MainPage/components/Modal/Modal';
 import LoginModal from '../pages/MainPage/components/Login/LoginModal';
 
 const Layout = () => {
+  const setHasModalOpen = useModalStore((state) => state.setHasOpen);
   const [hasModalOpen, setIsModalOpen] = useState(false);
   const [hasLoggedIn, setIsLoggedIn] = useState(false);
   const [searchInput, setSearchInput] = useState('');
@@ -23,7 +27,7 @@ const Layout = () => {
   };
 
   const handleCalculator = () => {
-    // 전역일 계산기 처리
+    setHasModalOpen();
   };
 
   const handleSearch = (e) => {
@@ -35,6 +39,10 @@ const Layout = () => {
 
   return (
     <div className="relative flex min-h-screen">
+      <Modal>
+        <Calculator />
+      </Modal>
+
       <Sidebar
         toggleModal={toggleModal}
         handleSearch={handleSearch}
