@@ -7,7 +7,14 @@ import Calculator from '../pages/MainPage/components/Calculator';
 import Modal from '../pages/MainPage/components/Modal/Modal';
 
 const Layout = () => {
-  const setHasModalOpen  = useModalStore((state) => state.setHasOpen);
+  
+  const { hasSidebarOpen: hasOpen, setHasSidebarOpen: setHasOpen, hasCalculatorOpen, setHasCalculatorOpen } = useModalStore((state) => ({
+    hasSidebarOpen: state.hasOpen,
+    setHasSidebarOpen: state.setHasOpen,
+    hasCalculatorOpen: state.hasCalculatorOpen,
+    setHasCalculatorOpen: state.setHasCalculatorOpen,
+  }));
+
   const [hasModalOpen, setIsModalOpen] = useState(false);
   const [hasLoggedIn, setIsLoggedIn] = useState(false);
   const [searchInput, setSearchInput] = useState('');
@@ -26,7 +33,10 @@ const Layout = () => {
   };
 
   const handleCalculator = () => {
-    setHasModalOpen();
+    setHasCalculatorOpen(true);
+    if(hasOpen){
+        setHasOpen(false);
+    }
   };
 
   const handleSearch = (e) => {
@@ -39,7 +49,7 @@ const Layout = () => {
   return (
     <div className="relative flex min-h-screen">
       <Modal>
-        <Calculator/>
+        {hasCalculatorOpen && <Calculator/>}
       </Modal>
 
       <Sidebar

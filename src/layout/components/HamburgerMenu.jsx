@@ -1,5 +1,5 @@
 import { FiX } from 'react-icons/fi';
-import ModalItem from './HamburgerItem';
+import HamburgerItem from './HamburgerItem';
 
 const HamburgerMenu = ({ hasModalOpen, toggleModal, hasLoggedIn, handleLoginLogout, handleSignup, handleCalculator }) => {
   return (
@@ -30,17 +30,17 @@ const HamburgerMenu = ({ hasModalOpen, toggleModal, hasLoggedIn, handleLoginLogo
 const ModalContent = ({ hasLoggedIn, handleLoginLogout, handleSignup, handleCalculator }) => (
   <header className="p-4">
     <div className="flex flex-col items-start space-y-4 pl-4">
-      <ModalItem
+      <HamburgerItem
         icon={hasLoggedIn ? 'logout' : 'login'}
         text={hasLoggedIn ? '로그아웃' : '로그인'}
         onClick={handleLoginLogout}
         isLoggedIn={hasLoggedIn}
       />
       {!hasLoggedIn && (
-        <ModalItem icon="signup" text="회원가입" onClick={handleSignup} />
+        <HamburgerItem icon="signup" text="회원가입" onClick={handleSignup} />
       )}
        {hasLoggedIn && (
-        <ModalItem
+        <HamburgerItem
           icon="bookmark"
           text="즐겨찾기"
           onClick={() => {
@@ -48,7 +48,7 @@ const ModalContent = ({ hasLoggedIn, handleLoginLogout, handleSignup, handleCalc
           }}
         />
       )}
-      <ModalItem icon="calculator" text="전역일 계산기" onClick={handleCalculator} />
+      <HamburgerItem icon="calculator" text="전역일 계산기" onClick={handleCalculator} />
     </div>
   </header>
 );

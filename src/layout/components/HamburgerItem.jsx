@@ -12,7 +12,7 @@ const getIconStyles = () => `
   text-2xl text-gray-600 
 `;
 
-const ModalItem = ({ icon, text, onClick, }) => {
+const HamburgerItem = ({ icon, text, onClick, }) => {
   const renderIcon = () => {
     switch (icon) {
       case 'login':
@@ -52,4 +52,4 @@ const ModalItem = ({ icon, text, onClick, }) => {
   );
 };
 
-export default ModalItem;
+export default HamburgerItem;
