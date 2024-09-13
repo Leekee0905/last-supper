@@ -16,7 +16,7 @@ const getIconStyles = () => `
 const HamburgerItem = ({ icon, text, setIsModalOpen }) => {
   const hasOpenModal = useModalStore((state) => state.hasOpen);
   const setHasOpenModal = useModalStore((state) => state.setHasOpen);
-  console.log(hasOpenModal);
+
   const handleClickHamburgerMenu = () => {
     setHasOpenModal();
     setIsModalOpen(false);
