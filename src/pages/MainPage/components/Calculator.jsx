@@ -1,13 +1,12 @@
-
 import React, { useState } from 'react';
 import Modal from './Modal/Modal';
 
 const serviceDurations = {
-    army: 18, // 육군: 18개월
-    navy: 20, // 해군: 20개월
-    airForce: 21, // 공군: 21개월
-    marines: 18, // 해병대: 18개월
-  };
+  army: 18, // 육군: 18개월
+  navy: 20, // 해군: 20개월
+  airForce: 21, // 공군: 21개월
+  marines: 18 // 해병대: 18개월
+};
 
 const Calculator = () => {
   const [branch, setBranch] = useState('army'); // 기본값: 육군
@@ -17,7 +16,7 @@ const Calculator = () => {
   const calculateDischargeDate = () => {
     const enlistment = new Date(enlistmentDate);
     const serviceMonths = serviceDurations[branch];
-    
+
     // 입대 날짜에 복무 기간을 더해 전역일 계산
     enlistment.setMonth(enlistment.getMonth() + serviceMonths);
     setDischargeDate(enlistment.toLocaleDateString());
@@ -41,11 +40,7 @@ const Calculator = () => {
       <div>
         <label>
           입대 날짜:
-          <input
-            type="date"
-            value={enlistmentDate}
-            onChange={(e) => setEnlistmentDate(e.target.value)}
-          />
+          <input type="date" value={enlistmentDate} onChange={(e) => setEnlistmentDate(e.target.value)} />
         </label>
       </div>
 
