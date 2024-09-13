@@ -1,25 +1,11 @@
 import React from 'react';
-import useModalStore from '../../store/useModalStore';
-import Modal from '../MainPage/components/Modal/Modal';
+import Search from './components/search';
 
 const Home = () => {
-  const hasOpenModal = useModalStore((state) => state.setHasOpen);
-  const setHasModalOpen = useModalStore((state) => state.setHasOpen);
-
   return (
-    <div>
-      <button onClick={hasOpenModal}>Open Modal</button>
-      <Modal>
-        <button onClick={setHasModalOpen}>close</button>
-        <div>I am a modal</div>
-        <form>
-          <input />
-          <button>tab navigation</button>
-          <button>stays</button>
-          <button>inside</button>
-          <button>the modal</button>
-        </form>
-      </Modal>
+    <div className="flex flex-col items-center justify-center min-h-screen">
+      <h1 className="text-3xl font-bold mb-6">어디로 입대하세요?</h1>
+      <Search />
     </div>
   );
 };
