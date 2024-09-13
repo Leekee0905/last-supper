@@ -55,7 +55,7 @@ const Layout = () => {
     <div className="relative flex min-h-screen">
       {/* <Calculator /> */}
       <MyPage />
-      <LoginModal setIsModalOpen={setIsModalOpen} />
+      {/* <LoginModal setIsModalOpen={setIsModalOpen} /> */}
       <Sidebar
         toggleModal={toggleModal}
         handleSearch={handleSearch}

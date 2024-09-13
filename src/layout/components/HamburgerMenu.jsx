@@ -1,26 +1,10 @@
 import { FiX } from 'react-icons/fi';
-<<<<<<< HEAD
-import HambergerItem from './HamburgerItem';
-import useModalStore from './../../store/useModalStore.js';
-
-const HamburgerMenu = ({
-  hasModalOpen,
-  toggleModal,
-  hasLoggedIn,
-  handleLoginLogout,
-  handleSignup,
-  handleCalculator
-}) => {
-  return (
-    <>
-=======
 import HamburgerItem from './HamburgerItem';
 
 const HamburgerMenu = ({ hasModalOpen, toggleModal, setIsModalOpen }) => {
   return (
     <>
       {hasModalOpen && <div className="fixed inset-0 bg-black bg-opacity-40 z-40"></div>}
->>>>>>> 314559340594f5a87d151b76d3f57821c575282b
       {hasModalOpen && <div className="fixed inset-0 bg-black bg-opacity-40"></div>}
       <div
         className={`fixed top-0 left-0 h-full w-[320px] bg-gray-100 shadow-md transform ${
