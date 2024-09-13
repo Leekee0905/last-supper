@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Outlet, useSearchParams } from 'react-router-dom';
 import Sidebar from './components/Sidebar';
-import Modal from './components/Model';
+import Modal from '../pages/MainPage/components/Modal/Modal';
 
 const Layout = () => {
   const [hasModalOpen, setIsModalOpen] = useState(false);
