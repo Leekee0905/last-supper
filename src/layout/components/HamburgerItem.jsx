@@ -13,9 +13,6 @@ const getIconStyles = () => `
   text-2xl text-gray-600 
 `;
 
-<<<<<<< HEAD
-const HamburgerItem = ({ icon, text, onClick, }) => {
-=======
 const HamburgerItem = ({ icon, text, setIsModalOpen }) => {
   const hasOpenModal = useModalStore((state) => state.hasOpen);
   const setHasOpenModal = useModalStore((state) => state.setHasOpen);
@@ -24,7 +21,6 @@ const HamburgerItem = ({ icon, text, setIsModalOpen }) => {
     setHasOpenModal();
     setIsModalOpen(false);
   };
->>>>>>> 314559340594f5a87d151b76d3f57821c575282b
   const renderIcon = () => {
     switch (icon) {
       case 'login':
