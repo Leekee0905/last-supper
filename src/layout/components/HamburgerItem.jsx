@@ -1,5 +1,6 @@
 import React from 'react';
 import { FiLogIn, FiLogOut, FiUserPlus, FiCalendar, FiBookmark } from 'react-icons/fi';
+import useModalStore from '../../store/useModalStore';
 
 // 호버 효과 스타일을 반환하는 함수
 const getHoverEffectStyles = () => `
@@ -12,29 +13,26 @@ const getIconStyles = () => `
   text-2xl text-gray-600 
 `;
 
-const HamburgerItem = ({ icon, text, onClick, }) => {
+const HamburgerItem = ({ icon, text, setIsModalOpen }) => {
+  const hasOpenModal = useModalStore((state) => state.hasOpen);
+  const setHasOpenModal = useModalStore((state) => state.setHasOpen);
+
+  const handleClickHamburgerMenu = () => {
+    setHasOpenModal();
+    setIsModalOpen(false);
+  };
   const renderIcon = () => {
     switch (icon) {
       case 'login':
-        return (
-          <FiLogIn className={getIconStyles()} />
-        );
+        return <FiLogIn className={getIconStyles()} />;
       case 'logout':
-        return (
-          <FiLogOut className={getIconStyles()} />
-        );
+        return <FiLogOut className={getIconStyles()} />;
       case 'signup':
-        return (
-          <FiUserPlus className={getIconStyles()} />
-        );
+        return <FiUserPlus className={getIconStyles()} />;
       case 'calculator':
-        return (
-          <FiCalendar className={getIconStyles()} />
-        );
+        return <FiCalendar className={getIconStyles()} />;
       case 'bookmark':
-        return (
-          <FiBookmark className={getIconStyles()} />
-        );
+        return <FiBookmark className={getIconStyles()} />;
       default:
         return null;
     }
@@ -43,7 +41,7 @@ const HamburgerItem = ({ icon, text, onClick, }) => {
   return (
     <div
       className="flex items-center space-x-2 cursor-pointer relative group"
-      onClick={onClick}
+      onClick={() => handleClickHamburgerMenu()}
     >
       {renderIcon()}
       <span className="text-gray-600">{text}</span>
