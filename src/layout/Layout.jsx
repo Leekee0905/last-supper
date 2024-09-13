@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { Outlet, useSearchParams } from 'react-router-dom';
 import Sidebar from './components/Sidebar';
-import Modal from '../pages/MainPage/components/Modal/Modal';
+import HamburgerMenu from './components/HamburgerMenu';
+import LoginModal from '../pages/MainPage/components/Login/LoginModal';
 
 const Layout = () => {
   const [hasModalOpen, setIsModalOpen] = useState(false);
@@ -40,17 +41,19 @@ const Layout = () => {
         searchInput={searchInput}
         setSearchInput={setSearchInput}
       />
-      <Modal
+      <HamburgerMenu
         hasModalOpen={hasModalOpen}
         toggleModal={toggleModal}
         hasLoggedIn={hasLoggedIn}
         handleLoginLogout={handleLoginLogout}
         handleSignup={handleSignup}
+        setIsModalOpen={setIsModalOpen}
         handleCalculator={handleCalculator}
       />
       <main className="flex-1 p-4 bg-gray-50 ml-[400px]">
         <Outlet />
       </main>
+      <LoginModal setIsModalOpen={setIsModalOpen} />
     </div>
   );
 };
