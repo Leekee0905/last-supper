@@ -9,7 +9,13 @@ const customStyles = {
     right: 'auto',
     bottom: 'auto',
     marginRight: '-50%',
-    transform: 'translate(-50%, -50%)'
+    transform: 'translate(-50%, -50%)',
+    minWidth: "80%",
+    minHeight : '80%',
+  },
+  overlay: {
+    backgroundColor: 'transparent',
+    zIndex : "50"
   }
 };
 

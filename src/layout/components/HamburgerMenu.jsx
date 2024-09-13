@@ -1,19 +1,12 @@
 import { FiX } from 'react-icons/fi';
-import HambergerItem from './HamburgerItem';
-import MyPage from '../../pages/MainPage/components/MyPage/MyPage';
+import ModalItem from './HamburgerItem';
 
-const HamburgerMenu = ({
-  hasModalOpen,
-  toggleModal,
-  hasLoggedIn,
-  handleLoginLogout,
-  handleSignup,
-  handleCalculator
-}) => {
-
+const HamburgerMenu = ({ hasModalOpen, toggleModal, hasLoggedIn, handleLoginLogout, handleSignup, handleCalculator }) => {
   return (
     <>
-      {hasModalOpen && <div className="fixed inset-0 bg-black bg-opacity-40 z-40"></div>}
+      {hasModalOpen && (
+        <div className="fixed inset-0 bg-black bg-opacity-40"></div>
+      )}
       <div
         className={`fixed top-0 left-0 h-full w-[320px] bg-gray-100 shadow-md transform ${
           hasModalOpen ? 'translate-x-0' : '-translate-x-full'
