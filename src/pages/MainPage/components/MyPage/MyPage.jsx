@@ -39,7 +39,7 @@ const MyPage = () => {
         <aside className="flex flex-col w-[200px] gap-6">
           <h2 className="mb-4">마이페이지</h2>
           <nav
-            className={activeNav === MY_PAGE_NAV.profile ? 'my-page-nav my-page-nav-active' : 'my-page-nav'}
+            className={`my-page-nav ${activeNav === MY_PAGE_NAV.profile && 'my-page-nav-active'}`}
             onClick={() => {
               setActiveNav(MY_PAGE_NAV.profile);
             }}
@@ -47,7 +47,7 @@ const MyPage = () => {
             <span>개인 정보</span>
           </nav>
           <nav
-            className={activeNav === MY_PAGE_NAV.favorites ? 'my-page-nav my-page-nav-active' : 'my-page-nav'}
+            className={`my-page-nav ${activeNav === MY_PAGE_NAV.favorites && 'my-page-nav-active'}`}
             onClick={() => {
               setActiveNav(MY_PAGE_NAV.favorites);
             }}
@@ -55,7 +55,7 @@ const MyPage = () => {
             <span>즐겨찾기</span>
           </nav>
           <nav
-            className={activeNav === MY_PAGE_NAV.myReviews ? 'my-page-nav my-page-nav-active' : 'my-page-nav'}
+            className={`my-page-nav ${activeNav === MY_PAGE_NAV.myReviews && 'my-page-nav-active'}`}
             onClick={() => {
               setActiveNav(MY_PAGE_NAV.myReviews);
             }}
