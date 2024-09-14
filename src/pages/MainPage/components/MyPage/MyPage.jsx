@@ -27,7 +27,7 @@ const MyPage = () => {
       case MY_PAGE_NAV.profile:
         return <Profile />;
       case MY_PAGE_NAV.favorites:
-        return <MyActivities favorites={true} getData={useGetMyFavoritesQuery} removeFavorite={removeFavorite} />;
+        return <MyActivities getData={useGetMyFavoritesQuery} removeFavorite={removeFavorite} />;
       case MY_PAGE_NAV.myReviews:
         return <MyActivities getData={useGetMyReviewsQuery} />;
       default:

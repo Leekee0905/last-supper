@@ -2,7 +2,7 @@ import { IoRestaurantSharp, IoHeartDislike } from 'react-icons/io5';
 import Pagination from '../../../../components/Pagination';
 import { useState } from 'react';
 
-const MyActivities = ({ favorites, getData, removeFavorite }) => {
+const MyActivities = ({ getData, removeFavorite }) => {
   const [page, setPage] = useState(1);
   const { data, isPending, isError } = getData('user123');
 
@@ -35,7 +35,7 @@ const MyActivities = ({ favorites, getData, removeFavorite }) => {
 
   return (
     <>
-      <h3>{favorites ? '즐겨찾기' : '내 리뷰'}</h3>
+      <h3>{!!removeFavorite ? '즐겨찾기' : '내 리뷰'}</h3>
       <ul className="grid justify-items-center grid-cols-2 grid-rows-3 h-full bg-[var(--brown-color)] rounded gap-4 p-4">
         {!!data.length ? (
           data.map((log) => {
@@ -62,7 +62,7 @@ const MyActivities = ({ favorites, getData, removeFavorite }) => {
           })
         ) : (
           <p className="col-span-full row-span-2 flex items-center text-xl">
-            등록한 {favorites ? '즐겨찾기' : '리뷰'}가 없습니다.
+            등록한 {!!removeFavorite ? '즐겨찾기' : '리뷰'}가 없습니다.
           </p>
         )}
       </ul>
