@@ -32,7 +32,7 @@ const MyPage = () => {
     <>
       <div className="flex justify-end h-[5vh] pt-[1vh] pr-[1vw]">
         <button onClick={setHasModalOpen}>
-          <FiX className="text-gray-600 text-3xl" />
+          <FiX className="text-3xl active:opacity-50" />
         </button>
       </div>
       <div className="flex flex-row w-[77vw] h-[70vh] mr-[3vw]">
