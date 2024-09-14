@@ -2,7 +2,7 @@ import { IoRestaurantSharp, IoHeartDislike } from 'react-icons/io5';
 import Pagination from '../../../../components/Pagination';
 import { useState } from 'react';
 
-const MyActivities = ({ favorites, getData, removeFavoriteMutate }) => {
+const MyActivities = ({ favorites, getData, removeFavorite }) => {
   const [page, setPage] = useState(1);
   const { data, isPending, isError } = getData('user123');
 
@@ -52,8 +52,8 @@ const MyActivities = ({ favorites, getData, removeFavoriteMutate }) => {
                     <small>전화번호 : {log.storeCall}</small>
                   </p>
                 </main>
-                {!!removeFavoriteMutate && (
-                  <button onClick={() => removeFavoriteMutate(log.id)}>
+                {!!removeFavorite && (
+                  <button onClick={() => removeFavorite(log.id)}>
                     <IoHeartDislike className="text-2xl hover:text-[var(--brown-color)]" />
                   </button>
                 )}
@@ -61,7 +61,7 @@ const MyActivities = ({ favorites, getData, removeFavoriteMutate }) => {
             );
           })
         ) : (
-          <p className="col-span-full row-span-2 flex items-center text-lg">
+          <p className="col-span-full row-span-2 flex items-center text-xl">
             등록한 {favorites ? '즐겨찾기' : '리뷰'}가 없습니다.
           </p>
         )}

@@ -13,14 +13,21 @@ const MyPage = () => {
   const [activeNav, setActiveNav] = useState(MY_PAGE_NAV.profile);
   const { mutate: removeFavoriteMutate } = useFavoriteDeleteMutate();
 
+  const removeFavorite = (id) => {
+    if (confirm('즐겨찾기에서 삭제하시겠습니까?')) {
+      removeFavoriteMutate(id);
+      alert('즐겨찾기에서 삭제하였습니다.');
+    } else {
+      alert('삭제를 취소하였습니다.');
+    }
+  };
+
   const activeSideBtn = () => {
     switch (activeNav) {
       case MY_PAGE_NAV.profile:
         return <Profile />;
       case MY_PAGE_NAV.favorites:
-        return (
-          <MyActivities favorites={true} getData={useGetMyFavoritesQuery} removeFavoriteMutate={removeFavoriteMutate} />
-        );
+        return <MyActivities favorites={true} getData={useGetMyFavoritesQuery} removeFavorite={removeFavorite} />;
       case MY_PAGE_NAV.myReviews:
         return <MyActivities getData={useGetMyReviewsQuery} />;
       default:
@@ -32,7 +39,7 @@ const MyPage = () => {
     <>
       <div className="flex justify-end h-[5vh] pt-[1vh] pr-[1vw]">
         <button onClick={setHasModalOpen}>
-          <FiX className="text-3xl active:opacity-50" />
+          <FiX className="text-3xl hover:text-[var(--black-color)] active:opacity-50" />
         </button>
       </div>
       <div className="flex flex-row w-[77vw] h-[70vh] mr-[3vw]">
