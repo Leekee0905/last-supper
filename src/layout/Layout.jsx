@@ -1,9 +1,16 @@
 import { useState } from 'react';
 import { Outlet, useSearchParams } from 'react-router-dom';
 import Sidebar from './components/Sidebar';
-import Modal from './components/HamburgerMenu';
+import HamburgerMenu from './components/HamburgerMenu';
+import useModalStore from '../store/useModalStore';
+import Calculator from '../pages/MainPage/components/Calculator';
+import Modal from '../pages/MainPage/components/Modal/Modal';
+import LoginModal from '../pages/MainPage/components/Login/LoginModal';
 
 const Layout = () => {
+  const setHasModalOpen = useModalStore((state) => state.setHasOpen);
+  const setModalType = useModalStore((state) => state.setModalType);
+  const modalType = useModalStore((state) => state.modalType);
   const [hasModalOpen, setIsModalOpen] = useState(false);
   const [hasLoggedIn, setIsLoggedIn] = useState(false);
   const [searchInput, setSearchInput] = useState('');
@@ -22,7 +29,8 @@ const Layout = () => {
   };
 
   const handleCalculator = () => {
-    // 전역일 계산기 처리
+    setHasModalOpen(true);
+    setModalType('calculator');
   };
 
   const handleSearch = (e) => {
@@ -32,21 +40,32 @@ const Layout = () => {
     setSearchParams({ query: searchInput });
   };
 
+  const renderModalType = () => {
+    switch (modalType) {
+      case 'calculator': {
+        return <Calculator />;
+      }
+      case 'login':
+        return <LoginModal />;
+    }
+  };
+
   return (
     <div className="relative flex min-h-screen">
+      {/* <Calculator /> */}
+      <LoginModal setIsModalOpen={setIsModalOpen} />
       <Sidebar
         toggleModal={toggleModal}
         handleSearch={handleSearch}
         searchInput={searchInput}
         setSearchInput={setSearchInput}
       />
-      <Modal
+
+      <HamburgerMenu
         hasModalOpen={hasModalOpen}
         toggleModal={toggleModal}
-        hasLoggedIn={hasLoggedIn}
-        handleLoginLogout={handleLoginLogout}
-        handleSignup={handleSignup}
-        handleCalculator={handleCalculator}
+        setIsModalOpen={setIsModalOpen}
+        // handleCalculator={handleCalculator}
       />
       <main className="flex-1 p-4 bg-gray-50 ml-[400px]">
         <Outlet />
