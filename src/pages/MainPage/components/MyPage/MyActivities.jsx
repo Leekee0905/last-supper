@@ -4,10 +4,11 @@ import { useState } from 'react';
 
 const MyActivities = ({ getData, removeFavorite }) => {
   const [page, setPage] = useState(1);
-  const { data: response, isPending, isError } = getData('user123', page);
-  const data = response?.data;
+  const { data: response } = getData('user123', page);
+  const activities = response?.data;
+  console.log("activities", activities);
 
-  const totalPages = Math.ceil(response.items / 6);
+  const totalPages = response?.last;
 
   const onClickPage = (selected) => {
     if (page === selected) return;
@@ -28,20 +29,20 @@ const MyActivities = ({ getData, removeFavorite }) => {
     }
   };
 
-  if (isPending) {
-    return <p className={guideStyle}>로딩중...</p>;
-  }
+  // if (isPending) {
+  //   return <p className={guideStyle}>로딩중...</p>;
+  // }
 
-  if (isError) {
-    return <p className={guideStyle}>오류가 발생했습니다.</p>;
-  }
+  // if (isError) {
+  //   return <p className={guideStyle}>오류가 발생했습니다.</p>;
+  // }
 
   return (
     <>
       <h3>{!!removeFavorite ? '즐겨찾기' : '내 리뷰'}</h3>
       <ol className="grid justify-items-center grid-cols-2 grid-rows-3 h-full bg-[var(--brown-color)] rounded gap-4 p-4">
-        {!!data?.length ? (
-          data.map((log) => {
+        {!!activities?.length ? (
+          activities.map((log) => {
             return (
               <li
                 key={log.id}

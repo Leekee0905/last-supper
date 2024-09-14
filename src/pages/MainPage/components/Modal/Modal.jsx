@@ -12,8 +12,8 @@ const customStyles = {
     minWidth: '80%',
     minHeight: '80%',
     padding: '0 0 5vh 3vw',
-    backgroundColor:"white",
-    // color:"var(--brown-color)",
+    backgroundColor:"var(--sand-color)",
+    color:"var(--brown-color)",
   },
   overlay: {
     backgroundColor: 'transparent',
