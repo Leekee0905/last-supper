@@ -1,7 +1,9 @@
 import axios from 'axios';
 
+const REVIEWS_URL = 'http://localhost:4000/reviews';
+
 const reviews_api = axios.create({
-  baseURL: 'http://localhost:4000/reviews'
+  baseURL: REVIEWS_URL
 });
 
 // 유저가 리뷰를 작성한 식당들 불러오기
@@ -20,4 +22,3 @@ export const createReview = async (data) => {
 export const deleteReview = async (id) => {
   await reviews_api.delete(`/${id}`);
 };
-

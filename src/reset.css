@@ -62,7 +62,7 @@
       }
     }
 
-    &:active{
+    &:active {
       opacity: 50%;
     }
 
@@ -77,6 +77,18 @@
         width: 100%;
       }
     }
+  }
+
+  .page-click {
+    cursor: pointer;
+    margin-left: 5px;
+    margin-right: 5px;
+  }
+
+  .active-page {
+    color: blue;
+    text-decoration: underline;
+    font-weight: 700;
   }
 }
 

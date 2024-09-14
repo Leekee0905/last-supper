@@ -1,13 +1,23 @@
 import axios from 'axios';
 
+const FAVORITES_URL = 'http://localhost:4000/favorites';
+
 const favorites_api = axios.create({
-  baseURL: 'http://localhost:4000/favorites'
+  baseURL: FAVORITES_URL
 });
 
 // 즐겨찾기한 가게 불러오기
 export const getMyFavorites = async ({ queryKey, signal }) => {
-  const [_, userId] = queryKey;
-  const { data } = await favorites_api.get(`?userId=${userId}`, { signal });
+  const [_, userId, page] = queryKey;
+  const { data } = await favorites_api.get(`?userId=${userId}`, {
+    params: {
+      _page: page,
+      _per_page: 6
+      // _sort: 'id',
+      // _order: 'desc'
+    },
+    signal
+  });
   return data;
 };
 

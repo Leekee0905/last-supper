@@ -1,7 +1,7 @@
 const queryKeys = {
   boardController: {
-    favorites: (userId) => ['favorites', userId],
-    reviews: (userId) => ['reviews', userId]
+    favorites: (userId, page) => ['favorites', userId, page],
+    reviews: (userId, page) => ['reviews', userId, page]
   }
 };
 
