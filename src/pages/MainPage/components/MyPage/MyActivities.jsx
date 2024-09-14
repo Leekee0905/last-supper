@@ -6,7 +6,6 @@ const MyActivities = ({ getData, removeFavorite }) => {
   const [page, setPage] = useState(1);
   const { data: response, isPending, isError } = getData('user123', page);
   const data = response?.data;
-  console.log("data", data);
 
   const totalPages = Math.ceil(response.items / 6);
 
