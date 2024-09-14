@@ -3,7 +3,7 @@ import { Outlet, useSearchParams } from 'react-router-dom';
 import Sidebar from './components/Sidebar';
 import HamburgerMenu from './components/HamburgerMenu';
 import useModalStore from '../store/useModalStore';
-import Calculator from '../pages/MainPage/components/Calculator';
+import Calculator from '../pages/MainPage/components/Calculator/CalculatorModal';
 import Modal from '../pages/MainPage/components/Modal/Modal';
 import LoginModal from '../pages/MainPage/components/Login/LoginModal';
 

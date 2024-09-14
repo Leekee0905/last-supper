@@ -4,7 +4,7 @@ import HamburgerItem from './HamburgerItem';
 const HamburgerMenu = ({ hasModalOpen, toggleModal, setIsModalOpen }) => {
   return (
     <>
-      {hasModalOpen && <div className="fixed inset-0 bg-black bg-opacity-40 z-40"></div>}
+      {hasModalOpen && <div className="fixed inset-0 bg-black bg-opacity-40"></div>}
       {hasModalOpen && <div className="fixed inset-0 bg-black bg-opacity-40"></div>}
       <div
         className={`fixed top-0 left-0 h-full w-[320px] bg-gray-100 shadow-md transform ${
@@ -36,8 +36,8 @@ const HamburgerContent = ({ setIsModalOpen }) => {
               // 즐겨찾기 로직 처리
             }}
           />
-        )}
-        <HamburgerItem icon="calculator" text="전역일 계산기" onClick={handleCalculator} /> */}
+        )} */}
+        {/* <HamburgerItem icon="calculator" text="전역일 계산기" onClick={handleCalculator} /> */}
       </div>
     </header>
   );
