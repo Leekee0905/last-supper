@@ -1,26 +1,33 @@
 import React, { useState } from 'react';
 import useUserStore from '../../../../store/useUserStore';
+import { updateProfile } from '../../../../api/auth';
 
 const Profile = () => {
   const { user } = useUserStore((state) => state);
 
   const [nickname, setNickname] = useState('');
 
-  const changeNickname = (e) => {
+  const handleNicknameChange = (e) => {
     e.preventDefault();
+    updateProfile({ nickname });
+    setNickname('');
   };
 
   return (
     <>
       <h3>개인정보</h3>
       <p>현재 닉네임 : {user.nickname}</p>
-      <form onSubmit={(e) => changeNickname(e)}>
+      <form onSubmit={(e) => handleNicknameChange(e)} className="flex flex-col items-center gap-5">
         <input
           value={nickname}
           onChange={(e) => setNickname(e.target.value)}
           placeholder="변경할 닉네임을 입력해주세요."
+          required
+          className="w-2/3 h-16 border rounded pl-4 mt-[15vh] bg-[var(--sand-color)] text-[var(--brown-color)]"
         />
-        <button>닉네임 수정</button>
+        <button className="bg-[var(--brown-color)] w-1/3 h-10 rounded hover:bg-[var(--sand-color)] active:opacity-50">
+          닉네임 수정
+        </button>
       </form>
     </>
   );

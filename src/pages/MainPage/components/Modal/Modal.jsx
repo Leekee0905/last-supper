@@ -1,6 +1,5 @@
 import ReactModal from 'react-modal';
 import useModalStore from '../../../../store/useModalStore';
-import ReactDOM from 'react-dom';
 
 const customStyles = {
   content: {
@@ -10,18 +9,21 @@ const customStyles = {
     bottom: 'auto',
     marginRight: '-50%',
     transform: 'translate(-50%, -50%)',
-    minWidth: "80%",
-    minHeight : '80%',
+    minWidth: '80%',
+    minHeight: '80%',
+    padding: '0 0 5vh 3vw',
+    backgroundColor:"white",
+    // color:"var(--brown-color)",
   },
   overlay: {
     backgroundColor: 'transparent',
-    zIndex : "50"
+    zIndex: '50'
   }
 };
 
 ReactModal.setAppElement('#root');
 
-const Modal = ({ children, }) => {
+const Modal = ({ children }) => {
   const hasModalOpen = useModalStore((state) => state.hasOpen);
   const setHasModalOpen = useModalStore((state) => state.setHasOpen);
   return (
