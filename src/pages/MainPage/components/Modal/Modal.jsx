@@ -12,7 +12,7 @@ const customStyles = {
     minWidth: '80%',
     minHeight: '80%',
     padding: '0 0 5vh 3vw',
-    backgroundColor:"white",
+    backgroundColor: 'white'
     // color:"var(--brown-color)",
   },
   overlay: {
@@ -27,7 +27,7 @@ const Modal = ({ children }) => {
   const hasModalOpen = useModalStore((state) => state.hasOpen);
   const setHasModalOpen = useModalStore((state) => state.setHasOpen);
   return (
-    <ReactModal isOpen={hasModalOpen} style={customStyles}>
+    <ReactModal isOpen={hasModalOpen} style={customStyles} onRequestClose={() => setHasModalOpen(false)}>
       {children}
     </ReactModal>
   );
