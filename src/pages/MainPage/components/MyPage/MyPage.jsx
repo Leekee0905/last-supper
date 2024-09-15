@@ -2,13 +2,13 @@ import { useState } from 'react';
 import useModalStore from '../../../../store/useModalStore';
 import Profile from './Profile';
 import MyActivities from './MyActivities';
-import {
-  useFavoriteDeleteMutate,
-  useFavoritePrefetchQuery,
-  useGetMyFavoritesQuery
-} from '../../../../queries/favoritesQuery';
-import { useGetMyReviewsQuery } from '../../../../queries/reviewsQuery';
 import { FiX } from 'react-icons/fi';
+import { useQueryClient } from '@tanstack/react-query';
+import { getMyFavorites } from '../../../../api/favorites';
+import queryKeys from '../../../../hooks/queries/queryKeys';
+import { useGetMyReviewsQuery } from '../../../../hooks/queries/myActivities/reviewsQuery';
+import { getMyReviews } from '../../../../api/reviews';
+import { useFavoriteDeleteMutate, useGetMyFavoritesQuery } from '../../../../hooks/queries/myActivities/favoritesQuery';
 
 const MY_PAGE_NAV = { profile: 'profile', favorites: 'favorites', myReviews: 'myReviews' };
 
@@ -17,6 +17,9 @@ const MyPage = () => {
   const [activeNav, setActiveNav] = useState(MY_PAGE_NAV.profile);
   const { mutate: removeFavoriteMutate } = useFavoriteDeleteMutate();
 
+  const userId = 'user123';
+
+  // 즐겨찾기 삭제하는 함수
   const removeFavorite = (id) => {
     if (confirm('즐겨찾기에서 삭제하시겠습니까?')) {
       removeFavoriteMutate(id);
@@ -26,18 +29,13 @@ const MyPage = () => {
     }
   };
 
+  // 사이드 네비를 클릭하면 불러올 컴포넌트
   const activeSideBtn = () => {
     switch (activeNav) {
       case MY_PAGE_NAV.profile:
         return <Profile />;
       case MY_PAGE_NAV.favorites:
-        return (
-          <MyActivities
-            getData={useGetMyFavoritesQuery}
-            removeFavorite={removeFavorite}
-            prefechQuery={useFavoritePrefetchQuery}
-          />
-        );
+        return <MyActivities getData={useGetMyFavoritesQuery} removeFavorite={removeFavorite} />;
       case MY_PAGE_NAV.myReviews:
         return <MyActivities getData={useGetMyReviewsQuery} />;
       default:
@@ -45,9 +43,21 @@ const MyPage = () => {
     }
   };
 
-  // const favoritePrefetch = () => {
-  //   useFavoritePrefetchQuery('user123');
-  // };
+  // prefetch 함수
+  const queryClient = useQueryClient();
+  const favoritesPrefetchQuery = () => {
+    queryClient.prefetchQuery({
+      queryKey: queryKeys.boardController.favorites(userId, 1),
+      queryFn: getMyFavorites
+    });
+  };
+
+  const reviewsPrefetchQuery = () => {
+    queryClient.prefetchQuery({
+      queryKey: queryKeys.boardController.reviews(userId, 1),
+      queryFn: getMyReviews
+    });
+  };
 
   return (
     <>
@@ -72,7 +82,7 @@ const MyPage = () => {
             onClick={() => {
               setActiveNav(MY_PAGE_NAV.favorites);
             }}
-            // onMouseOver={favoritePrefetch}
+            onMouseOver={favoritesPrefetchQuery}
           >
             <span>즐겨찾기</span>
           </nav>
@@ -81,6 +91,7 @@ const MyPage = () => {
             onClick={() => {
               setActiveNav(MY_PAGE_NAV.myReviews);
             }}
+            onMouseOver={reviewsPrefetchQuery}
           >
             <span>내 리뷰</span>
           </nav>
