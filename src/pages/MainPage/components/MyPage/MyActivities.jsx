@@ -5,9 +5,8 @@ import { useState } from 'react';
 const MyActivities = ({ getData, removeFavorite }) => {
   const [page, setPage] = useState(1);
   const { data: response } = getData('user123', page);
-  const activities = response?.data;
-  console.log("activities", activities);
 
+  const activities = response?.data;
   const totalPages = response?.last;
 
   const onClickPage = (selected) => {
@@ -68,7 +67,7 @@ const MyActivities = ({ getData, removeFavorite }) => {
           <p className={guideStyle}>등록한 {!!removeFavorite ? '즐겨찾기' : '리뷰'}가 없습니다.</p>
         )}
       </ol>
-      <Pagination currentPage={page} totalPages={totalPages} onClick={onClickPage} />
+      <div className='h-6'>{!!activities && <Pagination currentPage={page} totalPages={totalPages} onClick={onClickPage} />}</div>
     </>
   );
 };

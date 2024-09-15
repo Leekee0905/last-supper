@@ -83,10 +83,11 @@
     cursor: pointer;
     margin-left: 5px;
     margin-right: 5px;
+    user-select: none;
   }
 
   .active-page {
-    color: blue;
+    color: var(--brown-color);
     text-decoration: underline;
     font-weight: 700;
   }

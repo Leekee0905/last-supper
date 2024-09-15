@@ -8,8 +8,16 @@ const reviews_api = axios.create({
 
 // 유저가 리뷰를 작성한 식당들 불러오기
 export const getMyReviews = async ({ queryKey, signal }) => {
-  const [_, userId] = queryKey;
-  const { data } = await reviews_api.get(`?userId=${userId}`, { signal });
+  const [_, userId, page] = queryKey;
+  const { data } = await reviews_api.get(`?userId=${userId}`, {
+    params: {
+      _page: page,
+      _per_page: 6
+      // _sort: 'id',
+      // _order: 'desc'
+    },
+    signal
+  });
   return data;
 };
 
