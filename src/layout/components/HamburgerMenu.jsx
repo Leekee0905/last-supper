@@ -25,7 +25,7 @@ const HamburgerMenu = ({ hasModalOpen, toggleModal, setIsModalOpen }) => {
 
 const HamburgerContent = ({ setIsModalOpen }) => {
   const hasLoggedIn = useUserStore((state) => state.hasAuthenticated);
-  console.log(hasLoggedIn);
+
   return (
     <header className="p-4">
       <div className="flex flex-col items-start space-y-4 pl-4">
@@ -37,7 +37,7 @@ const HamburgerContent = ({ setIsModalOpen }) => {
         ) : (
           <>
             <HamburgerItem icon={'login'} text={'로그인'} setIsModalOpen={setIsModalOpen} />
-            <HamburgerItem icon="signup" text="회원가입" />
+            <HamburgerItem icon="signup" text="회원가입" setIsModalOpen={setIsModalOpen} />
           </>
         )}
 
@@ -49,8 +49,8 @@ const HamburgerContent = ({ setIsModalOpen }) => {
               // 즐겨찾기 로직 처리
             }}
           />
-        )}
-        <HamburgerItem icon="calculator" text="전역일 계산기" onClick={handleCalculator} /> */}
+        )}*/}
+        <HamburgerItem icon="calculator" text="전역일 계산기" />
       </div>
     </header>
   );
