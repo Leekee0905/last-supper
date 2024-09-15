@@ -6,6 +6,7 @@ import useModalStore from '../store/useModalStore';
 import Calculator from '../pages/MainPage/components/Calculator';
 import Modal from '../pages/MainPage/components/Modal/Modal';
 import LoginModal from '../pages/MainPage/components/Login/LoginModal';
+import MyPage from '../pages/MainPage/components/MyPage/MyPage';
 
 const Layout = () => {
   const setHasModalOpen = useModalStore((state) => state.setHasOpen);
@@ -53,7 +54,10 @@ const Layout = () => {
   return (
     <div className="relative flex min-h-screen">
       {/* <Calculator /> */}
-      <LoginModal setIsModalOpen={setIsModalOpen} />
+      <Modal>
+        <MyPage />
+      </Modal>
+      {/* <LoginModal setIsModalOpen={setIsModalOpen} /> */}
       <Sidebar
         toggleModal={toggleModal}
         handleSearch={handleSearch}
