@@ -35,9 +35,8 @@ const Layout = () => {
 
   const renderModalType = () => {
     switch (modalType) {
-      case 'calculator': {
+      case 'calculator':
         return <Calculator />;
-      }
       case 'login':
         return <LoginModal />;
       case 'signup':
