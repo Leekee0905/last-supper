@@ -1,6 +1,7 @@
 import React from 'react';
 import { FiLogIn, FiLogOut, FiUserPlus, FiCalendar, FiBookmark } from 'react-icons/fi';
 import useModalStore from '../../store/useModalStore';
+import useUserStore from '../../store/useUserStore';
 
 // 호버 효과 스타일을 반환하는 함수
 const getHoverEffectStyles = () => `
@@ -16,8 +17,12 @@ const getIconStyles = () => `
 const HamburgerItem = ({ icon, text, setIsModalOpen }) => {
   const hasOpenModal = useModalStore((state) => state.hasOpen);
   const setHasOpenModal = useModalStore((state) => state.setHasOpen);
-
+  const setHasAuthenticated = useUserStore((state) => state.setHasAuthenticated);
   const handleClickHamburgerMenu = () => {
+    if (text === '로그아웃') {
+      setHasAuthenticated(false);
+      localStorage.clear();
+    }
     setHasOpenModal();
     setIsModalOpen(false);
   };
