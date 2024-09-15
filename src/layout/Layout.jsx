@@ -60,11 +60,7 @@ const Layout = () => {
 
   return (
     <div className="relative flex min-h-screen">
-      <Modal>
-        {/* <LoginModal setIsModalOpen={setIsModalOpen} /> */}
-        {renderModalType()}
-      </Modal>
-      {/* <Calculator /> */}
+      <Modal>{renderModalType()}</Modal>
 
       <Sidebar
         toggleModal={toggleModal}
