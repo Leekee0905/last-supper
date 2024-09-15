@@ -1,0 +1,158 @@
+{
+  "favorites": [
+    {
+      "id": "23",
+      "userId": "user123",
+      "storeId": "store456",
+      "storeName": "abc",
+      "storeAddress": "korea",
+      "storeCall": 123
+    },
+    {
+      "userId": "user1234",
+      "storeId": "store456",
+      "storeName": "def",
+      "storeAddress": "korea",
+      "storeCall": 123,
+      "id": "43c5"
+    },
+    {
+      "id": "22",
+      "userId": "user123",
+      "storeId": "store789",
+      "storeName": "def",
+      "storeAddress": "jejudo",
+      "storeCall": 123
+    },
+    {
+      "id": "21",
+      "userId": "user123",
+      "storeId": "store789",
+      "storeName": "def",
+      "storeAddress": "jejudo",
+      "storeCall": 123
+    },
+    {
+      "id": "20",
+      "userId": "user123",
+      "storeId": "store789",
+      "storeName": "def",
+      "storeAddress": "jejudo",
+      "storeCall": 123
+    },
+    {
+      "id": "24",
+      "userId": "user123",
+      "storeId": "store789",
+      "storeName": "def",
+      "storeAddress": "jejudo",
+      "storeCall": 123
+    },
+    {
+      "id": "25",
+      "userId": "user123",
+      "storeId": "store789",
+      "storeName": "def",
+      "storeAddress": "jejudo",
+      "storeCall": 123
+    },
+    {
+      "id": "26",
+      "userId": "user123",
+      "storeId": "store789",
+      "storeName": "def",
+      "storeAddress": "jejudo",
+      "storeCall": 123
+    },
+    {
+      "id": "27",
+      "userId": "user123",
+      "storeId": "store789",
+      "storeName": "def",
+      "storeAddress": "jejudo",
+      "storeCall": 123
+    },
+    {
+      "id": "28",
+      "userId": "user123",
+      "storeId": "store789",
+      "storeName": "def",
+      "storeAddress": "jejudo",
+      "storeCall": 123
+    },
+    {
+      "id": "29",
+      "userId": "user123",
+      "storeId": "store789",
+      "storeName": "def",
+      "storeAddress": "jejudo",
+      "storeCall": 123
+    },
+    {
+      "id": "30",
+      "userId": "user123",
+      "storeId": "store789",
+      "storeName": "def",
+      "storeAddress": "jejudo",
+      "storeCall": 123
+    },
+    {
+      "id": "31",
+      "userId": "user123",
+      "storeId": "store789",
+      "storeName": "def",
+      "storeAddress": "jejudo",
+      "storeCall": 123
+    },
+    {
+      "id": "32",
+      "userId": "user123",
+      "storeId": "store789",
+      "storeName": "def",
+      "storeAddress": "jejudo",
+      "storeCall": 123
+    },
+    {
+      "id": "33",
+      "userId": "user123",
+      "storeId": "store789",
+      "storeName": "def",
+      "storeAddress": "jejudo",
+      "storeCall": 123
+    },
+    {
+      "id": "34",
+      "userId": "user123",
+      "storeId": "store789",
+      "storeName": "def",
+      "storeAddress": "jejudo",
+      "storeCall": 123
+    },
+    {
+      "id": "35",
+      "userId": "user123",
+      "storeId": "store789",
+      "storeName": "def",
+      "storeAddress": "jejudo",
+      "storeCall": 123
+    },
+    {
+      "id": "36",
+      "userId": "user123",
+      "storeId": "store789",
+      "storeName": "def",
+      "storeAddress": "jejudo",
+      "storeCall": 123
+    }
+  ],
+  "reviews": [
+    {
+      "userId": "user12",
+      "storeId": "fgngf",
+      "storeName": "abc",
+      "storeAddress": "korea",
+      "storeCall": 123,
+      "id": "9e89"
+    }
+  ]
+}

@@ -8,6 +8,7 @@ import Modal from '../pages/MainPage/components/Modal/Modal';
 import LoginModal from '../pages/MainPage/components/Login/LoginModal';
 import { useHasTokenAuthenticatedQuery } from '../hooks/queries/auth/useHasTokenAuthenticatedQuery';
 import useUserStore from '../store/useUserStore';
+import MyPage from '../pages/MainPage/components/MyPage/MyPage';
 import SignupModal from '../pages/MainPage/components/Signup/SignupModal';
 
 const Layout = () => {
@@ -41,6 +42,8 @@ const Layout = () => {
         return <LoginModal />;
       case 'signup':
         return <SignupModal />;
+      case 'mypage':
+        return <MyPage />;
     }
   };
 
