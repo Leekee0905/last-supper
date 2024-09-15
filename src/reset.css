@@ -2,6 +2,98 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+
+  :root {
+    --black-color: #232730;
+    --green-color: #3D6934;
+    --brown-color: #4F322A;
+    --sand-color: #8C7549;
+  }
+
+  /* html,
+  body {
+    font-family: "Gugi" sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    color:
+      •#1d1d1f;
+  } */
+
+  h2 {
+    font-size: 32px;
+    font-weight: 600;
+  }
+
+  h3 {
+    font-size: 28px;
+    font-weight: 500;
+  }
+
+  h4 {
+    font-size: 24px;
+    font-weight: 400;
+  }
+
+  nav {
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .my-page-nav {
+    font-size: 24px;
+    position: relative;
+
+    span {
+      position: relative;
+      display: inline-block;
+
+      &::after {
+        background-color: var(--brown-color);
+        z-index: 1;
+        width: 0;
+        content: "";
+        height: 1px;
+        position: absolute;
+        left: 50%;
+        bottom: 0;
+        transform: translateX(-50%);
+        transition: all .5s ease
+      }
+    }
+
+    &:active {
+      opacity: 50%;
+    }
+
+    &:hover span:after {
+      width: 100%;
+    }
+  }
+
+  .my-page-nav-active {
+    span {
+      &::after {
+        width: 100%;
+      }
+    }
+  }
+
+  .page-click {
+    cursor: pointer;
+    margin-left: 5px;
+    margin-right: 5px;
+  }
+
+  .active-page {
+    color: blue;
+    text-decoration: underline;
+    font-weight: 700;
+  }
+}
+
+@layer components {}
+
 /* box-sizing 규칙을 명시합니다. */
 *,
 *::before,
