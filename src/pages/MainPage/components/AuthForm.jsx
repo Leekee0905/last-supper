@@ -1,15 +1,18 @@
 import { useState } from 'react';
 import { useLoginQuery } from '../../../hooks/queries/auth/useLoginQuery';
+import { useSignupQuery } from '../../../hooks/queries/auth/useSignupQuery';
+import useModalStore from '../../../store/useModalStore';
 
 const AuthForm = ({ mode }) => {
   const { mutate: loginMutate } = useLoginQuery();
-  // const { mutate: signupMutate } = useSignUpQuery();
+  const { mutate: signupMutate } = useSignupQuery();
   const [formData, setFormData] = useState({
     id: '',
     password: '',
     nickname: ''
   });
   const [passwordError, setPasswordError] = useState('');
+  const setModalType = useModalStore((state) => state.setModalType);
 
   const passwordValidation = (password) => {
     return /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/.test(password);
@@ -39,7 +42,7 @@ const AuthForm = ({ mode }) => {
     }
     switch (mode) {
       case 'signup': {
-        // signupMutate(formData);
+        signupMutate(formData);
         break;
       }
       case 'login': {
@@ -99,9 +102,9 @@ const AuthForm = ({ mode }) => {
       {mode === 'signup' ? (
         <span className="text-sm mb-5">
           이미 계정이 있으신가요?{' '}
-          {/* <Link to={'/login'} className="text-red-500 font-bold">
+          <span className="text-red-500 font-bold cursor-pointer" onClick={() => setModalType('login')}>
             로그인
-          </Link> */}
+          </span>
         </span>
       ) : null}
     </div>
