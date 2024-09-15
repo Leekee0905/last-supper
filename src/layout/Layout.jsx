@@ -39,6 +39,8 @@ const Layout = () => {
       }
       case 'login':
         return <LoginModal />;
+      case 'mypage':
+        return <MyPage />;
     }
   };
 
@@ -60,10 +62,6 @@ const Layout = () => {
         <LoginModal setIsModalOpen={setIsModalOpen} />
       </Modal>
       {/* <Calculator /> */}
-
-      <Modal>
-        <MyPage />
-      </Modal>
 
       <Sidebar
         toggleModal={toggleModal}
