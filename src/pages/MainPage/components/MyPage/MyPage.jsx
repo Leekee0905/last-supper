@@ -38,7 +38,7 @@ const MyPage = () => {
   return (
     <>
       <div className="flex justify-end h-[5vh] pt-[1vh] pr-[1vw]">
-        <button onClick={setHasModalOpen}>
+        <button onClick={() => setHasModalOpen(false)}>
           <FiX className="text-3xl hover:text-[var(--black-color)] active:opacity-50" />
         </button>
       </div>
