@@ -7,7 +7,7 @@ const favorites_api = axios.create({
 });
 
 // 즐겨찾기한 가게 불러오기
-export const getMyFavorites = async ({ queryKey, signal }) => { // 타입 추가
+export const getMyFavorites = async ({ queryKey, signal }) => {
   const [_, userId, page] = queryKey;
   const { data } = await favorites_api.get(`?userId=${userId}`, {
     params: {

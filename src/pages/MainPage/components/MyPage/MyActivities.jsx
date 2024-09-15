@@ -4,10 +4,11 @@ import { useState } from 'react';
 
 const MyActivities = ({ getData, removeFavorite }) => {
   const [page, setPage] = useState(1);
-  const { data: response } = getData('user123', page);
+  const { data: response, isPending, isError } = getData('user123', page);
+  console.log('response', response);
 
   const activities = response?.data;
-  const totalPages = response?.last;
+  const totalPages = response?.pages;
 
   const onClickPage = (selected) => {
     if (page === selected) return;
@@ -32,9 +33,9 @@ const MyActivities = ({ getData, removeFavorite }) => {
   //   return <p className={guideStyle}>로딩중...</p>;
   // }
 
-  // if (isError) {
-  //   return <p className={guideStyle}>오류가 발생했습니다.</p>;
-  // }
+  if (isError) {
+    return <p className={guideStyle}>오류가 발생했습니다.</p>;
+  }
 
   return (
     <>
@@ -67,7 +68,9 @@ const MyActivities = ({ getData, removeFavorite }) => {
           <p className={guideStyle}>등록한 {!!removeFavorite ? '즐겨찾기' : '리뷰'}가 없습니다.</p>
         )}
       </ol>
-      <div className='h-6'>{!!activities && <Pagination currentPage={page} totalPages={totalPages} onClick={onClickPage} />}</div>
+      <div className="h-6">
+        {!!activities && <Pagination currentPage={page} totalPages={totalPages} onClick={onClickPage} />}
+      </div>
     </>
   );
 };

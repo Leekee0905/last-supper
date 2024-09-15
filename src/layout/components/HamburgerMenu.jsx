@@ -25,7 +25,6 @@ const HamburgerMenu = ({ hasModalOpen, toggleModal, setIsModalOpen }) => {
 
 const HamburgerContent = ({ setIsModalOpen }) => {
   const hasLoggedIn = useUserStore((state) => state.hasAuthenticated);
-  console.log(hasLoggedIn);
   return (
     <header className="p-4">
       <div className="flex flex-col items-start space-y-4 pl-4">

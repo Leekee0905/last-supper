@@ -2,7 +2,11 @@ import { useState } from 'react';
 import useModalStore from '../../../../store/useModalStore';
 import Profile from './Profile';
 import MyActivities from './MyActivities';
-import { useFavoriteDeleteMutate, useGetMyFavoritesQuery } from '../../../../queries/favoritesQuery';
+import {
+  useFavoriteDeleteMutate,
+  useFavoritePrefetchQuery,
+  useGetMyFavoritesQuery
+} from '../../../../queries/favoritesQuery';
 import { useGetMyReviewsQuery } from '../../../../queries/reviewsQuery';
 import { FiX } from 'react-icons/fi';
 
@@ -27,13 +31,23 @@ const MyPage = () => {
       case MY_PAGE_NAV.profile:
         return <Profile />;
       case MY_PAGE_NAV.favorites:
-        return <MyActivities getData={useGetMyFavoritesQuery} removeFavorite={removeFavorite} />;
+        return (
+          <MyActivities
+            getData={useGetMyFavoritesQuery}
+            removeFavorite={removeFavorite}
+            prefechQuery={useFavoritePrefetchQuery}
+          />
+        );
       case MY_PAGE_NAV.myReviews:
         return <MyActivities getData={useGetMyReviewsQuery} />;
       default:
         throw new Error('잘못된 요청을 하셨습니다.');
     }
   };
+
+  // const favoritePrefetch = () => {
+  //   useFavoritePrefetchQuery('user123');
+  // };
 
   return (
     <>
@@ -58,6 +72,7 @@ const MyPage = () => {
             onClick={() => {
               setActiveNav(MY_PAGE_NAV.favorites);
             }}
+            // onMouseOver={favoritePrefetch}
           >
             <span>즐겨찾기</span>
           </nav>

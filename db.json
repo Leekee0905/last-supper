@@ -33,14 +33,6 @@
       "storeCall": 123
     },
     {
-      "id": "20",
-      "userId": "user123",
-      "storeId": "store789",
-      "storeName": "def",
-      "storeAddress": "jejudo",
-      "storeCall": 123
-    },
-    {
       "id": "24",
       "userId": "user123",
       "storeId": "store789",
