@@ -2,7 +2,6 @@ import { useState } from 'react';
 import useModalStore from '../../../../store/useModalStore';
 import Profile from './Profile';
 import MyActivities from './MyActivities';
-import { FiX } from 'react-icons/fi';
 import { useQueryClient } from '@tanstack/react-query';
 import { getMyFavorites } from '../../../../api/favorites';
 import queryKeys from '../../../../hooks/queries/queryKeys';
@@ -61,11 +60,6 @@ const MyPage = () => {
 
   return (
     <>
-      <div className="flex justify-end h-[5vh] pt-[1vh] pr-[1vw]">
-        <button onClick={setHasModalOpen}>
-          <FiX className="text-3xl hover:text-[var(--black-color)] active:opacity-50" />
-        </button>
-      </div>
       <div className="flex flex-row w-[77vw] h-[70vh] mr-[3vw]">
         <aside className="flex flex-col w-[200px] gap-6">
           <h2 className="mb-4">마이페이지</h2>
