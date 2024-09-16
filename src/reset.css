@@ -11,6 +11,16 @@
     --sand-color: #8C7549;
   }
 
+  @keyframes slr {
+    0% {
+      opacity: 0;
+    }
+
+    100% {
+      opacity: 1;
+    }
+  }
+
   /* html,
   body {
     font-family: "Gugi" sans-serif;

@@ -22,18 +22,17 @@ const Modal = ({ children, contentStyle, overlayStyle }) => {
       left: '50%',
       right: 'auto',
       bottom: 'auto',
-      marginRight: '-50%',
       transform: 'translate(-50%, -50%)',
       minWidth: '80%',
       minHeight: '80%',
       padding: '0 0 5vh 3vw',
+      animation: 'slr 0.5s ease forwards',
       backgroundColor: 'var(--sand-color)',
       color: 'var(--brown-color)',
       ...contentStyle
     },
     overlay: {
       backgroundColor: 'rgba(0, 0, 0, 0.3)',
-      zIndex: '50',
       ...overlayStyle
     }
   };
