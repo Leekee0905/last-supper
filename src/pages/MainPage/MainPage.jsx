@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
+import axios from 'axios';
 
 const MainPage = () => {
   const [param] = useSearchParams();
@@ -19,6 +20,9 @@ const MainPage = () => {
     // 스크립트 로드된 후 실행
     script.onload = () => {
       window.kakao.maps.load(() => {
+        // 마커를 담을 배열입니다
+        // const markers = [];
+
         // 마커를 클릭하면 장소명을 표출할 인포윈도우
         let infowindow = new window.kakao.maps.InfoWindow({ zIndex: 1 });
 
@@ -60,10 +64,31 @@ const MainPage = () => {
         };
 
         // 키워드 검색 완료 시 호출되는 콜백함수 입니다
-        function placesSearchCB(data, status) {
+        async function placesSearchCB(data, status) {
           if (status === window.kakao.maps.services.Status.OK) {
-            for (let i = 0; i < data.length; i++) {
-              displayMarker(data[i]);
+            try {
+              // 1. 먼저 모든 데이터를 가져옴 (GET 요청)
+              const response = await axios.get('http://localhost:5000/restaurantReviewApi');
+              const existingData = response.data;
+
+              // 2. 기존 데이터를 하나씩 삭제 (DELETE 요청)
+              const deleteRequests = existingData.map((item) =>
+                axios.delete(`http://localhost:5000/restaurantReviewApi/${item.id}`)
+              );
+              await Promise.all(deleteRequests); // 모든 DELETE 요청이 완료될 때까지 기다림
+              console.log('기존 데이터 삭제 완료');
+
+              // 3. 새로운 데이터를 POST 요청으로 서버에 전송
+              await axios.post('http://localhost:5000/restaurantReviewApi', {
+                restaurants: data
+              });
+
+              // 4. 지도에 마커를 표시
+              for (let i = 0; i < data.length; i++) {
+                displayMarker(data[i]);
+              }
+            } catch (error) {
+              console.error('데이터 처리 중 오류 발생:', error);
             }
           }
         }
