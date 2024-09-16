@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
 import useUserStore from '../../../../store/useUserStore';
-import { updateProfile } from '../../../../api/auth';
+import useUpdateProfileQuery from '../../../../hooks/queries/auth/useUpdateProfileQuery';
 
 const Profile = () => {
   const { user } = useUserStore((state) => state);
+  const { mutate: updateNickname } = useUpdateProfileQuery();
 
   const [nickname, setNickname] = useState('');
 
   const handleNicknameChange = (e) => {
     e.preventDefault();
-    updateProfile({ nickname });
+    updateNickname({ nickname });
     setNickname('');
   };
 

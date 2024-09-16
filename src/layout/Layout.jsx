@@ -9,6 +9,7 @@ import LoginModal from '../pages/MainPage/components/Login/LoginModal';
 import { useHasTokenAuthenticatedQuery } from '../hooks/queries/auth/useHasTokenAuthenticatedQuery';
 import useUserStore from '../store/useUserStore';
 import MyPage from '../pages/MainPage/components/MyPage/MyPage';
+import SignupModal from '../pages/MainPage/components/Signup/SignupModal';
 
 const Layout = () => {
   const setHasModalOpen = useModalStore((state) => state.setHasOpen);
@@ -34,11 +35,14 @@ const Layout = () => {
 
   const renderModalType = () => {
     switch (modalType) {
-      case 'calculator': {
+      case 'calculator':
         return <Calculator />;
-      }
       case 'login':
         return <LoginModal />;
+      case 'signup':
+        return <SignupModal />;
+      case 'mypage':
+        return <MyPage />;
     }
   };
 
@@ -56,14 +60,7 @@ const Layout = () => {
 
   return (
     <div className="relative flex min-h-screen">
-      <Modal>
-        <LoginModal setIsModalOpen={setIsModalOpen} />
-      </Modal>
-      {/* <Calculator /> */}
-
-      <Modal>
-        <MyPage />
-      </Modal>
+      <Modal>{renderModalType()}</Modal>
 
       <Sidebar
         toggleModal={toggleModal}

@@ -3,8 +3,8 @@ import { create } from 'zustand';
 const useModalStore = create((set) => ({
   hasOpen: false,
   modalType: null,
-  setHasOpen: () => set((state) => ({ hasOpen: !state.hasOpen })),
-  setModalType: () => set((state) => ({ modalType: '' }))
+  setHasOpen: (hasOpen) => set((state) => ({ hasOpen: hasOpen })),
+  setModalType: (type) => set((state) => ({ modalType: type }))
 }));
 
 export default useModalStore;
