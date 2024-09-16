@@ -71,7 +71,7 @@
       display: inline-block;
 
       &::after {
-        background-color: var(--brown-color);
+        background-color: black;
         z-index: 1;
         width: 0;
         content: "";
@@ -109,7 +109,7 @@
   }
 
   .active-page {
-    color: var(--brown-color);
+    color: blue;
     text-decoration: underline;
     font-weight: 700;
   }

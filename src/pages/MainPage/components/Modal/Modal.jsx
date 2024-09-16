@@ -1,5 +1,6 @@
 import ReactModal from 'react-modal';
 import useModalStore from '../../../../store/useModalStore';
+import { useRef } from 'react';
 import { FiX } from 'react-icons/fi';
 
 ReactModal.setAppElement('#root');
@@ -19,8 +20,7 @@ const Modal = ({ children, contentStyle, overlayStyle, isLoading }) => {
       minHeight: '80%',
       padding: '0 0 5vh 3vw',
       animation: 'slr 0.5s ease forwards',
-      backgroundColor: 'var(--sand-color)',
-      color: 'var(--brown-color)',
+      backgroundColor: 'white',
       ...contentStyle
     },
     overlay: {
@@ -30,18 +30,16 @@ const Modal = ({ children, contentStyle, overlayStyle, isLoading }) => {
   };
 
   return (
-    <div onClick={isLoading || setHasModalOpen} className="w-full h-full">
-      <ReactModal isOpen={hasModalOpen} style={customStyles}>
-        {isLoading || (
-          <div className="flex justify-end h-[5vh] pt-[1vh] pr-[1vw]">
-            <button onClick={setHasModalOpen}>
-              <FiX className="text-3xl hover:text-[var(--black-color)] active:opacity-50" />
-            </button>
-          </div>
-        )}
-        {children}
-      </ReactModal>
-    </div>
+    <ReactModal isOpen={hasModalOpen} style={customStyles}>
+      {isLoading || (
+        <div className="flex justify-end h-[5vh] pt-[1vh] pr-[1vw]">
+          <button onClick={setHasModalOpen}>
+            <FiX className="text-3xl hover:text-[var(--black-color)] active:opacity-50" />
+          </button>
+        </div>
+      )}
+      {children}
+    </ReactModal>
   );
 };
 

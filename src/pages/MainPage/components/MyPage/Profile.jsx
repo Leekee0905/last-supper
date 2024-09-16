@@ -23,9 +23,9 @@ const Profile = () => {
           onChange={(e) => setNickname(e.target.value)}
           placeholder="변경할 닉네임을 입력해주세요."
           required
-          className="w-2/3 h-16 border rounded pl-4 mt-[15vh] bg-[var(--sand-color)] text-[var(--brown-color)]"
+          className="w-2/3 h-16 border rounded pl-4 mt-[15vh]"
         />
-        <button className="bg-[var(--brown-color)] w-1/3 h-10 rounded hover:bg-[var(--sand-color)] active:opacity-50">
+        <button className="bg-[var(--sand-color)] w-1/3 h-10 rounded hover:bg-[var(--brown-color)] active:opacity-50 text-white">
           닉네임 수정
         </button>
       </form>

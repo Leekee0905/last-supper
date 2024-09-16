@@ -34,13 +34,13 @@ const MyActivities = ({ getData, removeFavorite }) => {
   return (
     <>
       <h3>{!!removeFavorite ? '즐겨찾기' : '내 리뷰'}</h3>
-      <ol className="grid justify-items-center grid-cols-2 grid-rows-3 h-full bg-[var(--brown-color)] rounded gap-4 p-4">
+      <ol className="grid justify-items-center grid-cols-2 grid-rows-3 h-full rounded gap-4 p-4">
         {!!data?.length ? (
           data.map((log) => {
             return (
               <li
                 key={log.id}
-                className="flex flex-row w-full items-center px-4 border rounded justify bg-[var(--sand-color)] gap-3 cursor-pointer text-[var(--green-color)]"
+                className="flex flex-row w-full items-center px-4 border rounded justify gap-3 cursor-pointer "
               >
                 <IoRestaurantSharp className="text-2xl w-[24px]" />
                 <main className="grow">
@@ -52,7 +52,7 @@ const MyActivities = ({ getData, removeFavorite }) => {
                 </main>
                 {!!removeFavorite && (
                   <button onClick={() => removeFavorite(log.id)}>
-                    <IoHeartDislike className="text-2xl hover:text-[var(--brown-color)]" />
+                    <IoHeartDislike className="text-2xl hover:text-[var(--green-color)]" />
                   </button>
                 )}
               </li>

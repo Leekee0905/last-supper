@@ -90,9 +90,7 @@ const MyPage = () => {
             <span>내 리뷰</span>
           </nav>
         </aside>
-        <section className="flex flex-col gap-2 grow border rounded py-5 px-6 bg-[var(--green-color)] text-[var(--black-color)]">
-          {activeSideBtn()}
-        </section>
+        <section className="flex flex-col gap-2 grow border rounded py-5 px-6 ]">{activeSideBtn()}</section>
       </div>
     </>
   );
