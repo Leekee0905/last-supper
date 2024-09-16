@@ -3,7 +3,7 @@ import './reset.css';
 import { StrictMode, Suspense } from 'react';
 import { createRoot } from 'react-dom/client';
 import Router from './shared/Router';
-import LoadingModal from './components/SuspenseModal';
+import LoadingModal from './components/LoadingModal';
 
 const queryClient = new QueryClient();
 

@@ -1,6 +1,5 @@
 import ReactModal from 'react-modal';
 import useModalStore from '../../../../store/useModalStore';
-import { useRef } from 'react';
 import { FiX } from 'react-icons/fi';
 
 ReactModal.setAppElement('#root');

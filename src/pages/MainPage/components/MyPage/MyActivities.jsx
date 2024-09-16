@@ -4,7 +4,7 @@ import { useState } from 'react';
 
 const MyActivities = ({ getData, removeFavorite }) => {
   const [page, setPage] = useState(1);
-  const { data: response, isPending, isError } = getData('user123', page);
+  const { data: response, isError } = getData('user123', page);
   const { data, totalPages } = response;
 
   const onClickPage = (selected) => {
@@ -22,10 +22,6 @@ const MyActivities = ({ getData, removeFavorite }) => {
       return;
     }
   };
-
-  if (isPending) {
-    return <p className={guideStyle}>로딩중...</p>;
-  }
 
   if (isError) {
     return <p className={guideStyle}>오류가 발생했습니다.</p>;
