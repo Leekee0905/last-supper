@@ -16,7 +16,7 @@ const pages = createBrowserRouter([
   },
   {
     path: '/',
-    element :<Home />,
+    element: <Home />
   }
 ]);
 
