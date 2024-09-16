@@ -9,7 +9,8 @@ export const useGetMyFavoritesQuery = (userId, page) => {
     select: ({ data, pages: totalPages }) => {
       return { data, totalPages };
     },
-    placeholderData: keepPreviousData
+    placeholderData: keepPreviousData,
+    suspense: true
   });
 };
 
