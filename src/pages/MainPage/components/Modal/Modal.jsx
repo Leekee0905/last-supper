@@ -32,7 +32,7 @@ const Modal = ({ children, contentStyle, overlayStyle, isLoading }) => {
     <ReactModal isOpen={hasModalOpen} style={customStyles}>
       {isLoading || (
         <div className="flex justify-end h-[5vh] pt-[1vh] pr-[1vw]">
-          <button onClick={setHasModalOpen}>
+          <button onClick={()=>setHasModalOpen(false)}>
             <FiX className="text-3xl hover:text-[var(--black-color)] active:opacity-50" />
           </button>
         </div>

@@ -1,21 +1,21 @@
 import { useState } from 'react';
-import useModalStore from '../../../../store/useModalStore';
 import Profile from './Profile';
 import MyActivities from './MyActivities';
-import { useQueryClient } from '@tanstack/react-query';
-import { getMyFavorites } from '../../../../api/favorites';
-import queryKeys from '../../../../hooks/queries/queryKeys';
-import { useGetMyReviewsQuery } from '../../../../hooks/queries/myActivities/reviewsQuery';
-import { getMyReviews } from '../../../../api/reviews';
-import { useFavoriteDeleteMutate, useGetMyFavoritesQuery } from '../../../../hooks/queries/myActivities/favoritesQuery';
+import { useGetMyReviewsQuery, useReviewsPrefetchQuery } from '../../../../hooks/queries/myActivities/reviewsQuery';
+import {
+  useFavoriteDeleteMutate,
+  useFavoritesPrefetchQuery,
+  useGetMyFavoritesQuery
+} from '../../../../hooks/queries/myActivities/favoritesQuery';
+import useUserStore from '../../../../store/useUserStore';
 
 const MY_PAGE_NAV = { profile: 'profile', favorites: 'favorites', myReviews: 'myReviews' };
 
 const MyPage = () => {
-  const setHasModalOpen = useModalStore((state) => state.setHasOpen);
   const [activeNav, setActiveNav] = useState(MY_PAGE_NAV.profile);
   const { mutate: removeFavoriteMutate } = useFavoriteDeleteMutate();
 
+  // const { userId } = useUserStore((state) => state);
   const userId = 'user123';
 
   // 즐겨찾기 삭제하는 함수
@@ -43,20 +43,8 @@ const MyPage = () => {
   };
 
   // prefetch 함수
-  const queryClient = useQueryClient();
-  const favoritesPrefetchQuery = () => {
-    queryClient.prefetchQuery({
-      queryKey: queryKeys.boardController.favorites(userId, 1),
-      queryFn: getMyFavorites
-    });
-  };
-
-  const reviewsPrefetchQuery = () => {
-    queryClient.prefetchQuery({
-      queryKey: queryKeys.boardController.reviews(userId, 1),
-      queryFn: getMyReviews
-    });
-  };
+  const prefetchFavorites = useFavoritesPrefetchQuery(userId);
+  const prefetchReviews = useReviewsPrefetchQuery(userId);
 
   return (
     <>
@@ -76,7 +64,7 @@ const MyPage = () => {
             onClick={() => {
               setActiveNav(MY_PAGE_NAV.favorites);
             }}
-            onMouseOver={favoritesPrefetchQuery}
+            onMouseOver={prefetchFavorites}
           >
             <span>즐겨찾기</span>
           </nav>
@@ -85,7 +73,7 @@ const MyPage = () => {
             onClick={() => {
               setActiveNav(MY_PAGE_NAV.myReviews);
             }}
-            onMouseOver={reviewsPrefetchQuery}
+            onMouseOver={prefetchReviews}
           >
             <span>내 리뷰</span>
           </nav>

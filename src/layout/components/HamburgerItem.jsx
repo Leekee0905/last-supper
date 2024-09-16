@@ -14,7 +14,7 @@ const getIconStyles = () => `
   text-2xl text-gray-600 
 `;
 
-const HamburgerItem = ({ icon, text }) => {
+const HamburgerItem = ({ icon, text, setIsModalOpen }) => {
   const setHasModalOpen = useModalStore((state) => state.setHasOpen);
   const setModalType = useModalStore((state) => state.setModalType);
   const setHasAuthenticated = useUserStore((state) => state.setHasAuthenticated);
@@ -26,6 +26,7 @@ const HamburgerItem = ({ icon, text }) => {
       localStorage.clear();
       return;
     }
+    setIsModalOpen(false);
     setModalType(icon);
     setHasModalOpen(true);
   };

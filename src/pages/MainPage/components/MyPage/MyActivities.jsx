@@ -1,8 +1,11 @@
 import { IoRestaurantSharp, IoHeartDislike } from 'react-icons/io5';
 import Pagination from '../../../../components/Pagination';
 import { useState } from 'react';
+import useUserStore from '../../../../store/useUserStore';
 
 const MyActivities = ({ getData, removeFavorite }) => {
+  const { userId } = useUserStore((state) => state);
+
   const [page, setPage] = useState(1);
   const { data: response, isError } = getData('user123', page);
   const { data, totalPages } = response;
@@ -59,7 +62,7 @@ const MyActivities = ({ getData, removeFavorite }) => {
         )}
       </ol>
       <div className="h-6">
-        {!!data && <Pagination currentPage={page} totalPages={totalPages} onClick={onClickPage} />}
+        {!!data?.length && <Pagination currentPage={page} totalPages={totalPages} onClick={onClickPage} />}
       </div>
     </>
   );

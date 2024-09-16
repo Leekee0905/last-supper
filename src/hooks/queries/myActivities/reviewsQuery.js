@@ -2,22 +2,28 @@ import { useQuery, useMutation, useQueryClient, keepPreviousData } from '@tansta
 import queryKeys from '../queryKeys';
 import { getMyReviews } from '../../../api/reviews';
 
-export const useGetMyReviewsQuery = (userId) => {
+export const useGetMyReviewsQuery = (userId, page, type) => {
   return useQuery({
-    queryKey: queryKeys.boardController.reviews(userId),
+    queryKey: queryKeys.boardController.reviews(userId, page),
     queryFn: (signal) => getMyReviews(signal),
-    select: ({ data: response, pages: totalPages }) => {
-      return { response, totalPages };
+    select: ({ data, pages: totalPages }) => {
+      return { data, totalPages };
     },
-    placeholderData: keepPreviousData
+    placeholderData: keepPreviousData,
+    suspense: true
   });
 };
 
-// export const useReviewsPrefetchQuery = (userId) => {
-//   const queryClient = useQueryClient();
-//   const prefetchData = queryClient.prefetchQuery({
-//     queryKey: queryKeys.boardController.reviews(userId, 1),
-//     queryFn: getMyReviews
-//   });
-//   return { prefetchData };
-// };
+// prefetch 함수
+export const useReviewsPrefetchQuery = (userId) => {
+  const queryClient = useQueryClient();
+
+  const prefetchReviews = async () => {
+    await queryClient.prefetchQuery({
+      queryKey: queryKeys.boardController.reviews(userId, 1),
+      queryFn: getMyReviews
+    });
+  };
+
+  return prefetchReviews;
+};

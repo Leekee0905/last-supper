@@ -24,11 +24,16 @@ export const useFavoriteDeleteMutate = () => {
   });
 };
 
-// export const useFavoritesPrefetchQuery = (userId) => {
-//   const queryClient = useQueryClient();
-//   const prefetchData = queryClient.prefetchQuery({
-//     queryKey: queryKeys.boardController.favorites(userId, 1),
-//     queryFn: getMyFavorites
-//   });
-//   return { prefetchData };
-// };
+// prefetch 함수
+export const useFavoritesPrefetchQuery = (userId) => {
+  const queryClient = useQueryClient();
+
+  const prefetchFavorites = async () => {
+    await queryClient.prefetchQuery({
+      queryKey: queryKeys.boardController.favorites(userId, 1),
+      queryFn: getMyFavorites
+    });
+  };
+
+  return prefetchFavorites;
+};
