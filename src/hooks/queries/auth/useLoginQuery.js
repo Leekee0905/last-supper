@@ -2,6 +2,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import useUserStore from '../../../store/useUserStore';
 import useModalStore from '../../../store/useModalStore';
 import { login } from '../../../api/auth';
+import queryKeys from '../queryKeys';
 
 export const useLoginQuery = () => {
   const setHasAuthenticated = useUserStore((state) => state.setHasAuthenticated);
@@ -15,8 +16,7 @@ export const useLoginQuery = () => {
       setHasAuthenticated(true);
       alert('로그인 되었습니다.');
       setHasOpenModal(false);
-      queryClient.invalidateQueries(['userProfile']);
-      queryClient.invalidateQueries(['token']);
+      queryClient.invalidateQueries(queryKeys.user.token);
     },
     onError: (error) => alert(error.response.data.message)
   });

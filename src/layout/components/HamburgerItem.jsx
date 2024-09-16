@@ -14,17 +14,20 @@ const getIconStyles = () => `
   text-2xl text-gray-600 
 `;
 
-const HamburgerItem = ({ icon, text, setIsModalOpen }) => {
-  const hasOpenModal = useModalStore((state) => state.hasOpen);
-  const setHasOpenModal = useModalStore((state) => state.setHasOpen);
+const HamburgerItem = ({ icon, text }) => {
+  const setHasModalOpen = useModalStore((state) => state.setHasOpen);
+  const setModalType = useModalStore((state) => state.setModalType);
   const setHasAuthenticated = useUserStore((state) => state.setHasAuthenticated);
+
   const handleClickHamburgerMenu = () => {
     if (text === '로그아웃') {
       setHasAuthenticated(false);
+      setHasModalOpen(false);
       localStorage.clear();
+      return;
     }
-    setHasOpenModal();
-    setIsModalOpen(false);
+    setModalType(icon);
+    setHasModalOpen(true);
   };
   const renderIcon = () => {
     switch (icon) {
