@@ -10,7 +10,8 @@ export const login = async (userData) => {
   return response.data;
 };
 
-export const getUserProfile = async (token) => {
+export const getUserProfile = async () => {
+  const token = JSON.parse(localStorage.getItem('userStorage'))?.state.user.accessToken;
   const response = await authApi.get('/user', {
     headers: {
       'Content-Type': 'application/json',
@@ -21,7 +22,7 @@ export const getUserProfile = async (token) => {
 };
 
 export const updateProfile = async (formData) => {
-  const token = localStorage.getItem('accessToken');
+  const token = JSON.parse(localStorage.getItem('userStorage'))?.state.user.accessToken;
   const response = await authApi.patch('/profile', formData, {
     headers: {
       'Content-Type': 'application/json',
