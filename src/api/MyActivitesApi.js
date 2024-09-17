@@ -16,12 +16,12 @@ export const getMyActivities = async ({ queryKey, signal }) => {
   return data;
 };
 
-// 즐겨찾기, 리뷰 추가
-export const addMyActivity = async (type, resultData) => {
-  await jsonApi.post(`/${type}/${resultData}`);
+// 즐겨찾기, 리뷰 추가 api
+export const addMyActivity = async (queryKey, resultData) => {
+  await jsonApi.post(`/${queryKey}/${resultData}`);
 };
 
-// 즐겨찾기, 리뷰 삭제
-export const removeMyActivity = async (type, id) => {
-  await jsonApi.delete(`/${type}/${id}`);
+// 즐겨찾기, 리뷰 삭제 api
+export const removeMyActivity = async (queryKey, id) => {
+  await jsonApi.delete(`/${queryKey}/${id}`);
 };

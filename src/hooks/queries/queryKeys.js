@@ -1,6 +1,6 @@
 const queryKeys = {
   boardController: {
-    MyActivity: (type, userId, page) => [type, userId, page]
+    MyActivity: (queryKey, userId, page) => [queryKey, userId, page]
   },
   user: {
     token: ['token']

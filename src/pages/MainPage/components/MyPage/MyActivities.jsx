@@ -1,16 +1,16 @@
 import { IoRestaurantSharp, IoHeartDislike } from 'react-icons/io5';
 import Pagination from '../../../../components/Pagination';
 import { useState } from 'react';
-import useUserStore from '../../../../store/useUserStore';
 import { useGetMyActivitiesQuery } from '../../../../hooks/queries/myActivities/myActivityQuery';
+import useUserStore from '../../../../store/useUserStore';
 
 const MyActivities = ({ queryKey, removeFavorite }) => {
   // const { userId } = useUserStore((state) => state);
   const userId = 'user123';
 
   const [page, setPage] = useState(1);
-  const { data: response, isError } = useGetMyActivitiesQuery(queryKey, userId, page);
-  const { data, totalPages } = response;
+  const { data, isError } = useGetMyActivitiesQuery(queryKey, userId, page);
+  const { data: activityLogs, totalPages } = data;
 
   const onClickPage = (selected) => {
     if (page === selected) return;
@@ -36,8 +36,8 @@ const MyActivities = ({ queryKey, removeFavorite }) => {
     <>
       <h3>{!!removeFavorite ? '즐겨찾기' : '내 리뷰'}</h3>
       <ol className="grid justify-items-center grid-cols-2 grid-rows-3 h-full rounded gap-4 p-4">
-        {!!data?.length ? (
-          data.map((log) => {
+        {!!activityLogs?.length ? (
+          activityLogs.map((log) => {
             return (
               <li
                 key={log.id}
@@ -64,7 +64,7 @@ const MyActivities = ({ queryKey, removeFavorite }) => {
         )}
       </ol>
       <div className="h-6">
-        {!!data?.length && <Pagination currentPage={page} totalPages={totalPages} onClick={onClickPage} />}
+        {!!activityLogs?.length && <Pagination currentPage={page} totalPages={totalPages} onClick={onClickPage} />}
       </div>
     </>
   );
