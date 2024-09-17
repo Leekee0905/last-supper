@@ -4,7 +4,7 @@ import { immer } from 'zustand/middleware/immer';
 const useRestaurantsStore = create(
   immer((set) => ({
     info: [],
-    setInfo: (data) => set(() => ({ info: data })),
+    setInfo: (data) => set((state) => ({ info: data })),
     deleteInfo: () => set(() => ({ info: [] }))
   }))
 );

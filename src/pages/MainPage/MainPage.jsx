@@ -76,7 +76,6 @@ const MainPage = () => {
                 axios.delete(`http://localhost:5000/restaurantReviewApi/${item.id}`)
               );
               await Promise.all(deleteRequests); // 모든 DELETE 요청이 완료될 때까지 기다림
-              console.log('기존 데이터 삭제 완료');
 
               // 3. 새로운 데이터를 POST 요청으로 서버에 전송
               await axios.post('http://localhost:5000/restaurantReviewApi', {

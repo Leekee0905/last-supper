@@ -5,13 +5,14 @@ import useRestaurantsStore from '../../store/useRestaurantsInfo';
 
 const Sidebar = ({ toggleModal, handleSearch, searchInput, setSearchInput }) => {
   const { info, setInfo } = useRestaurantsStore((state) => state);
+  console.log(info, 'info 값 확인');
 
   useEffect(() => {
+    getData();
     async function getData() {
       const response = await axios.get('http://localhost:5000/restaurantReviewApi');
       setInfo(response.data[0].restaurants);
     }
-    getData();
   }, [setInfo]);
 
   return (
