@@ -1,35 +1,44 @@
 import { useState } from 'react';
-import useModalStore from '../../../../store/useModalStore';
 import Profile from './Profile';
 import MyActivities from './MyActivities';
-import { useFavoriteDeleteMutate, useGetMyFavoritesQuery } from '../../../../queries/favoritesQuery';
-import { useGetMyReviewsQuery } from '../../../../queries/reviewsQuery';
-import { FiX } from 'react-icons/fi';
+import {
+  useMyActivitiesPrefetchQuery,
+  useMyActivityRemoveMutate
+} from '../../../../hooks/queries/myActivities/myActivityQuery';
+import { FAVORITES_QUERY_KEY, REVIEWS_QUERY_KEY } from '../../../../hooks/queries/queryKeys';
+import useUserStore from '../../../../store/useUserStore';
 
 const MY_PAGE_NAV = { profile: 'profile', favorites: 'favorites', myReviews: 'myReviews' };
 
 const MyPage = () => {
-  const setHasModalOpen = useModalStore((state) => state.setHasOpen);
-  const [activeNav, setActiveNav] = useState(MY_PAGE_NAV.profile);
-  const { mutate: removeFavoriteMutate } = useFavoriteDeleteMutate();
+  // const { userId } = useUserStore((state) => state);
+  const userId = 'user123';
 
-  const removeFavorite = (id) => {
+  const { mutate: removeFavoriteMutate } = useMyActivityRemoveMutate(FAVORITES_QUERY_KEY);
+
+  // 즐겨찾기 삭제하는 함수
+  const removeFavorite = (logId) => {
     if (confirm('즐겨찾기에서 삭제하시겠습니까?')) {
-      removeFavoriteMutate(id);
+      removeFavoriteMutate(logId);
       alert('즐겨찾기에서 삭제하였습니다.');
     } else {
       alert('삭제를 취소하였습니다.');
     }
   };
 
+  // prefetch 함수
+  const prefetchMyActivities = useMyActivitiesPrefetchQuery(userId);
+
+  const [activeNav, setActiveNav] = useState(MY_PAGE_NAV.profile);
+  // 사이드 네비를 클릭하면 불러올 컴포넌트
   const activeSideBtn = () => {
     switch (activeNav) {
       case MY_PAGE_NAV.profile:
         return <Profile />;
       case MY_PAGE_NAV.favorites:
-        return <MyActivities getData={useGetMyFavoritesQuery} removeFavorite={removeFavorite} />;
+        return <MyActivities queryKey={FAVORITES_QUERY_KEY} removeFavorite={removeFavorite} />;
       case MY_PAGE_NAV.myReviews:
-        return <MyActivities getData={useGetMyReviewsQuery} />;
+        return <MyActivities queryKey={REVIEWS_QUERY_KEY} />;
       default:
         throw new Error('잘못된 요청을 하셨습니다.');
     }
@@ -37,11 +46,6 @@ const MyPage = () => {
 
   return (
     <>
-      <div className="flex justify-end h-[5vh] pt-[1vh] pr-[1vw]">
-        <button onClick={() => setHasModalOpen(false)}>
-          <FiX className="text-3xl hover:text-[var(--black-color)] active:opacity-50" />
-        </button>
-      </div>
       <div className="flex flex-row w-[77vw] h-[70vh] mr-[3vw]">
         <aside className="flex flex-col w-[200px] gap-6">
           <h2 className="mb-4">마이페이지</h2>
@@ -58,6 +62,7 @@ const MyPage = () => {
             onClick={() => {
               setActiveNav(MY_PAGE_NAV.favorites);
             }}
+            onMouseOver={() => prefetchMyActivities(FAVORITES_QUERY_KEY)}
           >
             <span>즐겨찾기</span>
           </nav>
@@ -66,13 +71,12 @@ const MyPage = () => {
             onClick={() => {
               setActiveNav(MY_PAGE_NAV.myReviews);
             }}
+            onMouseOver={() => prefetchMyActivities(REVIEWS_QUERY_KEY)}
           >
             <span>내 리뷰</span>
           </nav>
         </aside>
-        <section className="flex flex-col gap-2 grow border rounded py-5 px-6 bg-[var(--green-color)] text-[var(--black-color)]">
-          {activeSideBtn()}
-        </section>
+        <section className="flex flex-col gap-2 grow border rounded py-5 px-6 ]">{activeSideBtn()}</section>
       </div>
     </>
   );
