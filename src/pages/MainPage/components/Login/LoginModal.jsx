@@ -12,7 +12,9 @@ const LoginModal = () => {
           <FiX className="text-3xl hover:text-[var(--black-color)] active:opacity-50" />
         </button>
       </div>
-      <AuthForm mode={'login'} />
+      <div className="flex justify-center items-center">
+        <AuthForm mode={'login'} />
+      </div>
     </>
   );
 };

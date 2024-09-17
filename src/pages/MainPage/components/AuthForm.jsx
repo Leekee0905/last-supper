@@ -54,59 +54,66 @@ const AuthForm = ({ mode }) => {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center ">
-      <form
-        onSubmit={handleSubmit}
-        className="flex flex-col justify-center items-center w-96 h-96 p-5 bg-gray-200 mb-5 rounded-lg"
-      >
-        <input
-          className="w-full h-1/5 p-5 mb-5 rounded-lg"
-          type="text"
-          name="id"
-          value={formData.id}
-          onChange={handleChange}
-          placeholder="아이디"
-          required
-          minLength="2"
-        />
-
-        <input
-          type="password"
-          className="w-full h-1/5 p-5 mb-5 rounded-lg"
-          name="password"
-          value={formData.password}
-          onChange={handleChange}
-          placeholder="비밀번호"
-          autoComplete="false"
-          required
-        />
-        {passwordError ? <div className="error-box text-red-500 text-xs mb-5">{passwordError}</div> : null}
-        {mode === 'signup' && (
+    <div className="shadow-xl rounded-lg w-5/6 h-[600px] p-10 flex flex-col justify-between">
+      <span className="text-3xl font-bold px-10">{mode === 'login' ? '로그인' : '회원가입'}</span>
+      <div className="flex justify-center items-center h-full flex-col">
+        <form onSubmit={handleSubmit} className="w-[650px] mt-10 flex flex-col justify-center items-center">
           <input
-            className="w-full h-1/5 p-5 mb-5 rounded-lg"
+            className="w-full h-1/5 p-5 mb-5 border-2"
             type="text"
-            name="nickname"
-            value={formData.nickname}
+            name="id"
+            value={formData.id}
             onChange={handleChange}
-            placeholder="닉네임"
+            placeholder="아이디"
+            required
+            minLength="2"
+          />
+
+          <input
+            type="password"
+            className="w-full h-1/5 p-5 mb-5 border-2"
+            name="password"
+            value={formData.password}
+            onChange={handleChange}
+            placeholder="비밀번호"
+            autoComplete="false"
             required
           />
-        )}
-        <button
-          type="submit"
-          className="bg-red-400 hover:bg-gray-200 hover:text-red-500 hover:border-black hover: border-2 text-white rounded-lg w-40 h-10"
-        >
-          {mode === 'login' ? '로그인' : '회원가입'}
-        </button>
-      </form>
-      {mode === 'signup' ? (
-        <span className="text-sm mb-5">
-          이미 계정이 있으신가요?{' '}
-          <span className="text-red-500 font-bold cursor-pointer" onClick={() => setModalType('login')}>
-            로그인
+          {passwordError ? <div className="error-box text-red-500 text-xs mb-5">{passwordError}</div> : null}
+          {mode === 'signup' && (
+            <input
+              className="w-full h-1/5 p-5 mb-5 border-2"
+              type="text"
+              name="nickname"
+              value={formData.nickname}
+              onChange={handleChange}
+              placeholder="닉네임"
+              required
+            />
+          )}
+          <button
+            type="submit"
+            className="flex justify-center items-center border-2 w-full h-[65px] bg-[#144e04] text-white text-2xl"
+          >
+            {mode === 'login' ? '로그인' : '회원가입'}
+          </button>
+        </form>
+        {mode === 'signup' ? (
+          <span className="text-sm my-5">
+            이미 계정이 있으신가요?{' '}
+            <span className="text-[#144e04] font-bold cursor-pointer" onClick={() => setModalType('login')}>
+              로그인
+            </span>
           </span>
-        </span>
-      ) : null}
+        ) : (
+          <span className="text-sm mb-5">
+            계정이 없으신가요?{' '}
+            <span className="text-[#144e04] font-bold cursor-pointer" onClick={() => setModalType('signup')}>
+              회원가입
+            </span>
+          </span>
+        )}
+      </div>
     </div>
   );
 };

@@ -11,7 +11,9 @@ const SignupModal = () => {
           <FiX className="text-3xl hover:text-[var(--black-color)] active:opacity-50" />
         </button>
       </div>
-      <AuthForm mode="signup" />
+      <div className="flex justify-center items-center">
+        <AuthForm mode={'signup'} />
+      </div>
     </>
   );
 };
