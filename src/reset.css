@@ -11,6 +11,16 @@
     --sand-color: #8C7549;
   }
 
+  @keyframes slr {
+    0% {
+      opacity: 0;
+    }
+
+    100% {
+      opacity: 1;
+    }
+  }
+
   /* html,
   body {
     font-family: "Gugi" sans-serif;
@@ -39,7 +49,9 @@
     cursor: pointer;
     user-select: none;
   }
+}
 
+@layer components {
   .my-page-nav {
     font-size: 24px;
     position: relative;
@@ -49,7 +61,7 @@
       display: inline-block;
 
       &::after {
-        background-color: var(--brown-color);
+        background-color: black;
         z-index: 1;
         width: 0;
         content: "";
@@ -83,6 +95,7 @@
     cursor: pointer;
     margin-left: 5px;
     margin-right: 5px;
+    user-select: none;
   }
 
   .active-page {
@@ -91,8 +104,6 @@
     font-weight: 700;
   }
 }
-
-@layer components {}
 
 /* box-sizing 규칙을 명시합니다. */
 *,
