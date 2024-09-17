@@ -5,15 +5,6 @@ import useRestaurantsStore from '../../store/useRestaurantsInfo';
 
 const Sidebar = ({ toggleModal, handleSearch, searchInput, setSearchInput }) => {
   const { info, setInfo } = useRestaurantsStore((state) => state);
-  console.log(info, 'info 값 확인');
-
-  useEffect(() => {
-    getData();
-    async function getData() {
-      const response = await axios.get('http://localhost:5000/restaurantReviewApi');
-      setInfo(response.data[0].restaurants);
-    }
-  }, [setInfo]);
 
   return (
     <aside className="fixed top-0 left-0 h-full w-[400px] bg-gray-100 shadow-md">

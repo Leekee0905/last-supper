@@ -20,7 +20,7 @@ const Layout = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const setHasAuthenticated = useUserStore((state) => state.setHasAuthenticated);
 
-  const { data: hasAuthenticated, isPending, isError } = useHasTokenAuthenticatedQuery();
+  const { data: hasAuthenticated, isPending, isError, error } = useHasTokenAuthenticatedQuery();
 
   const toggleModal = () => {
     setIsModalOpen(!hasModalOpen);
@@ -46,17 +46,17 @@ const Layout = () => {
     }
   };
 
-  const getLoginTokenAuthenticated = () => {
-    if (isError) {
-      alert('토큰이 만료되었습니다. 다시 로그인 해주세요.');
-      localStorage.clear();
-      setHasAuthenticated(false);
-    }
+  const resetTokenAuthenticatedAndUserInfo = () => {
+    alert('토큰이 만료되었습니다. 다시 로그인 해주세요.');
+    useUserStore.setState({ user: { accessToekn: '', avatar: null, nickname: '', success: false, userId: '' } });
+    setHasAuthenticated(false);
   };
 
   useEffect(() => {
-    getLoginTokenAuthenticated();
-  }, []);
+    if (isError) {
+      resetTokenAuthenticatedAndUserInfo();
+    }
+  }, [isError]);
 
   return (
     <div className="relative flex min-h-screen">
