@@ -2,12 +2,14 @@ import { IoRestaurantSharp, IoHeartDislike } from 'react-icons/io5';
 import Pagination from '../../../../components/Pagination';
 import { useState } from 'react';
 import useUserStore from '../../../../store/useUserStore';
+import { useGetMyActivitiesQuery } from '../../../../hooks/queries/myActivities/myActivityQuery';
 
-const MyActivities = ({ getData, removeFavorite }) => {
-  const { userId } = useUserStore((state) => state);
+const MyActivities = ({ queryKey, removeFavorite }) => {
+  // const { userId } = useUserStore((state) => state);
+  const userId = 'user123';
 
   const [page, setPage] = useState(1);
-  const { data: response, isError } = getData('user123', page);
+  const { data: response, isError } = useGetMyActivitiesQuery(queryKey, userId, page);
   const { data, totalPages } = response;
 
   const onClickPage = (selected) => {

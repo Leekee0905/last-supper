@@ -1,7 +1,6 @@
 const queryKeys = {
   boardController: {
-    favorites: (userId, page) => ['favorites', userId, page],
-    reviews: (userId, page) => ['reviews', userId, page]
+    MyActivity: (type, userId, page) => [type, userId, page]
   },
   user: {
     token: ['token']
@@ -9,3 +8,6 @@ const queryKeys = {
 };
 
 export default queryKeys;
+
+export const FAVORITES_QUERY_KEY = 'favorites';
+export const REVIEWS_QUERY_KEY = 'reviews';

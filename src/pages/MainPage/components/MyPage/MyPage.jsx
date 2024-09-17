@@ -1,50 +1,48 @@
 import { useState } from 'react';
 import Profile from './Profile';
 import MyActivities from './MyActivities';
-import { useGetMyReviewsQuery, useReviewsPrefetchQuery } from '../../../../hooks/queries/myActivities/reviewsQuery';
 import {
-  useFavoriteDeleteMutate,
-  useFavoritesPrefetchQuery,
-  useGetMyFavoritesQuery
-} from '../../../../hooks/queries/myActivities/favoritesQuery';
+  useMyActivitiesPrefetchQuery,
+  useMyActivityRemoveMutate
+} from '../../../../hooks/queries/myActivities/myActivityQuery';
+import { FAVORITES_QUERY_KEY, REVIEWS_QUERY_KEY } from '../../../../hooks/queries/queryKeys';
 import useUserStore from '../../../../store/useUserStore';
 
 const MY_PAGE_NAV = { profile: 'profile', favorites: 'favorites', myReviews: 'myReviews' };
 
 const MyPage = () => {
-  const [activeNav, setActiveNav] = useState(MY_PAGE_NAV.profile);
-  const { mutate: removeFavoriteMutate } = useFavoriteDeleteMutate();
-
   // const { userId } = useUserStore((state) => state);
   const userId = 'user123';
 
+  const { mutate: removeFavoriteMutate } = useMyActivityRemoveMutate(FAVORITES_QUERY_KEY);
+
   // 즐겨찾기 삭제하는 함수
-  const removeFavorite = (id) => {
+  const removeFavorite = (logId) => {
     if (confirm('즐겨찾기에서 삭제하시겠습니까?')) {
-      removeFavoriteMutate(id);
+      removeFavoriteMutate(logId);
       alert('즐겨찾기에서 삭제하였습니다.');
     } else {
       alert('삭제를 취소하였습니다.');
     }
   };
 
+  // prefetch 함수
+  const prefetchMyActivities = useMyActivitiesPrefetchQuery(userId);
+
+  const [activeNav, setActiveNav] = useState(MY_PAGE_NAV.profile);
   // 사이드 네비를 클릭하면 불러올 컴포넌트
   const activeSideBtn = () => {
     switch (activeNav) {
       case MY_PAGE_NAV.profile:
         return <Profile />;
       case MY_PAGE_NAV.favorites:
-        return <MyActivities getData={useGetMyFavoritesQuery} removeFavorite={removeFavorite} />;
+        return <MyActivities queryKey={FAVORITES_QUERY_KEY} removeFavorite={removeFavorite} />;
       case MY_PAGE_NAV.myReviews:
-        return <MyActivities getData={useGetMyReviewsQuery} />;
+        return <MyActivities queryKey={REVIEWS_QUERY_KEY} />;
       default:
         throw new Error('잘못된 요청을 하셨습니다.');
     }
   };
-
-  // prefetch 함수
-  const prefetchFavorites = useFavoritesPrefetchQuery(userId);
-  const prefetchReviews = useReviewsPrefetchQuery(userId);
 
   return (
     <>
@@ -64,7 +62,7 @@ const MyPage = () => {
             onClick={() => {
               setActiveNav(MY_PAGE_NAV.favorites);
             }}
-            onMouseOver={prefetchFavorites}
+            onMouseOver={() => prefetchMyActivities(FAVORITES_QUERY_KEY)}
           >
             <span>즐겨찾기</span>
           </nav>
@@ -73,7 +71,7 @@ const MyPage = () => {
             onClick={() => {
               setActiveNav(MY_PAGE_NAV.myReviews);
             }}
-            onMouseOver={prefetchReviews}
+            onMouseOver={() => prefetchMyActivities(REVIEWS_QUERY_KEY)}
           >
             <span>내 리뷰</span>
           </nav>

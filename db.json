@@ -103,14 +103,6 @@
       "storeName": "def",
       "storeAddress": "jejudo",
       "storeCall": 123
-    },
-    {
-      "id": "35",
-      "userId": "user123",
-      "storeId": "store789",
-      "storeName": "def",
-      "storeAddress": "jejudo",
-      "storeCall": 123
     }
   ],
   "reviews": [
