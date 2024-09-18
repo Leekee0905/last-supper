@@ -2,9 +2,14 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { FiMenu, FiSearch } from 'react-icons/fi';
 import useRestaurantsStore from '../../store/useRestaurantsInfo';
+import { useSearchParams } from 'react-router-dom';
+import { useQueryClient } from '@tanstack/react-query';
 
 const Sidebar = ({ toggleModal, handleSearch, searchInput, setSearchInput }) => {
-  const { info, setInfo } = useRestaurantsStore((state) => state);
+  const [param] = useSearchParams();
+  const paramId = param.get('query');
+  const queryClient = useQueryClient();
+  const sidebarInfo = queryClient.getQueryData(['restaurants', paramId]);
 
   return (
     <aside className="fixed top-0 left-0 h-full w-[400px] bg-gray-100 shadow-md">
@@ -15,7 +20,7 @@ const Sidebar = ({ toggleModal, handleSearch, searchInput, setSearchInput }) => 
         setSearchInput={setSearchInput}
       />
       <div className="p-4 space-y-4 overflow-y-auto h-[calc(100vh-72px)]">
-        {info.map((el, index) => {
+        {sidebarInfo.map((el, index) => {
           return (
             <div key={index}>
               <p>{el.place_name}</p>
