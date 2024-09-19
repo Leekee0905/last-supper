@@ -7,7 +7,7 @@ export const campSearchWordConverter = (paramId) => {
     case '6사단':
       return '6사단 신병교육대';
     case '7사단':
-      return '7사단 신병교육대';
+      return '강원특별자치도 화천군 화천읍 화천새싹길 45';
     case '12사단':
       return '12사단 신병교육대';
     case '15사단':
