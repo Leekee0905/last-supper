@@ -17,17 +17,33 @@ export const getMyActivities = async ({ queryKey, signal }) => {
   return data;
 };
 
-// 즐겨찾기, 리뷰 추가 api
-export const addMyActivity = async (queryKey, resultData) => {
-  await jsonApi.post(`/${queryKey}/${resultData}`);
+// 리뷰 및 즐겨찾기 조회 api
+export const getMyActivity = async (queryKey) => {
+  const res = await jsonApi.get(`/${queryKey}`);
+  return res.data;
 };
+
+// 즐겨찾기, 리뷰 추가 api
+export const addMyActivity = async ({ queryKey, post }) => {
+  await jsonApi.post(`/${queryKey}`, post);
+};
+
+// 리뷰 수정 api
+export const updateMyActivity = async ({ queryKey, id, content }) => {
+  await jsonApi.patch(`${queryKey}/${id}`, {
+    review: content
+  });
+};
+
+// 즐겨찾기 수정 api
+// export const updateFavorite = async ({ queryKey, id, content }) => {
+//   console.log(queryKey, id, content, 'api 전달받은 값 확인');
+//   await jsonApi.patch(`${queryKey}/${id}`, {
+//     favorite: !content
+//   });
+// };
 
 // 즐겨찾기, 리뷰 삭제 api
-export const removeMyActivity = async (queryKey, id) => {
+export const removeMyActivity = async ({ queryKey, id }) => {
   await jsonApi.delete(`/${queryKey}/${id}`);
-};
-
-// 리뷰 추가 api
-export const addReview = async (post) => {
-  await jsonApi.post(`/reviews/${post}`);
 };
