@@ -11,3 +11,5 @@ export const restaurantsApi = axios.create({
 export const jsonApi = axios.create({
   baseURL: 'http://localhost:4000'
 });
+
+jsonApi.interceptors.
