@@ -29,6 +29,26 @@
       "storeAddress": "강원특별자치도 철원군 서면 자등리 418-4",
       "storePhone": "",
       "favorite": true
+    },
+    {
+      "id": "5e8c",
+      "userId": "hee6968",
+      "nickName": "SHB",
+      "storeId": "17150172",
+      "storeName": "석경 본점",
+      "storeAddress": "대구 북구 학정동 935-8",
+      "storePhone": "053-321-0415",
+      "favorite": true
+    },
+    {
+      "id": "80fd",
+      "userId": "hee6968",
+      "nickName": "SHB",
+      "storeId": "26929960",
+      "storeName": "돌수산",
+      "storeAddress": "대구 북구 학정동 941-2",
+      "storePhone": "053-322-8847",
+      "favorite": true
     }
   ],
   "reviews": [
