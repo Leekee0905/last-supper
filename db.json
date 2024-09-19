@@ -97,15 +97,5 @@
       "storeCall": 123
     }
   ],
-  "reviews": [
-    {
-      "userId": "user12",
-      "storeId": "fgngf",
-      "storeName": "abc",
-      "storeAddress": "korea",
-      "storeCall": 123,
-      "id": "9e89"
-    }
-  ],
-  "restaurants": []
+  "reviews": []
 }
