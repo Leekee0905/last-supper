@@ -10,24 +10,7 @@ const MyActivities = ({ queryKey, removeFavorite }) => {
 
   const [page, setPage] = useState(1);
   const { data } = useGetMyActivitiesQuery(queryKey, userId, page);
-  const { data: activityLogs, totalPages1 } = data;
-  const totalPages = 100;
-
-  const onClickPage = (selected) => {
-    if (page === selected) return;
-    if (typeof selected === 'number') {
-      setPage(selected);
-      return;
-    }
-    if (selected === 'prev' && page > 1) {
-      setPage((prev) => prev - 1);
-      return;
-    }
-    if (selected === 'next' && page < totalPages) {
-      setPage((prev) => prev + 1);
-      return;
-    }
-  };
+  const { data: activityLogs, totalPages } = data;
 
   return (
     <>
@@ -61,7 +44,7 @@ const MyActivities = ({ queryKey, removeFavorite }) => {
         )}
       </ol>
       <div className="h-6">
-        {!!activityLogs?.length && <Pagination currentPage={page} totalPages={totalPages} onClick={onClickPage} />}
+        {!!activityLogs?.length && <Pagination currentPage={page} totalPages={totalPages} setPage={setPage} />}
       </div>
     </>
   );
