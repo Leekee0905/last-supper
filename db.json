@@ -1,14 +1,6 @@
 {
   "favorites": [
     {
-      "id": "23",
-      "userId": "user123",
-      "storeId": "store456",
-      "storeName": "abc",
-      "storeAddress": "korea",
-      "storeCall": 123
-    },
-    {
       "userId": "user1234",
       "storeId": "store456",
       "storeName": "def",

@@ -3,6 +3,8 @@ import { FiX } from 'react-icons/fi';
 import { useState } from 'react';
 import useReview from '../../../../store/useReview';
 import useUserStore from '../../../../store/useUserStore';
+import { PiStar } from 'react-icons/pi';
+import { PiStarFill } from 'react-icons/pi';
 
 const DetailModal = ({ detailInfo }) => {
   const [content, setContent] = useState('');
@@ -13,7 +15,7 @@ const DetailModal = ({ detailInfo }) => {
   const { setIsOpen } = useRestaurantsStore((state) => state);
   const subContent = detailInfo.category_name.split('').slice(6).join('');
   let today = new Date();
-
+  const isboo = true;
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -31,6 +33,7 @@ const DetailModal = ({ detailInfo }) => {
         review: content,
         date: today.toLocaleString()
       });
+
       setContent('');
     }
   };
@@ -72,7 +75,16 @@ const DetailModal = ({ detailInfo }) => {
         </button>
       </div>
       <div style={{ lineHeight: '32px', marginBottom: '20px' }}>
-        <p style={{ fontWeight: '900', fontSize: '28px' }}>{detailInfo.place_name}</p>
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          <p style={{ fontWeight: '900', fontSize: '28px', marginRight: '10px' }}>{detailInfo.place_name}</p>
+          <div>
+            {isboo ? (
+              <PiStar style={{ color: 'yellow', fontSize: '24px' }} />
+            ) : (
+              <PiStarFill style={{ color: 'yellow', fontSize: '24px' }} />
+            )}
+          </div>
+        </div>
         <p style={{ fontSize: '13px', opacity: '0.5' }}>{subContent}</p>
         <p>주소: {detailInfo.address_name}</p>
         <p>전화번호: {detailInfo.phone}</p>
