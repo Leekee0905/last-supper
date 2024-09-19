@@ -1,28 +1,22 @@
-import useRestaurantsStore from '../../../../store/useRestaurantsInfo';
 import { FiX } from 'react-icons/fi';
-import { useState } from 'react';
-import useUserStore from '../../../../store/useUserStore';
 import { PiStar } from 'react-icons/pi';
 import { PiStarFill } from 'react-icons/pi';
-import {
-  addMyActivity,
-  getMyActivity,
-  removeMyActivity,
-  updateFavorite,
-  updateMyActivity
-} from '../../../../api/MyActivitesApi';
+import { useState } from 'react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import useUserStore from '../../../../store/useUserStore';
+import useRestaurantsStore from '../../../../store/useRestaurantsInfo';
+import { addMyActivity, getMyActivity, removeMyActivity, updateFavorite } from '../../../../api/MyActivitesApi';
+import Review from './Review';
 
 const DetailModal = ({ detailInfo }) => {
   const [content, setContent] = useState('');
-  const [updatePost, setUpdatePost] = useState('');
-  const [isUpdatePost, setIsUpdatePost] = useState(false);
   const { user, hasAuthenticated } = useUserStore((state) => state);
   const { setIsOpen } = useRestaurantsStore((state) => state);
   const subContent = detailInfo.category_name.split('').slice(6).join('');
   let today = new Date();
   const queryClient = useQueryClient();
-
+  console.log(user, 'user 정보');
+  console.log(detailInfo, 'detailInfo 값 확인');
   // 리뷰 가져오기
   const { data, isPending, isError } = useQuery({
     queryKey: ['review'],
@@ -48,11 +42,12 @@ const DetailModal = ({ detailInfo }) => {
     }
   });
 
-  // 리뷰 수정
-  const { mutate: updateFunc } = useMutation({
-    mutationFn: updateMyActivity,
+  // 즐겨찾기 삭제
+  const { mutate: deleteFunc } = useMutation({
+    mutationFn: removeMyActivity,
     onSuccess: () => {
       queryClient.invalidateQueries(['review']);
+      queryClient.invalidateQueries(['star']);
     }
   });
 
@@ -64,19 +59,11 @@ const DetailModal = ({ detailInfo }) => {
     }
   });
 
-  // 리뷰 삭제
-  const { mutate: deleteFunc } = useMutation({
-    mutationFn: removeMyActivity,
-    onSuccess: () => {
-      queryClient.invalidateQueries(['review']);
-    }
-  });
-
   if (isPending) return <div>로딩중 입니다.</div>;
   if (isError) return <div>로딩중 에러가 발견되었습니다.</div>;
   if (isStarPending) return <div>로딩중 입니다.</div>;
   if (isStarError) return <div>로딩중 에러가 발견되었습니다.</div>;
-
+  console.log(starData, 'starData 값 확인');
   // Form submit 함수
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -88,7 +75,6 @@ const DetailModal = ({ detailInfo }) => {
     addFunc({
       queryKey: 'reviews',
       post: {
-        // id: crypto.randomUUID(),
         userId: user.userId,
         nickName: user.nickname,
         storeId: detailInfo.id,
@@ -102,27 +88,16 @@ const DetailModal = ({ detailInfo }) => {
     setContent('');
   };
 
-  // 리뷰 수정버튼 클릭 시
-  const onUpdatePost = ({ queryKey, id, content }) => {
-    if (content === '') {
-      alert('내용을 입력해 주세요.');
-      return;
-    }
-    setIsUpdatePost((prev) => !prev);
-    if (isUpdatePost) {
-      updateFunc({ queryKey, id, content });
-      setUpdatePost('');
-    }
-  };
-
   // 즐겨찾기 클릭 시
   const onClickStar = () => {
-    const res = starData.some((el) => el.storeId === detailInfo.id);
+    const res = starData.some((el) => el.storeId === detailInfo.id && el.userId === user.userId);
+    console.log(res, 'res 값 확인');
     if (res) {
-      const data = starData.filter((el) => el.storeId === detailInfo.id)[0];
-      updateStar({
-        id: data.id,
-        content: !data.favorite
+      const data = starData.filter((el) => el.storeId === detailInfo.id && el.userId === user.userId)[0];
+      console.log(data, 'data 값 확인');
+      deleteFunc({
+        queryKey: 'favorites',
+        id: data.id
       });
     } else {
       addFunc({
@@ -140,7 +115,8 @@ const DetailModal = ({ detailInfo }) => {
       alert('즐겨찾기에 추가 되었습니다.');
     }
   };
-  const filterData = starData.some((el) => el.storeId === detailInfo.id);
+  const filterData = starData.some((el) => el.storeId === detailInfo.id && el.userId === user.userId);
+  console.log(filterData, 'filterDate 값 확인');
 
   return (
     <div
@@ -168,7 +144,7 @@ const DetailModal = ({ detailInfo }) => {
           <p style={{ fontWeight: '900', fontSize: '28px', marginRight: '10px' }}>{detailInfo.place_name}</p>
           <div style={{ cursor: 'pointer' }} onClick={onClickStar}>
             {filterData ? (
-              starData.filter((el) => el.storeId === detailInfo.id)[0].favorite ? (
+              starData.filter((el) => el.storeId === detailInfo.id && el.userId === user.userId)[0].favorite ? (
                 <PiStarFill style={{ color: 'yellow', fontSize: '24px' }} />
               ) : (
                 <PiStar style={{ color: 'yellow', fontSize: '24px' }} />
@@ -196,44 +172,7 @@ const DetailModal = ({ detailInfo }) => {
           {data
             .filter((el) => el.storeId === detailInfo.id)
             .map((el, index) => {
-              return (
-                <div key={index} style={{ border: '1px solid black', padding: '20px', lineHeight: '28px' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                    <div>{el.nickName}</div>
-                    <div>{el.date}</div>
-                  </div>
-                  <p style={{ margin: '20px' }}>
-                    {isUpdatePost ? (
-                      <input
-                        type="text"
-                        value={updatePost}
-                        placeholder="수정할 내용을 입력하세요."
-                        onChange={(e) => setUpdatePost(e.target.value)}
-                      />
-                    ) : (
-                      el.review
-                    )}
-                  </p>
-                  {el.userId === user.userId ? (
-                    <div style={{ display: 'flex', justifyContent: 'right', gap: '20px' }}>
-                      <button
-                        style={{ border: '1px solid black', padding: '4px', borderRadius: '12px' }}
-                        onClick={() => onUpdatePost({ queryKey: 'reviews', id: el.id, content: updatePost })}
-                      >
-                        {isUpdatePost ? '완료' : '수정'}
-                      </button>
-                      <button
-                        style={{ border: '1px solid black', padding: '4px', borderRadius: '12px' }}
-                        onClick={() => deleteFunc({ queryKey: 'reviews', id: el.id })}
-                      >
-                        삭제
-                      </button>
-                    </div>
-                  ) : (
-                    ''
-                  )}
-                </div>
-              );
+              return <Review key={index} el={el} />;
             })}
         </div>
       </div>
