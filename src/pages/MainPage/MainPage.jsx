@@ -21,7 +21,7 @@ const MainPage = () => {
   const keywordSearch = () => {
     if (!map) return;
     places.keywordSearch(campSearchWordConverter(paramId), (data, status, _pagination) => {
-      console.log(data, '키워드 data');
+      // console.log(data, '키워드 data');
       if (status === window.kakao.maps.services.Status.OK) {
         const bounds = new window.kakao.maps.LatLngBounds();
         let markers = [];
@@ -51,7 +51,7 @@ const MainPage = () => {
     let addedReviewsAndBookMarks = temp.map((e) => {
       return { ...e, reviews: [], bookmark: 0 };
     });
-    console.log(addedReviewsAndBookMarks, '음식점 data');
+    // console.log(addedReviewsAndBookMarks, '음식점 data');
     setMarkers(temp);
     setRestaurantsInfo(temp);
     // saveRestaurantsData({ [paramId]: addedReviewsAndBookMarks });

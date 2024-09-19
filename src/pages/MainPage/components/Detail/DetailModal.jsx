@@ -4,7 +4,13 @@ import { useState } from 'react';
 import useUserStore from '../../../../store/useUserStore';
 import { PiStar } from 'react-icons/pi';
 import { PiStarFill } from 'react-icons/pi';
-import { addMyActivity, getMyActivity, removeMyActivity, updateMyActivity } from '../../../../api/MyActivitesApi';
+import {
+  addMyActivity,
+  getMyActivity,
+  removeMyActivity,
+  updateFavorite,
+  updateMyActivity
+} from '../../../../api/MyActivitesApi';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 const DetailModal = ({ detailInfo }) => {
@@ -15,21 +21,30 @@ const DetailModal = ({ detailInfo }) => {
   const { setIsOpen } = useRestaurantsStore((state) => state);
   const subContent = detailInfo.category_name.split('').slice(6).join('');
   let today = new Date();
-
   const queryClient = useQueryClient();
-  console.log(detailInfo, 'detailInfo 값 확인');
+
   // 리뷰 가져오기
   const { data, isPending, isError } = useQuery({
     queryKey: ['review'],
     queryFn: () => getMyActivity('reviews')
   });
 
-  // 리뷰 추가
+  // 즐겨찾기 가져오기
+  const {
+    data: starData,
+    isPending: isStarPending,
+    isError: isStarError
+  } = useQuery({
+    queryKey: ['star'],
+    queryFn: () => getMyActivity('favorites')
+  });
+
+  // 리뷰 및 즐겨찾기 추가
   const { mutate: addFunc } = useMutation({
     mutationFn: addMyActivity,
     onSuccess: () => {
       queryClient.invalidateQueries(['review']);
-      queryClient.invalidateQueries(['favorite']);
+      queryClient.invalidateQueries(['star']);
     }
   });
 
@@ -41,17 +56,28 @@ const DetailModal = ({ detailInfo }) => {
     }
   });
 
+  // 즐겨찾기 수정
+  const { mutate: updateStar } = useMutation({
+    mutationFn: updateFavorite,
+    onSuccess: () => {
+      queryClient.invalidateQueries(['star']);
+    }
+  });
+
   // 리뷰 삭제
   const { mutate: deleteFunc } = useMutation({
     mutationFn: removeMyActivity,
     onSuccess: () => {
       queryClient.invalidateQueries(['review']);
-      queryClient.invalidateQueries(['favorite']);
     }
   });
 
   if (isPending) return <div>로딩중 입니다.</div>;
   if (isError) return <div>로딩중 에러가 발견되었습니다.</div>;
+  if (isStarPending) return <div>로딩중 입니다.</div>;
+  if (isStarError) return <div>로딩중 에러가 발견되었습니다.</div>;
+
+  console.log(starData, 'starData 값 확인');
 
   // Form submit 함수
   const handleSubmit = (e) => {
@@ -64,7 +90,7 @@ const DetailModal = ({ detailInfo }) => {
     addFunc({
       queryKey: 'reviews',
       post: {
-        id: crypto.randomUUID(),
+        // id: crypto.randomUUID(),
         userId: user.userId,
         nickName: user.nickname,
         storeId: detailInfo.id,
@@ -86,6 +112,35 @@ const DetailModal = ({ detailInfo }) => {
       setUpdatePost('');
     }
   };
+
+  // 즐겨찾기 클릭 시
+  const onClickStar = () => {
+    const res = starData.some((el) => el.storeId === detailInfo.id);
+    console.log(res, 'res값 확인');
+    if (res) {
+      const data = starData.filter((el) => el.storeId === detailInfo.id)[0];
+      console.log(data, 'data값 확인');
+      updateStar({
+        id: data.id,
+        content: !data.favorite
+      });
+    } else {
+      addFunc({
+        queryKey: 'favorites',
+        post: {
+          userId: user.userId,
+          nickName: user.nickname,
+          storeId: detailInfo.id,
+          storeName: detailInfo.place_name,
+          storeAddress: detailInfo.address_name,
+          storePhone: detailInfo.phone,
+          favorite: true
+        }
+      });
+      alert('즐겨찾기에 추가 되었습니다.');
+    }
+  };
+  const filterData = starData.some((el) => el.storeId === detailInfo.id);
 
   return (
     <div
@@ -111,9 +166,13 @@ const DetailModal = ({ detailInfo }) => {
       <div style={{ lineHeight: '32px', marginBottom: '20px' }}>
         <div style={{ display: 'flex', alignItems: 'center' }}>
           <p style={{ fontWeight: '900', fontSize: '28px', marginRight: '10px' }}>{detailInfo.place_name}</p>
-          <div style={{ cursor: 'pointer' }}>
-            {'dd'.length > 0 ? (
-              <PiStarFill style={{ color: 'yellow', fontSize: '24px' }} />
+          <div style={{ cursor: 'pointer' }} onClick={onClickStar}>
+            {filterData ? (
+              starData.filter((el) => el.storeId === detailInfo.id)[0].favorite ? (
+                <PiStarFill style={{ color: 'yellow', fontSize: '24px' }} />
+              ) : (
+                <PiStar style={{ color: 'yellow', fontSize: '24px' }} />
+              )
             ) : (
               <PiStar style={{ color: 'yellow', fontSize: '24px' }} />
             )}

@@ -1,5 +1,36 @@
 {
-  "favorites": [],
+  "favorites": [
+    {
+      "id": "e2b8",
+      "userId": "hee6968",
+      "nickName": "SHB",
+      "storeId": "26328852",
+      "storeName": "송동골손두부",
+      "storeAddress": "강원특별자치도 철원군 서면 자등리 377-9",
+      "storePhone": "033-456-0964",
+      "favorite": true
+    },
+    {
+      "id": "1b62",
+      "userId": "hee6968",
+      "nickName": "SHB",
+      "storeId": "20199337",
+      "storeName": "자연가든",
+      "storeAddress": "강원특별자치도 철원군 서면 자등리 255-4",
+      "storePhone": "",
+      "favorite": true
+    },
+    {
+      "id": "ce9a",
+      "userId": "hee6968",
+      "nickName": "SHB",
+      "storeId": "1908212125",
+      "storeName": "푸드하우스",
+      "storeAddress": "강원특별자치도 철원군 서면 자등리 418-4",
+      "storePhone": "",
+      "favorite": true
+    }
+  ],
   "reviews": [
     {
       "userId": "user12",

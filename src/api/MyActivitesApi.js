@@ -36,12 +36,12 @@ export const updateMyActivity = async ({ queryKey, id, content }) => {
 };
 
 // 즐겨찾기 수정 api
-// export const updateFavorite = async ({ queryKey, id, content }) => {
-//   console.log(queryKey, id, content, 'api 전달받은 값 확인');
-//   await jsonApi.patch(`${queryKey}/${id}`, {
-//     favorite: !content
-//   });
-// };
+export const updateFavorite = async ({ id, content }) => {
+  const response = await jsonApi.patch(`/favorites/${id}`, {
+    favorite: content
+  });
+  return response.data;
+};
 
 // 즐겨찾기, 리뷰 삭제 api
 export const removeMyActivity = async ({ queryKey, id }) => {
