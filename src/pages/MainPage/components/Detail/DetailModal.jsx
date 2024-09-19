@@ -3,16 +3,15 @@ import { FiX } from 'react-icons/fi';
 import { useState } from 'react';
 import useReview from '../../../../store/useReview';
 import useUserStore from '../../../../store/useUserStore';
-import { useNavigate } from 'react-router-dom';
 
 const DetailModal = ({ detailInfo }) => {
   const [content, setContent] = useState('');
+  const [isUpdatePost, setIsUpdatePost] = useState(false);
+  const [updatePost, setUpdatePost] = useState('');
   const { user, hasAuthenticated } = useUserStore((state) => state);
-  const { reviews, setReview } = useReview((state) => state);
+  const { reviews, setReview, deleteReview, updateReview } = useReview((state) => state);
   const { setIsOpen } = useRestaurantsStore((state) => state);
   const subContent = detailInfo.category_name.split('').slice(6).join('');
-  console.log(user, 'user 값 확인');
-  console.log(reviews, 'reviews 값 확인');
   let today = new Date();
 
   const handleSubmit = (e) => {
@@ -21,8 +20,8 @@ const DetailModal = ({ detailInfo }) => {
     if (!hasAuthenticated) {
       alert('로그인 해주세요');
     } else {
-      console.log(content, 'content 확인');
       setReview({
+        id: crypto.randomUUID(),
         userId: user.userId,
         nickName: user.nickname,
         storeId: detailInfo.id,
@@ -32,10 +31,24 @@ const DetailModal = ({ detailInfo }) => {
         review: content,
         date: today.toLocaleString()
       });
+      setContent('');
     }
   };
 
-  const filterPosts = reviews.filter((el) => el.storeId === detailInfo.id);
+  const onUpdatePost = (id) => {
+    setIsUpdatePost((prev) => !prev);
+    if (isUpdatePost) {
+      const findPost = reviews.find((el) => el.id === id);
+      const update = (findPost.review = updatePost);
+      updateReview(updatePost);
+      setUpdatePost('');
+    }
+  };
+
+  const onDeletePost = (id) => {
+    const deletePost = reviews.filter((el) => el.id !== id);
+    deleteReview(deletePost);
+  };
 
   return (
     <div
@@ -72,28 +85,51 @@ const DetailModal = ({ detailInfo }) => {
             value={content}
             onChange={(e) => setContent(e.target.value)}
           />
-          <button>추가</button>
+          <button style={{ border: '1px solid black', padding: '4px', borderRadius: '12px' }}>추가</button>
         </form>
         <div>
-          {filterPosts.map((el, index) => {
-            return (
-              <div key={index} style={{ border: '1px solid black', padding: '20px', lineHeight: '28px' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                  <div>{el.nickName}</div>
-                  <div>{el.date}</div>
-                </div>
-                <p style={{ margin: '20px' }}>{el.review}</p>
-                {el.userId === user.userId ? (
-                  <div style={{ display: 'flex', justifyContent: 'right', gap: '20px' }}>
-                    <button style={{ border: '1px solid black', padding: '4px', borderRadius: '12px' }}>수정</button>
-                    <button style={{ border: '1px solid black', padding: '4px', borderRadius: '12px' }}>삭제</button>
+          {reviews
+            .filter((el) => el.storeId === detailInfo.id)
+            .map((el, index) => {
+              return (
+                <div key={index} style={{ border: '1px solid black', padding: '20px', lineHeight: '28px' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <div>{el.nickName}</div>
+                    <div>{el.date}</div>
                   </div>
-                ) : (
-                  ''
-                )}
-              </div>
-            );
-          })}
+                  <p style={{ margin: '20px' }}>
+                    {isUpdatePost ? (
+                      <input
+                        type="text"
+                        value={updatePost}
+                        placeholder="수정할 내용을 입력하세요."
+                        onChange={(e) => setUpdatePost(e.target.value)}
+                      />
+                    ) : (
+                      el.review
+                    )}
+                  </p>
+                  {el.userId === user.userId ? (
+                    <div style={{ display: 'flex', justifyContent: 'right', gap: '20px' }}>
+                      <button
+                        style={{ border: '1px solid black', padding: '4px', borderRadius: '12px' }}
+                        onClick={() => onUpdatePost(el.id)}
+                      >
+                        {isUpdatePost ? '완료' : '수정'}
+                      </button>
+                      <button
+                        style={{ border: '1px solid black', padding: '4px', borderRadius: '12px' }}
+                        onClick={() => onDeletePost(el.id)}
+                      >
+                        삭제
+                      </button>
+                    </div>
+                  ) : (
+                    ''
+                  )}
+                </div>
+              );
+            })}
         </div>
       </div>
     </div>
