@@ -15,7 +15,7 @@ const MainPage = () => {
 
   const { mutate: saveRestaurantsData } = useSaveRestaurantsDataQuery();
 
-  const places = new window.kakao.maps.services.Places();
+  // const places = new window.kakao.maps.services.Places();
 
   const getPlacesPositionForMarkers = (data) => {
     let temp = [];
@@ -31,65 +31,65 @@ const MainPage = () => {
     // saveRestaurantsData({ [paramId]: addedReviewsAndBookMarks });
   };
 
-  const searchRestaurants = (bounds) => {
-    places.categorySearch('FD6', getPlacesPositionForMarkers, {
-      bounds: bounds,
-      useMapBounds: true
-    });
-  };
+  // const searchRestaurants = (bounds) => {
+  //   places.categorySearch('FD6', getPlacesPositionForMarkers, {
+  //     bounds: bounds,
+  //     useMapBounds: true
+  //   });
+  // };
 
-  const keywordSearch = () => {
-    if (!map) return;
-    places.keywordSearch(campSearchWordConverter(paramId), (data, status, _pagination) => {
-      console.log(data);
-      if (status === window.kakao.maps.services.Status.OK) {
-        const bounds = new window.kakao.maps.LatLngBounds();
-        let markers = [];
-        for (var i = 0; i < data.length; i++) {
-          markers.push({
-            position: {
-              lat: data[i].y,
-              lng: data[i].x
-            },
-            content: data[i].place_name
-          });
-          bounds.extend(new window.kakao.maps.LatLng(data[i].y, data[i].x));
-        }
-        // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
-        map.setBounds(bounds);
-        map.setLevel(4);
-        searchRestaurants(map.getBounds());
-      }
-    });
-  };
+  // const keywordSearch = () => {
+  //   if (!map) return;
+  //   places.keywordSearch(campSearchWordConverter(paramId), (data, status, _pagination) => {
+  //     console.log(data);
+  //     if (status === window.kakao.maps.services.Status.OK) {
+  //       const bounds = new window.kakao.maps.LatLngBounds();
+  //       let markers = [];
+  //       for (var i = 0; i < data.length; i++) {
+  //         markers.push({
+  //           position: {
+  //             lat: data[i].y,
+  //             lng: data[i].x
+  //           },
+  //           content: data[i].place_name
+  //         });
+  //         bounds.extend(new window.kakao.maps.LatLng(data[i].y, data[i].x));
+  //       }
+  //       // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
+  //       map.setBounds(bounds);
+  //       map.setLevel(4);
+  //       searchRestaurants(map.getBounds());
+  //     }
+  //   });
+  // };
 
-  useEffect(() => {
-    keywordSearch();
-  }, [paramId, map]);
-  return (
-    <Map
-      center={{
-        lat: 37.566826,
-        lng: 126.9786567
-      }}
-      style={{
-        width: '100%',
-        height: '100%'
-      }}
-      level={5}
-      onCreate={setMap}
-    >
-      {markers.map((marker) => {
-        return (
-          <EventMarkerContainer
-            key={marker.id}
-            position={{ lat: marker.y, lng: marker.x }}
-            content={marker.place_name}
-          />
-        );
-      })}
-    </Map>
-  );
+  // useEffect(() => {
+  //   keywordSearch();
+  // }, [paramId, map]);
+  // return (
+  //   <Map
+  //     center={{
+  //       lat: 37.566826,
+  //       lng: 126.9786567
+  //     }}
+  //     style={{
+  //       width: '100%',
+  //       height: '100%'
+  //     }}
+  //     level={5}
+  //     onCreate={setMap}
+  //   >
+  //     {markers.map((marker) => {
+  //       return (
+  //         <EventMarkerContainer
+  //           key={marker.id}
+  //           position={{ lat: marker.y, lng: marker.x }}
+  //           content={marker.place_name}
+  //         />
+  //       );
+  //     })}
+  //   </Map>
+  // );
 };
 
 export default MainPage;

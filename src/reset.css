@@ -99,7 +99,7 @@
   }
 
   .active-page {
-    color: blue;
+    color: var(--green-color);
     text-decoration: underline;
     font-weight: 700;
   }
