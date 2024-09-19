@@ -1,14 +1,10 @@
-import { FiX } from 'react-icons/fi';
-import useModalStore from '../../../../store/useModalStore';
 import AuthForm from '../AuthForm';
-import Modal from '../Modal/Modal';
 
 const LoginModal = () => {
-  const setHasOpenModal = useModalStore((state) => state.setHasOpen);
   return (
-    <>
+    <div className="flex justify-center items-center">
       <AuthForm mode={'login'} />
-    </>
+    </div>
   );
 };
 
