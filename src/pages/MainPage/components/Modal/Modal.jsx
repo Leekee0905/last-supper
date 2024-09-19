@@ -23,7 +23,7 @@ const Modal = ({ children, contentStyle, overlayStyle, isLoading }) => {
       ...contentStyle
     },
     overlay: {
-      zIndex: 1,
+      zIndex: '50',
       backgroundColor: 'rgba(0, 0, 0, 0.3)',
       ...overlayStyle
     }
