@@ -12,8 +12,6 @@ import MyPage from '../pages/MainPage/components/MyPage/MyPage';
 import SignupModal from '../pages/MainPage/components/Signup/SignupModal';
 
 const Layout = () => {
-  const setHasModalOpen = useModalStore((state) => state.setHasOpen);
-  const setModalType = useModalStore((state) => state.setModalType);
   const modalType = useModalStore((state) => state.modalType);
   const [hasModalOpen, setIsModalOpen] = useState(false);
   const [searchInput, setSearchInput] = useState('');
@@ -69,13 +67,8 @@ const Layout = () => {
         setSearchInput={setSearchInput}
       />
 
-      <HamburgerMenu
-        hasModalOpen={hasModalOpen}
-        toggleModal={toggleModal}
-        setIsModalOpen={setIsModalOpen}
-        // handleCalculator={handleCalculator}
-      />
-      <main className="flex-1 p-4 bg-gray-50 ml-[400px]">
+      <HamburgerMenu hasModalOpen={hasModalOpen} toggleModal={toggleModal} setIsModalOpen={setIsModalOpen} />
+      <main className="flex-1 bg-gray-50 ml-[400px]">
         <Outlet />
       </main>
     </div>
