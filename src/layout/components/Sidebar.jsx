@@ -1,10 +1,8 @@
-import axios from 'axios';
-import { useEffect, useState } from 'react';
 import { FiMenu, FiSearch } from 'react-icons/fi';
 import useRestaurantsStore from '../../store/useRestaurantsInfo';
 
 const Sidebar = ({ toggleModal, handleSearch, searchInput, setSearchInput }) => {
-  const { info, setInfo } = useRestaurantsStore((state) => state);
+  const info = useRestaurantsStore((state) => state.info);
 
   return (
     <aside className="fixed top-0 left-0 h-full w-[400px] bg-gray-100 shadow-md">
