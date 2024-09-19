@@ -3,17 +3,15 @@ import { useSearchParams } from 'react-router-dom';
 import { Map } from 'react-kakao-maps-sdk';
 import EventMarkerContainer from './components/MapMarker/EventMarkerContainer';
 import { campSearchWordConverter } from '../../utils/campSearchWordConverter';
-import { useSaveRestaurantsDataQuery } from '../../hooks/queries/restaurants/useSaveRestaurantsDataQuery';
-import { useGetRestaurantsDataQuery } from '../../hooks/queries/restaurants/useGetRestaurantsDataQuery';
+import useRestaurantsStore from '../../store/useRestaurantsInfo';
 
 const MainPage = () => {
   const [param] = useSearchParams();
   const paramId = param.get('query');
   const [markers, setMarkers] = useState([]);
   const [map, setMap] = useState();
+  const setRestaurants = useRestaurantsStore((state) => state.setInfo);
 
-  const { mutate: saveRestaurantsData } = useSaveRestaurantsDataQuery(paramId);
-  const { data: restaurants, isPending } = useGetRestaurantsDataQuery(paramId);
   const places = new window.kakao.maps.services.Places();
   const getPlacesPositionForMarkers = (data) => {
     let temp = [];
@@ -23,10 +21,8 @@ const MainPage = () => {
     let addedReviewsAndBookMarks = temp.map((e) => {
       return { ...e, reviews: [], bookmark: 0 };
     });
+    setRestaurants(addedReviewsAndBookMarks);
     setMarkers(temp);
-    if (restaurants.length === 0 || temp.length !== restaurants.length) {
-      saveRestaurantsData({ [paramId]: addedReviewsAndBookMarks });
-    }
   };
 
   const searchRestaurants = (bounds) => {
