@@ -9,8 +9,9 @@ const MyActivities = ({ queryKey, removeFavorite }) => {
   const userId = 'user123';
 
   const [page, setPage] = useState(1);
-  const { data, isError } = useGetMyActivitiesQuery(queryKey, userId, page);
-  const { data: activityLogs, totalPages } = data;
+  const { data } = useGetMyActivitiesQuery(queryKey, userId, page);
+  const { data: activityLogs, totalPages1 } = data;
+  const totalPages = 100;
 
   const onClickPage = (selected) => {
     if (page === selected) return;
@@ -27,10 +28,6 @@ const MyActivities = ({ queryKey, removeFavorite }) => {
       return;
     }
   };
-
-  if (isError) {
-    return <p className={guideStyle}>오류가 발생했습니다.</p>;
-  }
 
   return (
     <>
