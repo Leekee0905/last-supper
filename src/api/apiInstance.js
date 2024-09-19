@@ -12,4 +12,18 @@ export const jsonApi = axios.create({
   baseURL: 'http://localhost:4000'
 });
 
-jsonApi.interceptors.
+jsonApi.interceptors.request.use(
+  (config) => config,
+  (error) => {
+    console.error(error);
+    throw new Error(error.message);
+  }
+);
+
+jsonApi.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    console.error(error);
+    throw new Error(error.message);
+  }
+);
