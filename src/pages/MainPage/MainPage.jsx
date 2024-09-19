@@ -12,7 +12,7 @@ const MainPage = () => {
   const [map, setMap] = useState();
   const setRestaurants = useRestaurantsStore((state) => state.setInfo);
 
-  // const places = new window.kakao.maps.services.Places();
+  const places = new window.kakao.maps.services.Places();
   const getPlacesPositionForMarkers = (data) => {
     let temp = [];
     for (let i = 0; i < data.length; i++) {
@@ -25,12 +25,12 @@ const MainPage = () => {
     setMarkers(temp);
   };
 
-  // const searchRestaurants = (bounds) => {
-  //   places.categorySearch('FD6', getPlacesPositionForMarkers, {
-  //     bounds: bounds,
-  //     useMapBounds: true
-  //   });
-  // };
+  const searchRestaurants = (bounds) => {
+    places.categorySearch('FD6', getPlacesPositionForMarkers, {
+      bounds: bounds,
+      useMapBounds: true
+    });
+  };
 
   const keywordSearch = () => {
     if (!map) return;
@@ -56,33 +56,33 @@ const MainPage = () => {
     });
   };
 
-  // useEffect(() => {
-  //   keywordSearch();
-  // }, [paramId, map]);
-  // return (
-  //   <Map
-  //     center={{
-  //       lat: 37.566826,
-  //       lng: 126.9786567
-  //     }}
-  //     style={{
-  //       width: '100%',
-  //       height: '100%'
-  //     }}
-  //     level={5}
-  //     onCreate={setMap}
-  //   >
-  //     {markers.map((marker) => {
-  //       return (
-  //         <EventMarkerContainer
-  //           key={marker.id}
-  //           position={{ lat: marker.y, lng: marker.x }}
-  //           content={marker.place_name}
-  //         />
-  //       );
-  //     })}
-  //   </Map>
-  // );
+  useEffect(() => {
+    keywordSearch();
+  }, [paramId, map]);
+  return (
+    <Map
+      center={{
+        lat: 37.566826,
+        lng: 126.9786567
+      }}
+      style={{
+        width: '100%',
+        height: '100%'
+      }}
+      level={5}
+      onCreate={setMap}
+    >
+      {markers.map((marker) => {
+        return (
+          <EventMarkerContainer
+            key={marker.id}
+            position={{ lat: marker.y, lng: marker.x }}
+            content={marker.place_name}
+          />
+        );
+      })}
+    </Map>
+  );
 };
 
 export default MainPage;
