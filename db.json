@@ -49,6 +49,16 @@
       "storeAddress": "대구 북구 학정동 941-2",
       "storePhone": "053-322-8847",
       "favorite": true
+    },
+    {
+      "id": "23fb",
+      "userId": "789789",
+      "nickName": "qwe789",
+      "storeId": "864477081",
+      "storeName": "타이짬뽕 칠곡본점",
+      "storeAddress": "대구 북구 학정동 941-12",
+      "storePhone": "053-311-0807",
+      "favorite": true
     }
   ],
   "reviews": [
@@ -137,6 +147,61 @@
       "review": "희범이쭈꾸미낙지볶음 칠곡점 테스트",
       "date": "2024. 9. 19. 오후 3:01:28",
       "favorite": false
+    },
+    {
+      "id": "4197",
+      "userId": "hee6968",
+      "nickName": "SHB",
+      "storeId": "17150172",
+      "storeName": "석경 본점",
+      "storeAddress": "대구 북구 학정동 935-8",
+      "storePhone": "053-321-0415",
+      "review": "ㅋ",
+      "date": "2024. 9. 19. 오후 8:15:07"
+    },
+    {
+      "id": "2bc9",
+      "userId": "hee6968",
+      "nickName": "SHB",
+      "storeId": "11985970",
+      "storeName": "강원도집 칠곡점",
+      "storeAddress": "대구 북구 학정동 282-13",
+      "storePhone": "053-312-7828",
+      "review": "어라?",
+      "date": "2024. 9. 19. 오후 8:15:30"
+    },
+    {
+      "id": "c1ba",
+      "userId": "hee6968",
+      "nickName": "SHB",
+      "storeId": "11985970",
+      "storeName": "강원도집 칠곡점",
+      "storeAddress": "대구 북구 학정동 282-13",
+      "storePhone": "053-312-7828",
+      "review": "ㅋ",
+      "date": "2024. 9. 19. 오후 8:15:31"
+    },
+    {
+      "id": "346e",
+      "userId": "789789",
+      "nickName": "qwe789",
+      "storeId": "17150172",
+      "storeName": "석경 본점",
+      "storeAddress": "대구 북구 학정동 935-8",
+      "storePhone": "053-321-0415",
+      "review": "hi",
+      "date": "2024. 9. 19. 오후 8:29:44"
+    },
+    {
+      "id": "ebbc",
+      "userId": "789789",
+      "nickName": "qwe789",
+      "storeId": "26328852",
+      "storeName": "송동골손두부",
+      "storeAddress": "강원특별자치도 철원군 서면 자등리 377-9",
+      "storePhone": "033-456-0964",
+      "review": "ㅜㅜ",
+      "date": "2024. 9. 19. 오후 8:43:37"
     }
   ],
   "restaurants": []

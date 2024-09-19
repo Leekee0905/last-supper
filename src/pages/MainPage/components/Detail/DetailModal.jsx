@@ -77,8 +77,6 @@ const DetailModal = ({ detailInfo }) => {
   if (isStarPending) return <div>로딩중 입니다.</div>;
   if (isStarError) return <div>로딩중 에러가 발견되었습니다.</div>;
 
-  console.log(starData, 'starData 값 확인');
-
   // Form submit 함수
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -106,6 +104,10 @@ const DetailModal = ({ detailInfo }) => {
 
   // 리뷰 수정버튼 클릭 시
   const onUpdatePost = ({ queryKey, id, content }) => {
+    if (content === '') {
+      alert('내용을 입력해 주세요.');
+      return;
+    }
     setIsUpdatePost((prev) => !prev);
     if (isUpdatePost) {
       updateFunc({ queryKey, id, content });
@@ -116,10 +118,8 @@ const DetailModal = ({ detailInfo }) => {
   // 즐겨찾기 클릭 시
   const onClickStar = () => {
     const res = starData.some((el) => el.storeId === detailInfo.id);
-    console.log(res, 'res값 확인');
     if (res) {
       const data = starData.filter((el) => el.storeId === detailInfo.id)[0];
-      console.log(data, 'data값 확인');
       updateStar({
         id: data.id,
         content: !data.favorite
