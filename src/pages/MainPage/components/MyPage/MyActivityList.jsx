@@ -38,11 +38,11 @@ const MyActivityList = ({ log, mode, queryKey, updateMyReviewMutate }) => {
     <>
       <IoRestaurantSharp className="text-2xl w-[24px]" />
       <main className="h-full grow relative">
-        <h4 className="absolute top-4">{log.storeName}</h4>
+        <h4 className="absolute top-4 truncate h-1/5 w-full">{log.storeName}</h4>
         {mode === '즐겨찾기' ? (
           <>
             <p className="absolute top-11 overflow-auto h-2/5">주소 : {log.storeAddress}</p>
-            <p className="absolute bottom-1 h-1/5 overflow-auto">
+            <p className="absolute bottom-1 h-1/5 w-full truncate">
               <small>전화번호 : {log.storePhone}</small>
             </p>
           </>
