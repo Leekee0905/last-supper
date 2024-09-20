@@ -19,7 +19,7 @@ export const useGetMyActivitiesQuery = (type, userId, page) => {
 export const useMyActivityRemoveMutate = (queryKey) => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: (targetId) => removeMyActivity(queryKey, targetId),
+    mutationFn: (targetId) => removeMyActivity({ queryKey, id: targetId }),
     onSuccess: () => {
       queryClient.invalidateQueries(queryKey);
     }

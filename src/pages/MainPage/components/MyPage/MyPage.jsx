@@ -11,8 +11,7 @@ import useUserStore from '../../../../store/useUserStore';
 const MY_PAGE_NAV = { profile: 'profile', favorites: 'favorites', myReviews: 'myReviews' };
 
 const MyPage = () => {
-  // const { userId } = useUserStore((state) => state);
-  const userId = 'user123';
+  const { userId } = useUserStore((state) => state);
 
   const { mutate: removeFavoriteMutate } = useMyActivityRemoveMutate(FAVORITES_QUERY_KEY);
 
@@ -46,7 +45,7 @@ const MyPage = () => {
 
   return (
     <>
-      <div className="flex flex-row w-[77vw] h-[70vh] mr-[3vw]">
+      <div className="flex flex-row w-[77vw] h-[70vh] mr-[3vw] ">
         <aside className="flex flex-col w-[200px] gap-6">
           <h2 className="mb-4">마이페이지</h2>
           <nav
@@ -76,7 +75,9 @@ const MyPage = () => {
             <span>내 리뷰</span>
           </nav>
         </aside>
-        <section className="flex flex-col gap-2 grow border rounded py-5 px-6">{activeSideBtn()}</section>
+        <section className="flex shadow-xl bg-[#A4AE9D] flex-col gap-2 grow border rounded py-5 px-6">
+          {activeSideBtn()}
+        </section>
       </div>
     </>
   );

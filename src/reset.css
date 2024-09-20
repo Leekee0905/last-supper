@@ -5,10 +5,12 @@
 @layer base {
 
   :root {
-    --black-color: #232730;
-    --green-color: #3D6934;
-    --brown-color: #4F322A;
-    --sand-color: #8C7549;
+    --khaki-color: #A4AE9D;
+    --dark-khaki-color: #536349;
+  }
+
+  * {
+    word-break: keep-all;
   }
 
   @keyframes slr {
@@ -20,15 +22,6 @@
       opacity: 1;
     }
   }
-
-  /* html,
-  body {
-    font-family: "Gugi" sans-serif;
-    font-size: 16px;
-    font-weight: 400;
-    color:
-      •#1d1d1f;
-  } */
 
   h2 {
     font-size: 32px;

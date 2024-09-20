@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import useUserStore from '../../../../store/useUserStore';
 import useRestaurantsStore from '../../../../store/useRestaurantsInfo';
-import { addMyActivity, getMyActivity, removeMyActivity, updateFavorite } from '../../../../api/MyActivitesApi';
+import { addMyActivity, getMyActivity, removeMyActivity, updateFavorite } from '../../../../api/myActivitesApi';
 import Review from './Review';
 
 const DetailModal = ({ detailInfo }) => {
