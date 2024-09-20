@@ -3,7 +3,7 @@ import { Outlet, useSearchParams } from 'react-router-dom';
 import Sidebar from './components/Sidebar';
 import HamburgerMenu from './components/HamburgerMenu';
 import useModalStore from '../store/useModalStore';
-import Calculator from '../pages/MainPage/components/Calculator';
+import Calculator from '../pages/MainPage/components/Calculator/Calculator';
 import Modal from '../pages/MainPage/components/Modal/Modal';
 import LoginModal from '../pages/MainPage/components/Login/LoginModal';
 import { useHasTokenAuthenticatedQuery } from '../hooks/queries/auth/useHasTokenAuthenticatedQuery';
@@ -14,8 +14,6 @@ import DetailModal from '../pages/MainPage/components/Detail/DetailModal';
 import useRestaurantsStore from '../store/useRestaurantsInfo';
 
 const Layout = () => {
-  const setHasModalOpen = useModalStore((state) => state.setHasOpen);
-  const setModalType = useModalStore((state) => state.setModalType);
   const modalType = useModalStore((state) => state.modalType);
   const [hasModalOpen, setIsModalOpen] = useState(false);
   const [searchInput, setSearchInput] = useState('');
@@ -78,13 +76,8 @@ const Layout = () => {
         restaurantInfo={restaurantInfo}
       />
 
-      <HamburgerMenu
-        hasModalOpen={hasModalOpen}
-        toggleModal={toggleModal}
-        setIsModalOpen={setIsModalOpen}
-        // handleCalculator={handleCalculator}
-      />
-      <main className="flex-1 p-4 bg-gray-50 ml-[400px]">
+      <HamburgerMenu hasModalOpen={hasModalOpen} toggleModal={toggleModal} setIsModalOpen={setIsModalOpen} />
+      <main className="flex-1 bg-gray-50 ml-[400px]">
         <Outlet />
       </main>
       {isOpen ? <DetailModal detailInfo={detailInfo} /> : ''}

@@ -4,24 +4,39 @@ import { Map } from 'react-kakao-maps-sdk';
 import EventMarkerContainer from './components/MapMarker/EventMarkerContainer';
 import { campSearchWordConverter } from '../../utils/campSearchWordConverter';
 import useRestaurantsStore from '../../store/useRestaurantsInfo';
-import { useSaveRestaurantsDataQuery } from '../../hooks/queries/restaurants/useSaveRestaurantsDataQuery';
-import DetailModal from './components/Detail/DetailModal';
 
 const MainPage = () => {
   const [param] = useSearchParams();
   const paramId = param.get('query');
   const [markers, setMarkers] = useState([]);
   const [map, setMap] = useState();
-  const setRestaurantsInfo = useRestaurantsStore((state) => state.setInfo);
-
-  const { mutate: saveRestaurantsData } = useSaveRestaurantsDataQuery();
+  const setRestaurants = useRestaurantsStore((state) => state.setInfo);
 
   const places = new window.kakao.maps.services.Places();
+
+  const getPlacesPositionForMarkers = (data) => {
+    let temp = [];
+    for (let i = 0; i < data.length; i++) {
+      temp.push(data[i]);
+    }
+    let addedReviewsAndBookMarks = temp.map((e) => {
+      return { ...e, reviews: [], bookmark: 0 };
+    });
+    setRestaurants(addedReviewsAndBookMarks);
+    setMarkers(temp);
+  };
+
+  const searchRestaurants = (bounds) => {
+    places.categorySearch('FD6', getPlacesPositionForMarkers, {
+      bounds: bounds,
+      useMapBounds: true
+    });
+  };
 
   const keywordSearch = () => {
     if (!map) return;
     places.keywordSearch(campSearchWordConverter(paramId), (data, status, _pagination) => {
-      // console.log(data, '키워드 data');
+
       if (status === window.kakao.maps.services.Status.OK) {
         const bounds = new window.kakao.maps.LatLngBounds();
         let markers = [];
@@ -40,27 +55,6 @@ const MainPage = () => {
         map.setLevel(4);
         searchRestaurants(map.getBounds());
       }
-    });
-  };
-
-  const getPlacesPositionForMarkers = (data) => {
-    let temp = [];
-    for (let i = 0; i < data.length; i++) {
-      temp.push(data[i]);
-    }
-    let addedReviewsAndBookMarks = temp.map((e) => {
-      return { ...e, reviews: [], bookmark: 0 };
-    });
-    // console.log(addedReviewsAndBookMarks, '음식점 data');
-    setMarkers(temp);
-    setRestaurantsInfo(temp);
-    // saveRestaurantsData({ [paramId]: addedReviewsAndBookMarks });
-  };
-
-  const searchRestaurants = (bounds) => {
-    places.categorySearch('FD6', getPlacesPositionForMarkers, {
-      bounds: bounds,
-      useMapBounds: true
     });
   };
 

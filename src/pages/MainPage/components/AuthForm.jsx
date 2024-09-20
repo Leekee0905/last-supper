@@ -55,9 +55,12 @@ const AuthForm = ({ mode }) => {
 
   return (
     <div className="shadow-xl rounded-lg w-5/6 h-[600px] p-10 flex flex-col justify-between">
-      <span className="text-3xl font-bold px-10">{mode === 'login' ? '로그인' : '회원가입'}</span>
+      <span className="lg:text-2xl md:text-xl font-bold px-10">{mode === 'login' ? '로그인' : '회원가입'}</span>
       <div className="flex justify-center items-center h-full flex-col">
-        <form onSubmit={handleSubmit} className="w-[650px] mt-10 flex flex-col justify-center items-center">
+        <form
+          onSubmit={handleSubmit}
+          className="lg:w-[650px] md:w-[450px] sm:w-[300px] mt-10 flex flex-col justify-center items-center"
+        >
           <input
             className="w-full h-1/5 p-5 mb-5 border-2"
             type="text"
@@ -93,7 +96,9 @@ const AuthForm = ({ mode }) => {
           )}
           <button
             type="submit"
-            className="flex justify-center items-center border-2 w-full h-[65px] bg-[#144e04] text-white text-2xl"
+            className={`flex justify-center items-center border-2 w-full h-[65px] ${
+              mode === 'login' ? 'bg-[#144e04] text-white' : 'bg-[#f9e593] text-black'
+            } lg:text-2xl md:text-base sm:text-sm`}
           >
             {mode === 'login' ? '로그인' : '회원가입'}
           </button>
