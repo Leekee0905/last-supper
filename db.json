@@ -11,16 +11,6 @@
       "favorite": true
     },
     {
-      "id": "ca2b",
-      "userId": "dnjsqls!",
-      "nickName": "바보",
-      "storeId": "9992115",
-      "storeName": "평남면옥",
-      "storeAddress": "강원특별자치도 철원군 서면 와수리 1172-23",
-      "storePhone": "033-458-2044",
-      "favorite": true
-    },
-    {
       "id": "6910",
       "userId": "dnjsqls!",
       "nickName": "바보",
@@ -28,6 +18,16 @@
       "storeName": "양평해장국 철원와수리본점",
       "storeAddress": "강원특별자치도 철원군 서면 와수리 1181-3",
       "storePhone": "033-458-8810",
+      "favorite": true
+    },
+    {
+      "id": "7ebd",
+      "userId": "dnjsqls!",
+      "nickName": "바보",
+      "storeId": "9992115",
+      "storeName": "평남면옥",
+      "storeAddress": "강원특별자치도 철원군 서면 와수리 1172-23",
+      "storePhone": "033-458-2044",
       "favorite": true
     }
   ],
@@ -42,6 +42,17 @@
       "storePhone": "033-456-0964",
       "review": "수정\nadsfsafsaffadfa\nssdsafdaㄴㅇㄹㅁㅁㅇㄴㄹㄴㄹㅇㄴㄹㅇㄴㄹㅇㄴㄹㄴㅇㄹㅇㄴㄹㅇㄴㄹㄴㅇㄹㄴㅇㄹㅇㄴㄹㅇㄴㄹㅇㄴㅁㄹㅇㄴㅁㄹㄴㅁㅇㄹㅇㄴㄹㄴㅇㅁㄹㅇㄴㄹㄴㅇㄹㅁㄴㅇㄹㅇㄴㅇㄹㅇㄴㄹㅁㅇㄴㄹㅁㄴㅇㄹㅁㄴㄹㅁㄴㅇㄹㅁㄴㅇㄹ\n\n\ndfdsafasfaf",
       "date": "2024. 9. 20. 오후 5:37:56"
+    },
+    {
+      "id": "c11a",
+      "userId": "dnjsqls!",
+      "nickName": "바보",
+      "storeId": "9992115",
+      "storeName": "평남면옥",
+      "storeAddress": "강원특별자치도 철원군 서면 와수리 1172-23",
+      "storePhone": "033-458-2044",
+      "review": "테스트",
+      "date": "2024. 9. 21. 오전 4:08:50"
     }
   ]
 }
