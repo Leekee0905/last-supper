@@ -1,80 +1,74 @@
 import { useState } from 'react';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { addMyActivity, getMyActivity } from '../../../../api/MyActivitesApi';
 import useUserStore from '../../../../store/useUserStore';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { removeMyActivity, updateMyActivity } from '../../../../api/MyActivitesApi';
+import ReviewItem from './ReviewItem';
 
-const Review = ({ el }) => {
-  const [updatePost, setUpdatePost] = useState('');
-  const [isUpdatePost, setIsUpdatePost] = useState(false);
-  const { user } = useUserStore((state) => state);
-
+const Review = ({ detailInfo }) => {
+  const [content, setContent] = useState('');
+  const { user, hasAuthenticated } = useUserStore((state) => state);
   const queryClient = useQueryClient();
+  let today = new Date();
 
-  // 리뷰 삭제
-  const { mutate: deleteFunc } = useMutation({
-    mutationFn: removeMyActivity,
+  // 리뷰 가져오기
+  const { data } = useQuery({
+    queryKey: ['allReviews'],
+    queryFn: () => getMyActivity('reviews'),
+    suspense: true
+  });
+
+  // 리뷰 추가
+  const { mutate: addFunc } = useMutation({
+    mutationFn: addMyActivity,
     onSuccess: () => {
-      queryClient.invalidateQueries(['review']);
+      queryClient.invalidateQueries(['allReviews']);
     }
   });
 
-  // 리뷰 수정
-  const { mutate: updateFunc } = useMutation({
-    mutationFn: updateMyActivity,
-    onSuccess: () => {
-      queryClient.invalidateQueries(['review']);
-    }
-  });
+  // Form submit 함수
+  const handleSubmit = (e) => {
+    e.preventDefault();
 
-  // 리뷰 수정버튼 클릭 시
-  const onUpdatePost = ({ queryKey, id, content }) => {
-    setIsUpdatePost((prev) => !prev);
-    if (isUpdatePost) {
-      if (content === '') {
-        alert('내용을 입력해 주세요.');
-        return;
+    if (!hasAuthenticated) {
+      alert('로그인 해주세요');
+      return;
+    }
+
+    addFunc({
+      queryKey: 'reviews',
+      post: {
+        userId: user.userId,
+        nickName: user.nickname,
+        storeId: detailInfo.id,
+        storeName: detailInfo.place_name,
+        storeAddress: detailInfo.address_name,
+        storePhone: detailInfo.phone,
+        review: content,
+        date: today.toLocaleString()
       }
-      updateFunc({ queryKey, id, content });
-      setUpdatePost('');
-    }
+    });
+
+    setContent('');
   };
 
   return (
-    <div style={{ border: '1px solid black', padding: '20px', lineHeight: '28px' }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-        <div>{el.nickName}</div>
-        <div>{el.date}</div>
+    <div>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          placeholder="리뷰를 작성해 주세요."
+          value={content}
+          onChange={(e) => setContent(e.target.value)}
+        />
+        <button style={{ border: '1px solid black', padding: '4px', borderRadius: '12px' }}>추가</button>
+      </form>
+      <div>
+        {data
+          .filter((el) => el.storeId === detailInfo.id)
+          .map((el, index) => {
+            return <ReviewItem key={index} el={el} />;
+          })}
       </div>
-      <p style={{ margin: '20px' }}>
-        {isUpdatePost ? (
-          <input
-            type="text"
-            value={updatePost}
-            placeholder="수정할 내용을 입력하세요."
-            onChange={(e) => setUpdatePost(e.target.value)}
-          />
-        ) : (
-          el.review
-        )}
-      </p>
-      {el.userId === user.userId ? (
-        <div style={{ display: 'flex', justifyContent: 'right', gap: '20px' }}>
-          <button
-            style={{ border: '1px solid black', padding: '4px', borderRadius: '12px' }}
-            onClick={() => onUpdatePost({ queryKey: 'reviews', id: el.id, content: updatePost })}
-          >
-            {isUpdatePost ? '완료' : '수정'}
-          </button>
-          <button
-            style={{ border: '1px solid black', padding: '4px', borderRadius: '12px' }}
-            onClick={() => deleteFunc({ queryKey: 'reviews', id: el.id })}
-          >
-            삭제
-          </button>
-        </div>
-      ) : (
-        ''
-      )}
     </div>
   );
 };
