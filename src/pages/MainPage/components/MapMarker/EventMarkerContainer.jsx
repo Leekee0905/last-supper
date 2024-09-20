@@ -26,9 +26,9 @@ const EventMarkerContainer = ({ position, content }) => {
                 <FiX className="w-[20px] h-[20px]" />
               </button>
             </div>
-            <div className="w-full h-full">
-              <p>{content.place_name}</p>
-              <p>{content.address_name}</p>
+            <div className="w-full h-full flex flex-col justify-center gap-3">
+              <h1 className="font-bold text-2xl">{content.place_name}</h1>
+              <p className="text-xs opacity-60">{content.address_name}</p>
               <p>{content.category_name}</p>
               <p>{content.place_url}</p>
             </div>
