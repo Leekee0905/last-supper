@@ -1,5 +1,5 @@
 import React from 'react';
-import { FiLogIn, FiLogOut, FiUserPlus, FiCalendar, FiBookmark } from 'react-icons/fi';
+import { FiLogIn, FiLogOut, FiUserPlus, FiCalendar, FiUser } from 'react-icons/fi';
 import useModalStore from '../../store/useModalStore';
 import useUserStore from '../../store/useUserStore';
 
@@ -40,8 +40,8 @@ const HamburgerItem = ({ icon, text, setIsModalOpen }) => {
         return <FiUserPlus className={getIconStyles()} />;
       case 'calculator':
         return <FiCalendar className={getIconStyles()} />;
-      case 'bookmark':
-        return <FiBookmark className={getIconStyles()} />;
+      case 'mypage':
+        return <FiUser className={getIconStyles()} />;
       default:
         return null;
     }
