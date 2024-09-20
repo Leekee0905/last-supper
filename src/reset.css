@@ -5,12 +5,9 @@
 @layer base {
 
   :root {
+    --green-color: #145803;
     --khaki-color: #A4AE9D;
     --dark-khaki-color: #536349;
-  }
-
-  * {
-    word-break: keep-all;
   }
 
   @keyframes slr {
@@ -54,7 +51,7 @@
       display: inline-block;
 
       &::after {
-        background-color: black;
+        background-color: white;
         z-index: 1;
         width: 0;
         content: "";

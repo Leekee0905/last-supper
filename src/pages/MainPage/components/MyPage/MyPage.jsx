@@ -3,7 +3,7 @@ import Profile from './Profile';
 import MyActivities from './MyActivities';
 import {
   useMyActivitiesPrefetchQuery,
-  useMyActivityRemoveMutate
+  useMyActivityUpdateMutate
 } from '../../../../hooks/queries/myActivities/myActivityQuery';
 import { FAVORITES_QUERY_KEY, REVIEWS_QUERY_KEY } from '../../../../hooks/queries/queryKeys';
 import useUserStore from '../../../../store/useUserStore';
@@ -13,31 +13,23 @@ const MY_PAGE_NAV = { profile: 'profile', favorites: 'favorites', myReviews: 'my
 const MyPage = () => {
   const { userId } = useUserStore((state) => state);
 
-  const { mutate: removeFavoriteMutate } = useMyActivityRemoveMutate(FAVORITES_QUERY_KEY);
-
-  // 즐겨찾기 삭제하는 함수
-  const removeFavorite = (logId) => {
-    if (confirm('즐겨찾기에서 삭제하시겠습니까?')) {
-      removeFavoriteMutate(logId);
-      alert('즐겨찾기에서 삭제하였습니다.');
-    } else {
-      alert('삭제를 취소하였습니다.');
-    }
-  };
+  // 리뷰 수정 뮤테이트
+  const { mutate: updateMyReviewMutate } = useMyActivityUpdateMutate(REVIEWS_QUERY_KEY);
 
   // prefetch 함수
   const prefetchMyActivities = useMyActivitiesPrefetchQuery(userId);
 
-  const [activeNav, setActiveNav] = useState(MY_PAGE_NAV.profile);
   // 사이드 네비를 클릭하면 불러올 컴포넌트
+  const [activeNav, setActiveNav] = useState(MY_PAGE_NAV.profile);
+
   const activeSideBtn = () => {
     switch (activeNav) {
       case MY_PAGE_NAV.profile:
         return <Profile />;
       case MY_PAGE_NAV.favorites:
-        return <MyActivities queryKey={FAVORITES_QUERY_KEY} removeFavorite={removeFavorite} />;
+        return <MyActivities queryKey={FAVORITES_QUERY_KEY} />;
       case MY_PAGE_NAV.myReviews:
-        return <MyActivities queryKey={REVIEWS_QUERY_KEY} />;
+        return <MyActivities queryKey={REVIEWS_QUERY_KEY} updateMyReviewMutate={updateMyReviewMutate} />;
       default:
         throw new Error('잘못된 요청을 하셨습니다.');
     }
@@ -45,7 +37,7 @@ const MyPage = () => {
 
   return (
     <>
-      <div className="flex flex-row w-[77vw] h-[70vh] mr-[3vw] ">
+      <div className="flex flex-row w-[77vw] h-[70vh] mr-[3vw]">
         <aside className="flex flex-col w-[200px] gap-6">
           <h2 className="mb-4">마이페이지</h2>
           <nav
@@ -75,7 +67,7 @@ const MyPage = () => {
             <span>내 리뷰</span>
           </nav>
         </aside>
-        <section className="flex shadow-xl bg-[#A4AE9D] flex-col gap-2 grow border rounded py-5 px-6">
+        <section className="flex shadow-xl flex-col gap-2 grow border rounded py-5 px-6 bg-white text-black">
           {activeSideBtn()}
         </section>
       </div>

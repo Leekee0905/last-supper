@@ -4,7 +4,7 @@ import { FiX } from 'react-icons/fi';
 
 ReactModal.setAppElement('#root');
 
-const Modal = ({ children, contentStyle, overlayStyle, isLoading }) => {
+const Modal = ({ children, contentStyle, isLoading }) => {
   const hasModalOpen = useModalStore((state) => state.hasOpen);
   const setHasModalOpen = useModalStore((state) => state.setHasOpen);
 
@@ -19,13 +19,13 @@ const Modal = ({ children, contentStyle, overlayStyle, isLoading }) => {
       minHeight: '80%',
       padding: '0 0 5vh 3vw',
       animation: 'slr 0.5s ease forwards',
-      backgroundColor: 'white',
+      backgroundColor: 'var(--dark-khaki-color)',
+      color: 'white',
       ...contentStyle
     },
     overlay: {
       zIndex: '50',
-      backgroundColor: 'rgba(0, 0, 0, 0.3)',
-      ...overlayStyle
+      backgroundColor: 'rgba(0, 0, 0, 0.3)'
     }
   };
 

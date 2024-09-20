@@ -1,6 +1,6 @@
 import { useQuery, useMutation, useQueryClient, keepPreviousData } from '@tanstack/react-query';
 import queryKeys from '../queryKeys';
-import { getMyActivities, removeMyActivity } from '../../../api/myActivitesApi';
+import { getMyActivities, removeMyActivity, updateMyActivity } from '../../../api/myActivitesApi';
 
 // 내 활동 데이터 불러오기
 export const useGetMyActivitiesQuery = (type, userId, page) => {
@@ -20,6 +20,17 @@ export const useMyActivityRemoveMutate = (queryKey) => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (targetId) => removeMyActivity({ queryKey, id: targetId }),
+    onSuccess: () => {
+      queryClient.invalidateQueries(queryKey);
+    }
+  });
+};
+
+// 내 활동 수정 mutation
+export const useMyActivityUpdateMutate = (queryKey) => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: ({ id, content }) => updateMyActivity({ queryKey, id, content }),
     onSuccess: () => {
       queryClient.invalidateQueries(queryKey);
     }
