@@ -12,7 +12,7 @@ export const jsonApi = axios.create({
 jsonApi.interceptors.request.use(
   (config) => config,
   (error) => {
-    console.error(error);
+    console.error('config error', error);
     alert(error.message);
     throw new Error(error.code);
   }
@@ -21,7 +21,7 @@ jsonApi.interceptors.request.use(
 jsonApi.interceptors.response.use(
   (response) => response,
   (error) => {
-    console.error(error);
+    console.error('response error', error);
     alert(error.message);
     throw new Error(error.code);
   }
