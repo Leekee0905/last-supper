@@ -1,4 +1,3 @@
-import useUserStore from '../store/useUserStore';
 import { authApi } from './apiInstance';
 
 export const register = async (userData) => {

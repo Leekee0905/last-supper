@@ -1,14 +1,21 @@
 import { useState } from 'react';
 import { IoRestaurantSharp } from 'react-icons/io5';
 import { RxDotsVertical } from 'react-icons/rx';
-import { useMyActivityRemoveMutate } from '../../../../hooks/queries/myActivities/myActivityQuery';
+import {
+  useMyActivityRemoveMutate,
+  useMyActivityUpdateMutate
+} from '../../../../hooks/queries/myActivities/myActivityQuery';
+import { REVIEWS_QUERY_KEY } from '../../../../hooks/queries/queryKeys';
 
-const MyActivityList = ({ log, mode, queryKey, updateMyReviewMutate }) => {
+const MyActivityList = ({ log, mode, queryKey }) => {
   const [edit, setEdit] = useState(false);
   const [editReview, setEditReview] = useState(false);
   const [editReviewInput, setEditReviewInput] = useState('');
 
   // const editReviewInputRef=useRef()
+
+  // 리뷰 수정 뮤테이트
+  const { mutate: updateMyReviewMutate } = useMyActivityUpdateMutate(REVIEWS_QUERY_KEY);
 
   // 리뷰 내용 수정 함수
   const handleReviewChange = (e, id) => {
@@ -38,11 +45,11 @@ const MyActivityList = ({ log, mode, queryKey, updateMyReviewMutate }) => {
     <>
       <IoRestaurantSharp className="text-2xl w-[24px]" />
       <main className="h-full grow relative">
-        <h4 className="absolute top-4">{log.storeName}</h4>
+        <h4 className="absolute top-4 truncate h-1/5 w-full">{log.storeName}</h4>
         {mode === '즐겨찾기' ? (
           <>
             <p className="absolute top-11 overflow-auto h-2/5">주소 : {log.storeAddress}</p>
-            <p className="absolute bottom-1 h-1/5 overflow-auto">
+            <p className="absolute bottom-1 h-1/5 w-full truncate">
               <small>전화번호 : {log.storePhone}</small>
             </p>
           </>
@@ -53,13 +60,13 @@ const MyActivityList = ({ log, mode, queryKey, updateMyReviewMutate }) => {
                 <textarea
                   required
                   rows="1"
-                  className="w-4/5 absolute top-12 h-1/2 resize-none rounded"
+                  className="w-full absolute top-12 h-1/2 resize-none rounded"
                   // ref={editReviewInputRef}
                   value={editReviewInput}
                   onChange={(e) => setEditReviewInput(e.target.value)}
                   onKeyDown={(e) => e.code === 'Enter' && !e.shiftKey && handleReviewChange(e, log.id)}
                 />
-                <button className="bg-[var(--dark-khaki-color)] absolute rounded right-0 bottom-7 w-1/6 h-10">
+                <button className="bg-[var(--dark-khaki-color)] absolute rounded -right-[46px] w-[42px] h-1/2 top-12">
                   확인
                 </button>
               </form>
@@ -69,7 +76,7 @@ const MyActivityList = ({ log, mode, queryKey, updateMyReviewMutate }) => {
           </>
         )}
       </main>
-      <div className="flex-col flex justify-start items-center h-full w-10 select-none">
+      <div className="flex-col flex justify-start items-center h-full w-10 select-none z-10">
         <button onClick={() => setEdit((prev) => !prev)} className="pt-4">
           <RxDotsVertical className="text-xl" />
         </button>
