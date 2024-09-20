@@ -1,12 +1,12 @@
-import { IoRestaurantSharp, IoHeartDislike } from 'react-icons/io5';
+import { IoRestaurantSharp } from 'react-icons/io5';
+import { RxDotsVertical } from 'react-icons/rx';
 import Pagination from '../../../../components/Pagination';
 import { useState } from 'react';
 import { useGetMyActivitiesQuery } from '../../../../hooks/queries/myActivities/myActivityQuery';
 import useUserStore from '../../../../store/useUserStore';
 
 const MyActivities = ({ queryKey, removeFavorite }) => {
-  // const { userId } = useUserStore((state) => state);
-  const userId = 'user123';
+  const { userId } = useUserStore((state) => state);
 
   const [page, setPage] = useState(1);
   const { data } = useGetMyActivitiesQuery(queryKey, userId, page);
@@ -21,21 +21,21 @@ const MyActivities = ({ queryKey, removeFavorite }) => {
             return (
               <li
                 key={log.id}
-                className="flex flex-row w-full items-center px-4 border rounded justify gap-3 cursor-pointer "
+                className="flex shadow-md flex-row w-full items-center pl-4 pr-3 border rounded justify gap-3"
               >
                 <IoRestaurantSharp className="text-2xl w-[24px]" />
                 <main className="grow">
                   <h4>{log.storeName}</h4>
                   <p>주소 : {log.storeAddress}</p>
                   <p>
-                    <small>전화번호 : {log.storeCall}</small>
+                    <small>전화번호 : {log.storePhone}</small>
                   </p>
                 </main>
-                {!!removeFavorite && (
-                  <button onClick={() => removeFavorite(log.id)}>
-                    <IoHeartDislike className="text-2xl hover:text-[var(--green-color)]" />
+                {
+                  <button className="pt-4 mb-auto" onClick={() => removeFavorite(log.id)}>
+                    <RxDotsVertical className="text-xl hover:text-[var(--sand-color)]" />
                   </button>
-                )}
+                }
               </li>
             );
           })
