@@ -9,7 +9,6 @@ const EventMarkerContainer = ({ position, content }) => {
     map.panTo(marker.getPosition());
     setIsOpen(true);
   };
-  console.log(content);
 
   return (
     <>

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { FiSearch } from 'react-icons/fi';
 import { useNavigate, useSearchParams } from 'react-router-dom';
+import useRestaurantsStore from '../store/useRestaurantsInfo';
 const OPTION_LIST = [
   '3사단',
   '5사단',
@@ -30,6 +31,7 @@ const AutoComplete = ({ mode }) => {
   const [searchInput, setSearchInput] = useState('');
   const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
+  const { setIsOpen } = useRestaurantsStore((state) => state);
   const handleSearch = (e) => {
     e.preventDefault();
     if (searchInput.trim() === '') return;
@@ -44,6 +46,7 @@ const AutoComplete = ({ mode }) => {
     }
     if (searchInput.trim() === '') return;
     setSearchParams({ query: searchInput });
+    setIsOpen(false);
     setFilteredOptions([]);
   };
 

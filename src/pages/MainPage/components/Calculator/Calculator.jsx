@@ -1,160 +1,122 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import Modal from '../Modal/Modal';
+import DateForm from './DateForm'; // DateForm 컴포넌트
+import RankTags from './RankTags'; // RankTags 컴포넌트
+import ProcessBar from './ProcessBar'; // ProcessBar 컴포넌트
 import { FaArrowCircleRight } from 'react-icons/fa';
-import Sidebar from './Sidebar'; // 사이드바 컴포넌트 import
+import  useCalculatorStore  from '../../../../store/useCalculatorStore'; 
 
 const serviceDurations = {
   army: 18,
   navy: 20,
   airForce: 21,
-  marines: 18
+  marines: 18,
 };
 
-const ranks = [
-  { name: '이병', duration: 2 },
-  { name: '일병', duration: 6 },
-  { name: '상병', duration: 6 },
-  { name: '병장', duration: 15 }
+const events = [
+  { date: 'null', title: '입대', message: '여기가 군대구나!! 아 힘들어. 집에 가고 싶어. 눈뜨면 집이면 좋겠다.' },
+  { date: 'null', title: '일병 진급', message: '첫 진급..신난다. 먼가 어깨에 힘이 들어가는걸?' },
+  { date: 'null', title: '상병 진급', message: '벌써 내가 이만큼 군생활을 하다니.. 시간 빨리가는구나.' },
+  { date: 'null', title: '병장 진급', message: '아무것도 하기 싫다. 이미 아무것도 하고 있지 않지만....' },
+  { date: 'null', title: '전역', message: '전역을 명 받았기에 이에 신고!! 하기도 귀찮아. 뒤도 안돌아 볼거야!' },
 ];
 
 const Calculator = () => {
-  const [branch, setBranch] = useState('army');
-  const [enlistmentDate, setEnlistmentDate] = useState('');
-  const [dischargeDate, setDischargeDate] = useState('');
-  const [currentRank, setCurrentRank] = useState('이병');
-  const [progressPercentage, setProgressPercentage] = useState(0);
-  const [rankUpgradeDates, setRankUpgradeDates] = useState({});
-  const [showSidebar, setShowSidebar] = useState(false);
+  const { branch, enlistmentDate, dischargeDate, setBranch, setEnlistmentDate, setDischargeDate } = useCalculatorStore();
+  const [currentRank, setCurrentRank] = React.useState('이병');
+  const [progress, setProgress] = React.useState(0);
 
   const calculateDischargeDate = () => {
     if (!enlistmentDate) return;
 
     const enlistment = new Date(enlistmentDate);
     const serviceMonths = serviceDurations[branch];
-    const discharge = new Date(enlistment);
 
-    discharge.setMonth(discharge.getMonth() + serviceMonths);
-    setDischargeDate(discharge.toLocaleDateString());
+    enlistment.setMonth(enlistment.getMonth() + serviceMonths);
+    setDischargeDate(enlistment.toLocaleDateString());
+  };
 
-    const now = new Date();
-    const enlistmentMonth = enlistment.getMonth() + 1;
-    const enlistmentYear = enlistment.getFullYear();
-    const monthsInService = ((now.getFullYear() - enlistmentYear) * 12 + (now.getMonth() + 1 - enlistmentMonth));
+  const ranks = [
+    { label: '이병', months: 0 },
+    { label: '일병', months: 2 },
+    { label: '상병', months: 8 },
+    { label: '병장', months: 15 },
+    { label: '전역', months: serviceDurations[branch] },
+  ];
 
-    const rankIndex = ranks.findIndex(rank => monthsInService < rank.duration);
-    setCurrentRank(rankIndex === -1 ? '병장' : ranks[rankIndex].name);
+  const calculateRankProgress = () => {
+    const today = new Date();
+    const enlistment = new Date(enlistmentDate);
+    const totalServiceMonths = serviceDurations[branch];
+    
+    const elapsedMonths = Math.floor((today - enlistment) / (1000 * 60 * 60 * 24 * 30)); // 경과 개월 수
 
-    const totalMonths = serviceMonths;
-    const progress = Math.min(((monthsInService / totalMonths) * 100), 100);
-    setProgressPercentage(progress.toFixed(1));
-
-    const upgradeDates = ranks.reduce((acc, rank, index) => {
-      if (rank.name === '이병') return acc;
-
-      const durationMonths = index === 0 ? rank.duration : ranks[index - 1].duration + rank.duration;
-      const upgradeDate = new Date(enlistment);
-      upgradeDate.setMonth(enlistment.getMonth() + durationMonths);
-      upgradeDate.setDate(1);
-      acc[rank.name] = upgradeDate.toLocaleDateString();
-      return acc;
-    }, {});
-    setRankUpgradeDates(upgradeDates);
+    let newRank = '이병';
+    for (let i = 0; i < ranks.length - 1; i++) {
+      if (elapsedMonths >= ranks[i].months && elapsedMonths < ranks[i + 1].months) {
+        newRank = ranks[i].label;
+        break;
+      }
+    }
+    setCurrentRank(newRank);
+    setProgress((elapsedMonths / totalServiceMonths) * 100);
   };
 
   useEffect(() => {
-    calculateDischargeDate();
-  }, [branch, enlistmentDate]);
+    if (enlistmentDate) {
+      calculateDischargeDate();
+      calculateRankProgress();
+    }
+  }, [enlistmentDate, branch]);
 
   return (
     <Modal>
-      <div className="p-6 max-w-md mx-auto bg-white rounded-lg shadow-lg border border-gray-200">
-        <h2 className="text-2xl font-bold mb-4 text-center">군별 전역일 계산기</h2>
+      <div className="p-4 md:p-8 bg-white rounded-lg shadow-lg max-w-full md:max-w-7xl mx-auto">
+        <h2 className="text-2xl md:text-3xl font-bold mb-6 text-center text-gray-800">군별 전역일 계산기</h2>
 
-        <div className="mb-4">
-          <label className="block mb-2 text-sm font-medium text-gray-700">
-            군 선택:
-            <select
-              value={branch}
-              onChange={(e) => setBranch(e.target.value)}
-              className="mt-1 block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-            >
-              <option value="army">육군</option>
-              <option value="navy">해군</option>
-              <option value="airForce">공군</option>
-              <option value="marines">해병대</option>
-            </select>
-          </label>
-        </div>
+        {/* DateForm 컴포넌트 */}
+        <DateForm
+          branch={branch}
+          setBranch={setBranch}
+          enlistmentDate={enlistmentDate}
+          setEnlistmentDate={setEnlistmentDate}
+          calculateDischargeDate={calculateDischargeDate}
+        />
 
-        <div className="mb-4">
-          <label className="block mb-2 text-sm font-medium text-gray-700">
-            입대 날짜:
-            <input
-              type="date"
-              value={enlistmentDate}
-              onChange={(e) => setEnlistmentDate(e.target.value)}
-              className="mt-1 block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-            />
-          </label>
-        </div>
-
-        <button
-          onClick={calculateDischargeDate}
-          className="w-full px-4 py-2 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
-        >
-          전역일 계산
-        </button>
-
+        {/* 전역일 결과 */}
         {dischargeDate && (
-          <div className="mt-6">
-            <h3 className="text-lg font-semibold">전역일: {dischargeDate}</h3>
-            <h3 className="text-lg font-semibold mt-2">현재 계급: {currentRank}</h3>
-            <div className="mt-4">
-              <h4 className="text-md font-semibold">계급 진급 시점:</h4>
-              <ul className="list-disc pl-5 mt-2">
-                {Object.keys(rankUpgradeDates).map(rank => (
-                  <li key={rank}>
-                    <span className="font-medium">{rank}:</span> {rankUpgradeDates[rank]}
-                  </li>
-                ))}
-              </ul>
-            </div>
+          <div className="mt-8 text-center">
+            <h3 className="text-xl md:text-2xl font-semibold text-gray-700">
+              전역일: <span className="text-blue-600">{dischargeDate}</span>
+            </h3>
           </div>
         )}
 
-        <div className="relative mt-6 h-4 bg-gray-200 rounded-full">
-          <div
-            className="absolute top-0 left-0 h-full bg-blue-500 rounded-full"
-            style={{ width: `${progressPercentage}%` }}
-          >
-          </div>
-          <div className="absolute inset-0 flex items-center justify-center text-white font-semibold">
-            {progressPercentage}%
-          </div>
+        {/* RankTags 및 ProcessBar 컴포넌트 */}
+        <div className="mt-8">
+          <RankTags rank={currentRank} enlistmentDate={enlistmentDate} branch={branch} />
+          <ProcessBar progress={progress} />
         </div>
 
-        <div className="mt-6 flex justify-between">
-          {ranks.map((rank) => (
-            <span
-              key={rank.name}
-              className={`px-3 py-1 rounded-full text-sm font-medium ${currentRank === rank.name ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-700'}`}
-            >
-              {rank.name}
-            </span>
-          ))}
-        </div>
-
-        <div className="relative mt-6 flex justify-center">
-          <button
-            onClick={() => setShowSidebar(!showSidebar)}
-            className="p-3 bg-blue-500 text-white rounded-full shadow-lg hover:bg-blue-600 focus:outline-none"
-          >
-            <FaArrowCircleRight size={30} />
-          </button>
+        {/* 연혁 표시 (군 복무 일정) */}
+        <div className="mt-10">
+          <h3 className="text-lg md:text-xl font-bold mb-4 text-gray-700">군 복무 일정</h3>
+          <ul className="space-y-6 max-h-96 md:max-h-120 overflow-y-auto border-t border-gray-200 pt-4">
+            {events.map(({ date, title, message }) => (
+              <li key={title} className="border-b border-gray-200 pb-4">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <h4 className="text-md md:text-lg font-semibold text-gray-700">{date}</h4>
+                    <p className="text-sm md:text-md font-semibold mt-1 text-blue-500">{title}</p>
+                    <p className="text-gray-600 mt-2">{message}</p>
+                  </div>
+                  <FaArrowCircleRight className="text-blue-500" size={24} />
+                </div>
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
-
-      <Sidebar showSidebar={showSidebar} onClose={() => setShowSidebar(false)} />
     </Modal>
   );
 };

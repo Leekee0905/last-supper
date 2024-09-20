@@ -1,6 +1,6 @@
 import { useQuery, useMutation, useQueryClient, keepPreviousData } from '@tanstack/react-query';
 import queryKeys from '../queryKeys';
-import { getMyActivities, removeMyActivity } from '../../../api/MyActivitesApi';
+import { getMyActivities, removeMyActivity } from '../../../api/myActivitesApi';
 
 // 내 활동 데이터 불러오기
 export const useGetMyActivitiesQuery = (type, userId, page) => {

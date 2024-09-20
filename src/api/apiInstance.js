@@ -5,9 +5,25 @@ export const authApi = axios.create({
 });
 
 export const restaurantsApi = axios.create({
-  baseURL: 'http://localhost:5000'
+  baseURL: 'http://localhost:4000'
 });
 
 export const jsonApi = axios.create({
   baseURL: 'http://localhost:4000'
 });
+
+jsonApi.interceptors.request.use(
+  (config) => config,
+  (error) => {
+    console.error(error);
+    throw new Error(error.message);
+  }
+);
+
+jsonApi.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    console.error(error);
+    throw new Error(error.message);
+  }
+);

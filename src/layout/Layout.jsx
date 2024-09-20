@@ -10,12 +10,15 @@ import { useHasTokenAuthenticatedQuery } from '../hooks/queries/auth/useHasToken
 import useUserStore from '../store/useUserStore';
 import MyPage from '../pages/MainPage/components/MyPage/MyPage';
 import SignupModal from '../pages/MainPage/components/Signup/SignupModal';
+import DetailModal from '../pages/MainPage/components/Detail/DetailModal';
+import useRestaurantsStore from '../store/useRestaurantsInfo';
 
 const Layout = () => {
   const modalType = useModalStore((state) => state.modalType);
   const [hasModalOpen, setIsModalOpen] = useState(false);
   const setHasAuthenticated = useUserStore((state) => state.setHasAuthenticated);
-
+  const [detailInfo, setDetailInfo] = useState([]);
+  const { isOpen, setIsOpen } = useRestaurantsStore((state) => state);
   const { data: hasAuthenticated, isPending, isError, error } = useHasTokenAuthenticatedQuery();
 
   const toggleModal = () => {
@@ -50,11 +53,12 @@ const Layout = () => {
   return (
     <div className="relative flex min-h-screen">
       <Modal>{renderModalType()}</Modal>
-      <Sidebar toggleModal={toggleModal} />
+      <Sidebar toggleModal={toggleModal} setDetailInfo={setDetailInfo} />
       <HamburgerMenu hasModalOpen={hasModalOpen} toggleModal={toggleModal} setIsModalOpen={setIsModalOpen} />
       <main className="flex-1 bg-gray-50 ml-[400px]">
         <Outlet />
       </main>
+      {isOpen ? <DetailModal detailInfo={detailInfo} /> : ''}
     </div>
   );
 };
