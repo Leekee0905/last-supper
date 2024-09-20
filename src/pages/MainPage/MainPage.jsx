@@ -13,6 +13,7 @@ const MainPage = () => {
   const setRestaurants = useRestaurantsStore((state) => state.setInfo);
 
   const places = new window.kakao.maps.services.Places();
+
   const getPlacesPositionForMarkers = (data) => {
     let temp = [];
     for (let i = 0; i < data.length; i++) {
@@ -35,10 +36,11 @@ const MainPage = () => {
   const keywordSearch = () => {
     if (!map) return;
     places.keywordSearch(campSearchWordConverter(paramId), (data, status, _pagination) => {
+
       if (status === window.kakao.maps.services.Status.OK) {
         const bounds = new window.kakao.maps.LatLngBounds();
         let markers = [];
-        for (var i = 0; i < data.length; i++) {
+        for (let i = 0; i < data.length; i++) {
           markers.push({
             position: {
               lat: data[i].y,
@@ -59,6 +61,7 @@ const MainPage = () => {
   useEffect(() => {
     keywordSearch();
   }, [paramId, map]);
+
   return (
     <Map
       center={{

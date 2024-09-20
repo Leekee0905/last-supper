@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { jsonApi } from './apiInstance';
 
 // 즐겨찾기 추가나 리뷰를 작성한 가게들 불러오기
@@ -16,12 +17,33 @@ export const getMyActivities = async ({ queryKey, signal }) => {
   return data;
 };
 
+// 리뷰 및 즐겨찾기 조회 api
+export const getMyActivity = async (queryKey) => {
+  const res = await jsonApi.get(`/${queryKey}`);
+  return res.data;
+};
+
 // 즐겨찾기, 리뷰 추가 api
-export const addMyActivity = async (queryKey, resultData) => {
-  await jsonApi.post(`/${queryKey}/${resultData}`);
+export const addMyActivity = async ({ queryKey, post }) => {
+  await jsonApi.post(`/${queryKey}`, post);
+};
+
+// 리뷰 수정 api
+export const updateMyActivity = async ({ queryKey, id, content }) => {
+  await jsonApi.patch(`${queryKey}/${id}`, {
+    review: content
+  });
+};
+
+// 즐겨찾기 수정 api
+export const updateFavorite = async ({ id, content }) => {
+  const response = await jsonApi.patch(`/favorites/${id}`, {
+    favorite: content
+  });
+  return response.data;
 };
 
 // 즐겨찾기, 리뷰 삭제 api
-export const removeMyActivity = async (queryKey, id) => {
+export const removeMyActivity = async ({ queryKey, id }) => {
   await jsonApi.delete(`/${queryKey}/${id}`);
 };

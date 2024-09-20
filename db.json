@@ -1,101 +1,186 @@
 {
   "favorites": [
     {
-      "id": "23",
-      "userId": "user123",
-      "storeId": "store456",
-      "storeName": "abc",
-      "storeAddress": "korea",
-      "storeCall": 123
+      "id": "1986",
+      "userId": "789789",
+      "nickName": "qwe789",
+      "storeId": "1908212125",
+      "storeName": "푸드하우스",
+      "storeAddress": "강원특별자치도 철원군 서면 자등리 418-4",
+      "storePhone": "",
+      "favorite": true
     },
     {
-      "userId": "user1234",
-      "storeId": "store456",
-      "storeName": "def",
-      "storeAddress": "korea",
-      "storeCall": 123,
-      "id": "43c5"
+      "id": "de24",
+      "userId": "789789",
+      "nickName": "qwe789",
+      "storeId": "20199337",
+      "storeName": "자연가든",
+      "storeAddress": "강원특별자치도 철원군 서면 자등리 255-4",
+      "storePhone": "",
+      "favorite": true
     },
     {
-      "id": "22",
-      "userId": "user123",
-      "storeId": "store789",
-      "storeName": "def",
-      "storeAddress": "jejudo",
-      "storeCall": 123
+      "id": "fd41",
+      "userId": "789789",
+      "nickName": "qwe789",
+      "storeId": "26328852",
+      "storeName": "송동골손두부",
+      "storeAddress": "강원특별자치도 철원군 서면 자등리 377-9",
+      "storePhone": "033-456-0964",
+      "favorite": true
     },
     {
-      "id": "21",
-      "userId": "user123",
-      "storeId": "store789",
-      "storeName": "def",
-      "storeAddress": "jejudo",
-      "storeCall": 123
+      "id": "9617",
+      "userId": "789789",
+      "nickName": "qwe789",
+      "storeId": "17150172",
+      "storeName": "석경 본점",
+      "storeAddress": "대구 북구 학정동 935-8",
+      "storePhone": "053-321-0415",
+      "favorite": true
     },
     {
-      "id": "24",
-      "userId": "user123",
-      "storeId": "store789",
-      "storeName": "def",
-      "storeAddress": "jejudo",
-      "storeCall": 123
-    },
-    {
-      "id": "25",
-      "userId": "user123",
-      "storeId": "store789",
-      "storeName": "def",
-      "storeAddress": "jejudo",
-      "storeCall": 123
-    },
-    {
-      "id": "26",
-      "userId": "user123",
-      "storeId": "store789",
-      "storeName": "def",
-      "storeAddress": "jejudo",
-      "storeCall": 123
-    },
-    {
-      "id": "27",
-      "userId": "user123",
-      "storeId": "store789",
-      "storeName": "def",
-      "storeAddress": "jejudo",
-      "storeCall": 123
-    },
-    {
-      "id": "28",
-      "userId": "user123",
-      "storeId": "store789",
-      "storeName": "def",
-      "storeAddress": "jejudo",
-      "storeCall": 123
-    },
-    {
-      "id": "30",
-      "userId": "user123",
-      "storeId": "store789",
-      "storeName": "def",
-      "storeAddress": "jejudo",
-      "storeCall": 123
-    },
-    {
-      "id": "32",
-      "userId": "user123",
-      "storeId": "store789",
-      "storeName": "def",
-      "storeAddress": "jejudo",
-      "storeCall": 123
-    },
-    {
-      "id": "34",
-      "userId": "user123",
-      "storeId": "store789",
-      "storeName": "def",
-      "storeAddress": "jejudo",
-      "storeCall": 123
+      "id": "102f",
+      "userId": "hee6968",
+      "nickName": "SHB",
+      "storeId": "26328852",
+      "storeName": "송동골손두부",
+      "storeAddress": "강원특별자치도 철원군 서면 자등리 377-9",
+      "storePhone": "033-456-0964",
+      "favorite": true
     }
   ],
-  "reviews": []
+  "reviews": [
+    {
+      "userId": "user12",
+      "storeId": "fgngf",
+      "storeName": "abc",
+      "storeAddress": "korea",
+      "storeCall": 123,
+      "id": "9e89"
+    },
+    {
+      "id": "cac43766-3b06-49ed-88ba-7171760d810a",
+      "userId": "hee6968",
+      "nickName": "SHB",
+      "storeId": "20199337",
+      "storeName": "자연가든",
+      "storeAddress": "강원특별자치도 철원군 서면 자등리 255-4",
+      "storePhone": "",
+      "review": "자연가든 테스트",
+      "date": "2024. 9. 19. 오후 2:04:27"
+    },
+    {
+      "id": "8a540fc5-a32e-4dc9-8d34-54badb9f7f48",
+      "userId": "hee6968",
+      "nickName": "SHB",
+      "storeId": "1908212125",
+      "storeName": "푸드하우스",
+      "storeAddress": "강원특별자치도 철원군 서면 자등리 418-4",
+      "storePhone": "",
+      "review": "푸드하우스 테스트",
+      "date": "2024. 9. 19. 오후 2:04:32"
+    },
+    {
+      "id": "ed8c2662-0e4f-40c9-8aba-f3063680b26f",
+      "userId": "hee6968",
+      "nickName": "SHB",
+      "storeId": "26328852",
+      "storeName": "송동골손두부",
+      "storeAddress": "강원특별자치도 철원군 서면 자등리 377-9",
+      "storePhone": "033-456-0964",
+      "review": "송동골손두부 수정",
+      "date": "2024. 9. 19. 오후 2:04:39"
+    },
+    {
+      "id": "1a1d631a-4aa4-4886-abf9-790e18783571",
+      "userId": "hee6968",
+      "nickName": "SHB",
+      "storeId": "17150172",
+      "storeName": "석경 본점",
+      "storeAddress": "대구 북구 학정동 935-8",
+      "storePhone": "053-321-0415",
+      "review": "석경 본점 수정 테스트1",
+      "date": "2024. 9. 19. 오후 2:35:01"
+    },
+    {
+      "id": "12a289bf-2750-45f9-822c-6b95d055b105",
+      "userId": "hee6968",
+      "nickName": "SHB",
+      "storeId": "26929960",
+      "storeName": "돌수산",
+      "storeAddress": "대구 북구 학정동 941-2",
+      "storePhone": "053-322-8847",
+      "review": "돌수산 테스트",
+      "date": "2024. 9. 19. 오후 2:35:05"
+    },
+    {
+      "id": "293a0fdb-b027-4696-88dc-ab3865166a4d",
+      "userId": "hee6968",
+      "nickName": "SHB",
+      "storeId": "11985970",
+      "storeName": "강원도집 칠곡점",
+      "storeAddress": "대구 북구 학정동 282-13",
+      "storePhone": "053-312-7828",
+      "review": "강원도집 테스트",
+      "date": "2024. 9. 19. 오후 2:35:13"
+    },
+    {
+      "id": "89a1cc26-eed8-4184-8c6b-378f329073e4",
+      "userId": "hee6968",
+      "nickName": "SHB",
+      "storeId": "324438786",
+      "storeName": "만복이쭈꾸미낙지볶음 칠곡점",
+      "storeAddress": "대구 북구 학정동 922-2",
+      "storePhone": "053-311-5577",
+      "review": "희범이쭈꾸미낙지볶음 칠곡점 테스트",
+      "date": "2024. 9. 19. 오후 3:01:28",
+      "favorite": false
+    },
+    {
+      "id": "2bc9",
+      "userId": "hee6968",
+      "nickName": "SHB",
+      "storeId": "11985970",
+      "storeName": "강원도집 칠곡점",
+      "storeAddress": "대구 북구 학정동 282-13",
+      "storePhone": "053-312-7828",
+      "review": "어라?",
+      "date": "2024. 9. 19. 오후 8:15:30"
+    },
+    {
+      "id": "c1ba",
+      "userId": "hee6968",
+      "nickName": "SHB",
+      "storeId": "11985970",
+      "storeName": "강원도집 칠곡점",
+      "storeAddress": "대구 북구 학정동 282-13",
+      "storePhone": "053-312-7828",
+      "review": "ㅋ",
+      "date": "2024. 9. 19. 오후 8:15:31"
+    },
+    {
+      "id": "346e",
+      "userId": "789789",
+      "nickName": "qwe789",
+      "storeId": "17150172",
+      "storeName": "석경 본점",
+      "storeAddress": "대구 북구 학정동 935-8",
+      "storePhone": "053-321-0415",
+      "review": "hi",
+      "date": "2024. 9. 19. 오후 8:29:44"
+    },
+    {
+      "id": "ebbc",
+      "userId": "789789",
+      "nickName": "qwe789",
+      "storeId": "26328852",
+      "storeName": "송동골손두부",
+      "storeAddress": "강원특별자치도 철원군 서면 자등리 377-9",
+      "storePhone": "033-456-0964",
+      "review": "ㅜㅜ",
+      "date": "2024. 9. 19. 오후 8:43:37"
+    }
+  ]
 }

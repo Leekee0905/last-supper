@@ -10,6 +10,8 @@ import { useHasTokenAuthenticatedQuery } from '../hooks/queries/auth/useHasToken
 import useUserStore from '../store/useUserStore';
 import MyPage from '../pages/MainPage/components/MyPage/MyPage';
 import SignupModal from '../pages/MainPage/components/Signup/SignupModal';
+import DetailModal from '../pages/MainPage/components/Detail/DetailModal';
+import useRestaurantsStore from '../store/useRestaurantsInfo';
 
 const Layout = () => {
   const modalType = useModalStore((state) => state.modalType);
@@ -17,7 +19,8 @@ const Layout = () => {
   const [searchInput, setSearchInput] = useState('');
   const [searchParams, setSearchParams] = useSearchParams();
   const setHasAuthenticated = useUserStore((state) => state.setHasAuthenticated);
-
+  const [detailInfo, setDetailInfo] = useState([]);
+  const { isOpen, setIsOpen } = useRestaurantsStore((state) => state);
   const { data: hasAuthenticated, isPending, isError, error } = useHasTokenAuthenticatedQuery();
 
   const toggleModal = () => {
@@ -29,6 +32,7 @@ const Layout = () => {
     if (searchInput.trim() === '') return;
 
     setSearchParams({ query: searchInput });
+    setIsOpen(false);
   };
 
   const renderModalType = () => {
@@ -50,6 +54,10 @@ const Layout = () => {
     setHasAuthenticated(false);
   };
 
+  const restaurantInfo = (el) => {
+    setDetailInfo(el);
+  };
+
   useEffect(() => {
     if (isError) {
       resetTokenAuthenticatedAndUserInfo();
@@ -65,12 +73,14 @@ const Layout = () => {
         handleSearch={handleSearch}
         searchInput={searchInput}
         setSearchInput={setSearchInput}
+        restaurantInfo={restaurantInfo}
       />
 
       <HamburgerMenu hasModalOpen={hasModalOpen} toggleModal={toggleModal} setIsModalOpen={setIsModalOpen} />
       <main className="flex-1 bg-gray-50 ml-[400px]">
         <Outlet />
       </main>
+      {isOpen ? <DetailModal detailInfo={detailInfo} /> : ''}
     </div>
   );
 };
