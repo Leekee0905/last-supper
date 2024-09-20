@@ -1,10 +1,12 @@
-import create from 'zustand';
+import {create} from 'zustand';
 
-export const useCalculatorStore = create((set) => ({
-  branch: 'army',
+const useCalculatorStore = create((set) => ({
   enlistmentDate: '',
-  dischargeDate: '',
-  setBranch: (branch) => set({ branch }),
   setEnlistmentDate: (date) => set({ enlistmentDate: date }),
+  branch: 'army',
+  setBranch: (branch) => set({ branch }),
+  dischargeDate: '',
   setDischargeDate: (date) => set({ dischargeDate: date }),
 }));
+
+export default useCalculatorStore;

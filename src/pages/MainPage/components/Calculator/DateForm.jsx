@@ -1,5 +1,5 @@
 import React from 'react';
-import { useCalculatorStore } from '../../../../store/useCalculatorStore'; 
+import useCalculatorStore from '../../../../store/useCalculatorStore';
 
 const DateForm = ({ calculateDischargeDate }) => {
   const { branch, setBranch, enlistmentDate, setEnlistmentDate } = useCalculatorStore();

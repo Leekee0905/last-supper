@@ -4,7 +4,7 @@ import DateForm from './DateForm'; // DateForm 컴포넌트
 import RankTags from './RankTags'; // RankTags 컴포넌트
 import ProcessBar from './ProcessBar'; // ProcessBar 컴포넌트
 import { FaArrowCircleRight } from 'react-icons/fa';
-import { useCalculatorStore } from '../../../../store/useCalculatorStore'; 
+import  useCalculatorStore  from '../../../../store/useCalculatorStore'; 
 
 const serviceDurations = {
   army: 18,
