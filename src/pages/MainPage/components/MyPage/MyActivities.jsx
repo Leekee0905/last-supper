@@ -9,28 +9,8 @@ const MyActivities = ({ queryKey, removeFavorite }) => {
   const userId = 'user123';
 
   const [page, setPage] = useState(1);
-  const { data, isError } = useGetMyActivitiesQuery(queryKey, userId, page);
+  const { data } = useGetMyActivitiesQuery(queryKey, userId, page);
   const { data: activityLogs, totalPages } = data;
-
-  const onClickPage = (selected) => {
-    if (page === selected) return;
-    if (typeof selected === 'number') {
-      setPage(selected);
-      return;
-    }
-    if (selected === 'prev' && page > 1) {
-      setPage((prev) => prev - 1);
-      return;
-    }
-    if (selected === 'next' && page < totalPages) {
-      setPage((prev) => prev + 1);
-      return;
-    }
-  };
-
-  if (isError) {
-    return <p className={guideStyle}>오류가 발생했습니다.</p>;
-  }
 
   return (
     <>
@@ -64,7 +44,7 @@ const MyActivities = ({ queryKey, removeFavorite }) => {
         )}
       </ol>
       <div className="h-6">
-        {!!activityLogs?.length && <Pagination currentPage={page} totalPages={totalPages} onClick={onClickPage} />}
+        {!!activityLogs?.length && <Pagination currentPage={page} totalPages={totalPages} setPage={setPage} />}
       </div>
     </>
   );
