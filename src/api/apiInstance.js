@@ -7,7 +7,7 @@ export const authApi = axios.create({
 // https://available-garnet-quince.glitch.me
 // https://dull-merciful-curve.glitch.me
 export const jsonApi = axios.create({
-  baseURL: 'http://localhost:4000'
+  baseURL: 'https://dull-merciful-curve.glitch.me'
 });
 
 jsonApi.interceptors.request.use(

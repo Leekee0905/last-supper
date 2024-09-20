@@ -323,7 +323,7 @@
 
   .loading {
     border: 2px solid transparent;
-    border-color: transparent #fff transparent #FFF;
+    border-color: transparent #FFF transparent #FFF;
     -moz-animation: rotate-loading 1.5s linear 0s infinite normal;
     -moz-transform-origin: 50% 50%;
     -o-animation: rotate-loading 1.5s linear 0s infinite normal;
@@ -335,7 +335,7 @@
   }
 
   .loading-container:hover .loading {
-    border-color: transparent var(--dark-khaki-color) transparent var(--dark-khaki-color);
+    border-color: transparent var(--khaki-color) transparent var(--khaki-color);
   }
 
   .loading-container:hover .loading,

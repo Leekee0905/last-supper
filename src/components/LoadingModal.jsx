@@ -18,5 +18,5 @@ const suspenseContent = {
   minHeight: '0',
   width: '30%',
   height: '30%',
-  backgroundColor: 'var(--khaki-color)',
+  // backgroundColor: 'var(--khaki-color)',
 };
