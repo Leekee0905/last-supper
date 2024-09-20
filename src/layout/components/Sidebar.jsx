@@ -1,5 +1,3 @@
-import axios from 'axios';
-import { useEffect, useState } from 'react';
 import { FiMenu, FiSearch } from 'react-icons/fi';
 import useRestaurantsStore from '../../store/useRestaurantsInfo';
 import DetailModal from '../../pages/MainPage/components/Detail/DetailModal';
@@ -67,16 +65,5 @@ const SidebarHeader = ({ toggleModal, handleSearch, searchInput, setSearchInput 
     </div>
   </div>
 );
-
-// const SidebarContent = () => (
-//   <div className="p-4 space-y-4 overflow-y-auto h-[calc(100vh-72px)]">
-//     {Array.from({ length: 30 }, (_, index) => (
-//       <div key={index} className="p-4 bg-white shadow-md rounded-md">
-//         <h2 className="text-lg font-semibold">콘텐츠 {index + 1}</h2>
-//         <p>이곳에 내용이 들어갑니다. 여기에 실제 콘텐츠를 추가할 수 있습니다.</p>
-//       </div>
-//     ))}
-//   </div>
-// );
 
 export default Sidebar;

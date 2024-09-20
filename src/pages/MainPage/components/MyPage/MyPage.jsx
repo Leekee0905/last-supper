@@ -62,7 +62,7 @@ const MyPage = () => {
             onClick={() => {
               setActiveNav(MY_PAGE_NAV.favorites);
             }}
-            onMouseOver={() => prefetchMyActivities(FAVORITES_QUERY_KEY)}
+            onMouseEnter={() => prefetchMyActivities(FAVORITES_QUERY_KEY)}
           >
             <span>즐겨찾기</span>
           </nav>
@@ -71,12 +71,12 @@ const MyPage = () => {
             onClick={() => {
               setActiveNav(MY_PAGE_NAV.myReviews);
             }}
-            onMouseOver={() => prefetchMyActivities(REVIEWS_QUERY_KEY)}
+            onMouseEnter={() => prefetchMyActivities(REVIEWS_QUERY_KEY)}
           >
             <span>내 리뷰</span>
           </nav>
         </aside>
-        <section className="flex flex-col gap-2 grow border rounded py-5 px-6 ]">{activeSideBtn()}</section>
+        <section className="flex flex-col gap-2 grow border rounded py-5 px-6">{activeSideBtn()}</section>
       </div>
     </>
   );

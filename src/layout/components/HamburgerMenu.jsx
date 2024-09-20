@@ -5,7 +5,7 @@ import useUserStore from '../../store/useUserStore';
 const HamburgerMenu = ({ hasModalOpen, toggleModal, setIsModalOpen }) => {
   return (
     <>
-      {hasModalOpen && <div className="fixed inset-0 bg-black bg-opacity-40"></div>}
+      {hasModalOpen && <div className="fixed inset-0 bg-black bg-opacity-40 z-40"></div>}
 
       <div
         className={`fixed top-0 left-0 h-full w-[320px] bg-gray-100 shadow-md transform ${
