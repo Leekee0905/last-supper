@@ -14,21 +14,12 @@ import SignupModal from '../pages/MainPage/components/Signup/SignupModal';
 const Layout = () => {
   const modalType = useModalStore((state) => state.modalType);
   const [hasModalOpen, setIsModalOpen] = useState(false);
-  const [searchInput, setSearchInput] = useState('');
-  const [searchParams, setSearchParams] = useSearchParams();
   const setHasAuthenticated = useUserStore((state) => state.setHasAuthenticated);
 
   const { data: hasAuthenticated, isPending, isError, error } = useHasTokenAuthenticatedQuery();
 
   const toggleModal = () => {
     setIsModalOpen(!hasModalOpen);
-  };
-
-  const handleSearch = (e) => {
-    e.preventDefault();
-    if (searchInput.trim() === '') return;
-
-    setSearchParams({ query: searchInput });
   };
 
   const renderModalType = () => {
@@ -59,14 +50,7 @@ const Layout = () => {
   return (
     <div className="relative flex min-h-screen">
       <Modal>{renderModalType()}</Modal>
-
-      <Sidebar
-        toggleModal={toggleModal}
-        handleSearch={handleSearch}
-        searchInput={searchInput}
-        setSearchInput={setSearchInput}
-      />
-
+      <Sidebar toggleModal={toggleModal} />
       <HamburgerMenu hasModalOpen={hasModalOpen} toggleModal={toggleModal} setIsModalOpen={setIsModalOpen} />
       <main className="flex-1 bg-gray-50 ml-[400px]">
         <Outlet />
