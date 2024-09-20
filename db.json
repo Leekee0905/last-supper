@@ -1,16 +1,6 @@
 {
   "favorites": [
     {
-      "id": "6e9a",
-      "userId": "dnjsqls!",
-      "nickName": "가방",
-      "storeId": "26328852",
-      "storeName": "송동골손두부",
-      "storeAddress": "강원특별자치도 철원군 서면 자등리 377-9",
-      "storePhone": "033-456-0964",
-      "favorite": true
-    },
-    {
       "id": "ffaa",
       "userId": "dnjsqls!",
       "nickName": "가방",
@@ -30,7 +20,7 @@
       "storeName": "송동골손두부",
       "storeAddress": "강원특별자치도 철원군 서면 자등리 377-9",
       "storePhone": "033-456-0964",
-      "review": "수정\nadsfsafsaffa\n\n\n\ndfdsafasfaf",
+      "review": "수정\nadsfsafsaffadfa\n\n\n\ndfdsafasfaf",
       "date": "2024. 9. 20. 오후 5:37:56"
     }
   ]

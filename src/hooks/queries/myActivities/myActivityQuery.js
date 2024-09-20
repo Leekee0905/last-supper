@@ -11,7 +11,8 @@ export const useGetMyActivitiesQuery = (type, userId, page) => {
       return { data, totalPages };
     },
     placeholderData: keepPreviousData,
-    suspense: true
+    suspense: true,
+    onError: (error) => alert(error.response.data.message)
   });
 };
 
@@ -22,7 +23,8 @@ export const useMyActivityRemoveMutate = (queryKey) => {
     mutationFn: (targetId) => removeMyActivity({ queryKey, id: targetId }),
     onSuccess: () => {
       queryClient.invalidateQueries(queryKey);
-    }
+    },
+    onError: (error) => alert(error.response.data.message)
   });
 };
 
@@ -33,7 +35,8 @@ export const useMyActivityUpdateMutate = (queryKey) => {
     mutationFn: ({ id, content }) => updateMyActivity({ queryKey, id, content }),
     onSuccess: () => {
       queryClient.invalidateQueries(queryKey);
-    }
+    },
+    onError: (error) => alert(error.response.data.message)
   });
 };
 
@@ -44,7 +47,8 @@ export const useMyActivitiesPrefetchQuery = (userId) => {
   const prefetchMyActivities = async (queryKey) => {
     await queryClient.prefetchQuery({
       queryKey: queryKeys.boardController.MyActivity(queryKey, userId, 1),
-      queryFn: getMyActivities
+      queryFn: getMyActivities,
+      onError: (error) => alert(error.response.data.message)
     });
   };
 

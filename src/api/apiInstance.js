@@ -6,14 +6,15 @@ export const authApi = axios.create({
 
 //https://dull-merciful-curve.glitch.me
 export const jsonApi = axios.create({
-  baseURL: 'http://localhost:4000'
+  baseURL: 'http://localhost:4001'
 });
 
 jsonApi.interceptors.request.use(
   (config) => config,
   (error) => {
     console.error(error);
-    throw new Error(error.message);
+    alert(error.message);
+    throw new Error(error.code);
   }
 );
 
@@ -21,6 +22,7 @@ jsonApi.interceptors.response.use(
   (response) => response,
   (error) => {
     console.error(error);
-    throw new Error(error.message);
+    alert(error.message);
+    throw new Error(error.code);
   }
 );
