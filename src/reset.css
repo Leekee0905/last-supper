@@ -3,9 +3,7 @@
 @tailwind utilities;
 
 @layer base {
-
   :root {
-    --green-color: #145803;
     --khaki-color: #A4AE9D;
     --dark-khaki-color: #536349;
   }
@@ -54,13 +52,13 @@
         background-color: white;
         z-index: 1;
         width: 0;
-        content: "";
+        content: '';
         height: 1px;
         position: absolute;
         left: 50%;
         bottom: 0;
         transform: translateX(-50%);
-        transition: all .5s ease
+        transition: all 0.5s ease;
       }
     }
 
@@ -89,7 +87,7 @@
   }
 
   .active-page {
-    color: var(--green-color);
+    color: var(--khaki-color-color);
     text-decoration: underline;
     font-weight: 700;
   }

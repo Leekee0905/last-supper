@@ -96,9 +96,7 @@ const AuthForm = ({ mode }) => {
           )}
           <button
             type="submit"
-            className={`flex justify-center items-center border-2 w-full h-[65px] ${
-              mode === 'login' ? 'bg-[#144e04] text-white' : 'bg-[#f9e593] text-black'
-            } lg:text-2xl md:text-base sm:text-sm`}
+            className={`flex justify-center items-center border-2 w-full h-[65px] bg-[--dark-khaki-color] text-white lg:text-2xl md:text-base sm:text-sm`}
           >
             {mode === 'login' ? '로그인' : '회원가입'}
           </button>
@@ -106,14 +104,14 @@ const AuthForm = ({ mode }) => {
         {mode === 'signup' ? (
           <span className="text-sm my-5">
             이미 계정이 있으신가요?{' '}
-            <span className="text-[#144e04] font-bold cursor-pointer" onClick={() => setModalType('login')}>
+            <span className="text-[--dark-khaki-color] font-bold cursor-pointer" onClick={() => setModalType('login')}>
               로그인
             </span>
           </span>
         ) : (
           <span className="text-sm mb-5">
             계정이 없으신가요?{' '}
-            <span className="text-[#144e04] font-bold cursor-pointer" onClick={() => setModalType('signup')}>
+            <span className="text-[--dark-khaki-color] font-bold cursor-pointer" onClick={() => setModalType('signup')}>
               회원가입
             </span>
           </span>
