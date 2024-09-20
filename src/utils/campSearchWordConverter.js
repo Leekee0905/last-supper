@@ -11,7 +11,7 @@ export const campSearchWordConverter = (paramId) => {
     case '12사단':
       return '12사단 신병교육대';
     case '15사단':
-      return '15사단 신병교육대';
+      return '강원특별자치도 화천군 사내면 사내로 11';
     case '21사단':
       return '21사단 신병교육대';
     case '28사단':
@@ -38,11 +38,11 @@ export const campSearchWordConverter = (paramId) => {
       return '육군훈련소';
     case '해병대':
       return '해병대 신병교육대';
-    case '해군':
+    case '해군교육사령부':
       return '창원 진해루';
     case '공군교육사령부':
       return '공군교육사령부';
     default:
-      return '기타 훈련소'; // 예외처리: 매핑되지 않은 값에 대한 기본 반환값
+      return;
   }
 };
