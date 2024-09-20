@@ -73,13 +73,7 @@ const MainPage = () => {
       onCreate={setMap}
     >
       {markers.map((marker) => {
-        return (
-          <EventMarkerContainer
-            key={marker.id}
-            position={{ lat: marker.y, lng: marker.x }}
-            content={marker.place_name}
-          />
-        );
+        return <EventMarkerContainer key={marker.id} position={{ lat: marker.y, lng: marker.x }} content={marker} />;
       })}
     </Map>
   );
