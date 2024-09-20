@@ -23,8 +23,8 @@ const MyActivities = ({ queryKey }) => {
                 key={log.id}
                 className="flex shadow-md flex-row w-full items-center pl-4 rounded justify gap-3 bg-[var(--khaki-color)] break-all"
               >
-                <MyActivityList log={log} mode={mode} queryKey={queryKey} updateMyReviewMutate={updateMyReviewMutate} />
-              </>
+                <MyActivityList log={log} mode={mode} queryKey={queryKey} />
+              </li>
             );
           })
         ) : (
