@@ -8,7 +8,7 @@ export const getMyActivities = async ({ queryKey, signal }) => {
       userId: userId,
       _page: page,
       _per_page: 6
-      // _sort: 'id',
+      // _sort: 'date',
       // _order: 'desc'
     },
     signal
