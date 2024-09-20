@@ -92,11 +92,6 @@
     font-weight: 700;
   }
 
-
-  /* body {
-    background: #333333;
-  } */
-
   @keyframes rotate-loading {
     0% {
       transform: rotate(0deg);
