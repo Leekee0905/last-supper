@@ -3,9 +3,8 @@
 @tailwind utilities;
 
 @layer base {
-
   :root {
-    --khaki-color: #A4AE9D;
+    --khaki-color: #a4ae9d;
     --dark-khaki-color: #536349;
   }
 
@@ -57,13 +56,13 @@
         background-color: black;
         z-index: 1;
         width: 0;
-        content: "";
+        content: '';
         height: 1px;
         position: absolute;
         left: 50%;
         bottom: 0;
         transform: translateX(-50%);
-        transition: all .5s ease
+        transition: all 0.5s ease;
       }
     }
 

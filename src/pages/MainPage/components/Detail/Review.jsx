@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import useUserStore from '../../../../store/useUserStore';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { removeMyActivity, updateMyActivity } from '../../../../api/MyActivitesApi';
+import { removeMyActivity, updateMyActivity } from '../../../../api/myActivitesApi';
 
 const Review = ({ el }) => {
   const [updatePost, setUpdatePost] = useState('');
