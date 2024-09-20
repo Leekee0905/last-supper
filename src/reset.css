@@ -5,10 +5,12 @@
 @layer base {
 
   :root {
-    --main-color: #536349;
-    --green-color: #3D6934;
-    --brown-color: #4F322A;
-    --sand-color: #8C7549;
+    --khaki-color: #A4AE9D;
+    --dark-khaki-color: #536349;
+  }
+
+  * {
+    word-break: keep-all;
   }
 
   @keyframes slr {
