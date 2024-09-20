@@ -335,7 +335,7 @@
   }
 
   .loading-container:hover .loading {
-    border-color: transparent #536349 transparent #536349;
+    border-color: transparent var(--dark-khaki-color) transparent var(--dark-khaki-color);
   }
 
   .loading-container:hover .loading,
@@ -362,6 +362,7 @@
     text-transform: uppercase;
     top: 50%;
     width: 100px;
+    user-select: none;
   }
 }
 

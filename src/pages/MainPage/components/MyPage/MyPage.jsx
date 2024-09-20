@@ -13,8 +13,7 @@ const MY_PAGE_NAV = { profile: 'profile', favorites: 'favorites', myReviews: 'my
 const MyPage = () => {
   const { userId } = useUserStore((state) => state);
 
-  // 리뷰 수정 뮤테이트
-  const { mutate: updateMyReviewMutate } = useMyActivityUpdateMutate(REVIEWS_QUERY_KEY);
+
 
   // prefetch 함수
   const prefetchMyActivities = useMyActivitiesPrefetchQuery(userId);
@@ -29,7 +28,7 @@ const MyPage = () => {
       case MY_PAGE_NAV.favorites:
         return <MyActivities queryKey={FAVORITES_QUERY_KEY} />;
       case MY_PAGE_NAV.myReviews:
-        return <MyActivities queryKey={REVIEWS_QUERY_KEY} updateMyReviewMutate={updateMyReviewMutate} />;
+        return <MyActivities queryKey={REVIEWS_QUERY_KEY} />;
       default:
         throw new Error('잘못된 요청을 하셨습니다.');
     }

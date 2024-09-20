@@ -4,7 +4,7 @@ import { useGetMyActivitiesQuery } from '../../../../hooks/queries/myActivities/
 import useUserStore from '../../../../store/useUserStore';
 import MyActivityList from './MyActivityList';
 
-const MyActivities = ({ queryKey, updateMyReviewMutate }) => {
+const MyActivities = ({ queryKey }) => {
   const mode = queryKey === 'favorites' ? '즐겨찾기' : '내 리뷰';
   const { userId } = useUserStore((state) => state);
 
@@ -23,7 +23,7 @@ const MyActivities = ({ queryKey, updateMyReviewMutate }) => {
                 key={log.id}
                 className="flex shadow-md flex-row w-full items-center pl-4 rounded justify gap-3 bg-[var(--khaki-color)] break-all"
               >
-                <MyActivityList log={log} mode={mode} queryKey={queryKey} updateMyReviewMutate={updateMyReviewMutate} />
+                <MyActivityList log={log} mode={mode} queryKey={queryKey} />
               </li>
             );
           })

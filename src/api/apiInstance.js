@@ -4,8 +4,10 @@ export const authApi = axios.create({
   baseURL: 'https://moneyfulpublicpolicy.co.kr'
 });
 
+// https://available-garnet-quince.glitch.me
+// https://dull-merciful-curve.glitch.me
 export const jsonApi = axios.create({
-  baseURL: 'https://dull-merciful-curve.glitch.me'
+  baseURL: 'http://localhost:4000'
 });
 
 jsonApi.interceptors.request.use(

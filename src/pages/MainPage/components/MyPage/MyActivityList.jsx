@@ -1,14 +1,21 @@
 import { useState } from 'react';
 import { IoRestaurantSharp } from 'react-icons/io5';
 import { RxDotsVertical } from 'react-icons/rx';
-import { useMyActivityRemoveMutate } from '../../../../hooks/queries/myActivities/myActivityQuery';
+import {
+  useMyActivityRemoveMutate,
+  useMyActivityUpdateMutate
+} from '../../../../hooks/queries/myActivities/myActivityQuery';
+import { REVIEWS_QUERY_KEY } from '../../../../hooks/queries/queryKeys';
 
-const MyActivityList = ({ log, mode, queryKey, updateMyReviewMutate }) => {
+const MyActivityList = ({ log, mode, queryKey }) => {
   const [edit, setEdit] = useState(false);
   const [editReview, setEditReview] = useState(false);
   const [editReviewInput, setEditReviewInput] = useState('');
 
   // const editReviewInputRef=useRef()
+
+  // 리뷰 수정 뮤테이트
+  const { mutate: updateMyReviewMutate } = useMyActivityUpdateMutate(REVIEWS_QUERY_KEY);
 
   // 리뷰 내용 수정 함수
   const handleReviewChange = (e, id) => {
