@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { FiSearch } from 'react-icons/fi';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import useRestaurantsStore from '../store/useRestaurantsInfo';
+
 const OPTION_LIST = [
   '3사단',
   '5사단',
@@ -32,20 +33,24 @@ const AutoComplete = ({ mode }) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
   const { setIsOpen } = useRestaurantsStore((state) => state);
+
   const handleSearch = (e) => {
     e.preventDefault();
     if (searchInput.trim() === '') return;
-    if (!OPTION_LIST.includes(searchInput)) {
+    //입력값이 비슷한 신교대나 훈련소를 찾아서 검색 ex)육군=>육군훈련소, 공군=>공군교육사령부
+    const keyword = OPTION_LIST.find((e) => e.includes(searchInput));
+    if (!OPTION_LIST.includes(keyword)) {
       alert('존재하지 않는 교육대입니다.');
       return;
     }
+
     if (mode === 'home') {
       // 쿼리스트링을 포함한 리다이렉트
-      navigate(`/mainpage?query=${encodeURIComponent(searchInput)}`);
+      navigate(`/mainpage?query=${encodeURIComponent(keyword)}`);
       return;
     }
     if (searchInput.trim() === '') return;
-    setSearchParams({ query: searchInput });
+    setSearchParams({ query: keyword });
     setIsOpen(false);
     setFilteredOptions([]);
   };
@@ -78,10 +83,10 @@ const AutoComplete = ({ mode }) => {
             className="pl-4 pr-10 py-2 w-full h-full border border-gray-300 rounded-md focus:outline-none"
           />
           {filteredOptions.length > 0 && (
-            <ul className="border-2 max-h-[150px] w-full overflow-y-auto mt-[5px] absolute rounded-md">
+            <ul className="max-h-[150px] w-full overflow-y-auto mt-[5px] absolute rounded-md">
               {filteredOptions.map((option, index) => (
                 <li
-                  className="p-[10px] cursor-pointer bg-white border-2"
+                  className="p-[10px] cursor-pointer bg-white border-2 border-[--dark-khaki-color] mb-1 rounded-md"
                   key={index}
                   onClick={() => handleOptionClick(option)}
                 >
@@ -96,7 +101,7 @@ const AutoComplete = ({ mode }) => {
           type="submit"
           className={
             mode === 'home'
-              ? 'ml-3 bg-blue-500 text-white px-6 h-12 rounded-md flex items-center justify-center whitespace-nowrap focus:outline-none'
+              ? 'ml-3 bg-[--dark-khaki-color] text-white px-6 h-12 rounded-md flex items-center justify-center whitespace-nowrap focus:outline-none'
               : 'absolute right-0 pr-3 bottom-2.5'
           }
         >
