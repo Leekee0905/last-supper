@@ -55,7 +55,7 @@ const Layout = () => {
       <Modal>{renderModalType()}</Modal>
       <Sidebar toggleModal={toggleModal} setDetailInfo={setDetailInfo} />
       <HamburgerMenu hasModalOpen={hasModalOpen} toggleModal={toggleModal} setIsModalOpen={setIsModalOpen} />
-      <main className="flex-1 bg-gray-50 ml-[400px]">
+      <main className="flex-1 ml-[400px]">
         <Outlet />
       </main>
       {isOpen ? <DetailModal detailInfo={detailInfo} /> : ''}
