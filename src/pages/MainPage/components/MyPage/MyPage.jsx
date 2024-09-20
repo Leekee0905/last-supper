@@ -11,8 +11,7 @@ import useUserStore from '../../../../store/useUserStore';
 const MY_PAGE_NAV = { profile: 'profile', favorites: 'favorites', myReviews: 'myReviews' };
 
 const MyPage = () => {
-  // const { userId } = useUserStore((state) => state);
-  const userId = 'user123';
+  const { userId } = useUserStore((state) => state);
 
   const { mutate: removeFavoriteMutate } = useMyActivityRemoveMutate(FAVORITES_QUERY_KEY);
 
