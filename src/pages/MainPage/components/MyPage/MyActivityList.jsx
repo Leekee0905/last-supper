@@ -60,13 +60,13 @@ const MyActivityList = ({ log, mode, queryKey }) => {
                 <textarea
                   required
                   rows="1"
-                  className="w-4/5 absolute top-12 h-1/2 resize-none rounded"
+                  className="w-full absolute top-12 h-1/2 resize-none rounded"
                   // ref={editReviewInputRef}
                   value={editReviewInput}
                   onChange={(e) => setEditReviewInput(e.target.value)}
                   onKeyDown={(e) => e.code === 'Enter' && !e.shiftKey && handleReviewChange(e, log.id)}
                 />
-                <button className="bg-[var(--dark-khaki-color)] absolute rounded right-0 bottom-7 w-1/6 h-10">
+                <button className="bg-[var(--dark-khaki-color)] absolute rounded -right-[46px] w-[42px] h-1/2 top-12">
                   확인
                 </button>
               </form>
@@ -76,7 +76,7 @@ const MyActivityList = ({ log, mode, queryKey }) => {
           </>
         )}
       </main>
-      <div className="flex-col flex justify-start items-center h-full w-10 select-none">
+      <div className="flex-col flex justify-start items-center h-full w-10 select-none z-10">
         <button onClick={() => setEdit((prev) => !prev)} className="pt-4">
           <RxDotsVertical className="text-xl" />
         </button>
