@@ -16,8 +16,6 @@ import useRestaurantsStore from '../store/useRestaurantsInfo';
 const Layout = () => {
   const modalType = useModalStore((state) => state.modalType);
   const [hasModalOpen, setIsModalOpen] = useState(false);
-  const [searchInput, setSearchInput] = useState('');
-  const [searchParams, setSearchParams] = useSearchParams();
   const setHasAuthenticated = useUserStore((state) => state.setHasAuthenticated);
   const [detailInfo, setDetailInfo] = useState([]);
   const { isOpen, setIsOpen } = useRestaurantsStore((state) => state);
@@ -25,14 +23,6 @@ const Layout = () => {
 
   const toggleModal = () => {
     setIsModalOpen(!hasModalOpen);
-  };
-
-  const handleSearch = (e) => {
-    e.preventDefault();
-    if (searchInput.trim() === '') return;
-
-    setSearchParams({ query: searchInput });
-    setIsOpen(false);
   };
 
   const renderModalType = () => {
@@ -54,10 +44,6 @@ const Layout = () => {
     setHasAuthenticated(false);
   };
 
-  const restaurantInfo = (el) => {
-    setDetailInfo(el);
-  };
-
   useEffect(() => {
     if (isError) {
       resetTokenAuthenticatedAndUserInfo();
@@ -67,17 +53,9 @@ const Layout = () => {
   return (
     <div className="relative flex min-h-screen">
       <Modal>{renderModalType()}</Modal>
-
-      <Sidebar
-        toggleModal={toggleModal}
-        handleSearch={handleSearch}
-        searchInput={searchInput}
-        setSearchInput={setSearchInput}
-        restaurantInfo={restaurantInfo}
-      />
-
+      <Sidebar toggleModal={toggleModal} setDetailInfo={setDetailInfo} />
       <HamburgerMenu hasModalOpen={hasModalOpen} toggleModal={toggleModal} setIsModalOpen={setIsModalOpen} />
-      <main className="flex-1 bg-gray-50 ml-[400px]">
+      <main className="flex-1 ml-[400px]">
         <Outlet />
       </main>
       {isOpen ? <DetailModal detailInfo={detailInfo} /> : ''}
