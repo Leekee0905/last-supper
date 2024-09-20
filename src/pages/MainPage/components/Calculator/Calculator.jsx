@@ -3,8 +3,9 @@ import Modal from '../Modal/Modal';
 import DateForm from './DateForm'; // DateForm 컴포넌트
 import RankTags from './RankTags'; // RankTags 컴포넌트
 import ProcessBar from './ProcessBar'; // ProcessBar 컴포넌트
+import EventTimeline from './EventTimeline'; // EventTimeline 컴포넌트
 import { FaArrowCircleRight } from 'react-icons/fa';
-import  useCalculatorStore  from '../../../../store/useCalculatorStore'; 
+import useCalculatorStore from '../../../../store/useCalculatorStore'; 
 
 const serviceDurations = {
   army: 18,
@@ -13,18 +14,11 @@ const serviceDurations = {
   marines: 18,
 };
 
-const events = [
-  { date: 'null', title: '입대', message: '여기가 군대구나!! 아 힘들어. 집에 가고 싶어. 눈뜨면 집이면 좋겠다.' },
-  { date: 'null', title: '일병 진급', message: '첫 진급..신난다. 먼가 어깨에 힘이 들어가는걸?' },
-  { date: 'null', title: '상병 진급', message: '벌써 내가 이만큼 군생활을 하다니.. 시간 빨리가는구나.' },
-  { date: 'null', title: '병장 진급', message: '아무것도 하기 싫다. 이미 아무것도 하고 있지 않지만....' },
-  { date: 'null', title: '전역', message: '전역을 명 받았기에 이에 신고!! 하기도 귀찮아. 뒤도 안돌아 볼거야!' },
-];
-
 const Calculator = () => {
   const { branch, enlistmentDate, dischargeDate, setBranch, setEnlistmentDate, setDischargeDate } = useCalculatorStore();
   const [currentRank, setCurrentRank] = React.useState('이병');
   const [progress, setProgress] = React.useState(0);
+  const [events, setEvents] = React.useState([]);
 
   const calculateDischargeDate = () => {
     if (!enlistmentDate) return;
@@ -62,10 +56,34 @@ const Calculator = () => {
     setProgress((elapsedMonths / totalServiceMonths) * 100);
   };
 
+  const calculateRankEvents = () => {
+    if (!enlistmentDate) return;
+  
+    const enlistment = new Date(enlistmentDate);
+  
+    const updatedEvents = ranks.map((rank) => {
+      const eventDate = new Date(enlistment);
+      eventDate.setMonth(enlistment.getMonth() + rank.months);
+      eventDate.setDate(1); // 진급일은 항상 1일로 설정
+  
+      return {
+        date: eventDate.toLocaleDateString(),
+        title: rank.label,
+        message:
+          rank.label === '전역'
+            ? '전역을 명 받았기에 이에 신고!! 하기도 귀찮아. 뒤도 안돌아 볼거야!'
+            : `진급: ${rank.label}, 군 생활 진행 중`,
+      };
+    });
+  
+    setEvents(updatedEvents);
+  };
+
   useEffect(() => {
     if (enlistmentDate) {
       calculateDischargeDate();
       calculateRankProgress();
+      calculateRankEvents(); // 진급 일정 계산
     }
   }, [enlistmentDate, branch]);
 
@@ -99,23 +117,7 @@ const Calculator = () => {
         </div>
 
         {/* 연혁 표시 (군 복무 일정) */}
-        <div className="mt-10">
-          <h3 className="text-lg md:text-xl font-bold mb-4 text-gray-700">군 복무 일정</h3>
-          <ul className="space-y-6 max-h-96 md:max-h-120 overflow-y-auto border-t border-gray-200 pt-4">
-            {events.map(({ date, title, message }) => (
-              <li key={title} className="border-b border-gray-200 pb-4">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <h4 className="text-md md:text-lg font-semibold text-gray-700">{date}</h4>
-                    <p className="text-sm md:text-md font-semibold mt-1 text-blue-500">{title}</p>
-                    <p className="text-gray-600 mt-2">{message}</p>
-                  </div>
-                  <FaArrowCircleRight className="text-blue-500" size={24} />
-                </div>
-              </li>
-            ))}
-          </ul>
-        </div>
+        <EventTimeline events={events} />
       </div>
     </Modal>
   );

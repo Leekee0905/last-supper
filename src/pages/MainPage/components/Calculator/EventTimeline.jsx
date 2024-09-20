@@ -26,7 +26,6 @@ const EventTimeline = () => {
 
     const enlistment = new Date(enlistmentDate);
 
-    // 입대일을 기준으로 각 진급일 및 전역일 계산
     const eventUpdates = ranks.map((rank) => {
       const eventDate = new Date(enlistment);
       eventDate.setMonth(enlistment.getMonth() + rank.months);
@@ -51,7 +50,8 @@ const EventTimeline = () => {
   return (
     <div className="mt-10">
       <h3 className="text-lg md:text-xl font-bold mb-4 text-gray-700">군 복무 일정</h3>
-      <ul className="space-y-6 max-h-96 md:max-h-120 overflow-y-auto border-t border-gray-200 pt-4">
+      <ul className="space-y-6 overflow-y-auto border-t border-gray-200 pt-4 
+        h-64 sm:h-72 md:h-80 lg:h-96 xl:h-120 max-h-[calc(100vh-200px)]">
         {events.map(({ date, title, message }) => (
           <li key={title} className="border-b border-gray-200 pb-4">
             <div className="flex items-center justify-between">
