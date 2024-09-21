@@ -17,59 +17,52 @@ export const useGetMyActivitiesQuery = (type, userId, page) => {
 };
 
 // 내 활동 삭제 mutation
-export const useMyActivityRemoveMutate = (queryKey) => {
+export const useMyActivityRemoveMutate = (queryKey, userId, page) => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (targetId) => removeMyActivity({ queryKey, id: targetId }),
-    // onSuccess: () => {
-    //   queryClient.invalidateQueries(queryKey);
-    // },
     onMutate: async (targetId) => {
-      await queryClient.cancelQueries({ queryKey: [queryKey] });
+      await queryClient.cancelQueries({ queryKey: [queryKey, userId, page] });
 
-      const { data:preLogs } = queryClient.getQueryData([queryKey, 'dnjsqls!', 1]);
+      const { data: preLogs } = queryClient.getQueryData([queryKey, userId, page]);
 
-      queryClient.setQueryData([queryKey, 'dnjsqls!', 1], ({ data }) => data.filter((log) => log.id !== targetId));
+      queryClient.setQueryData([queryKey, userId, page], ({ data }) => data.filter((log) => log.id !== targetId));
 
       return { preLogs };
     },
-    onError: (error, newReview, context) => {
+    onError: (error, _, context) => {
       alert(error.response.data.message);
-      queryClient.setQueryData([queryKey, 'dnjsqls!', 1], context.preLogs);
+      queryClient.setQueryData([queryKey, userId, page], context.preLogs);
     },
     onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: [queryKey] });
+      queryClient.invalidateQueries({ queryKey: [queryKey, userId, page] });
     }
   });
 };
 
 // 내 활동 수정 mutation
-export const useMyActivityUpdateMutate = (queryKey) => {
+export const useMyActivityUpdateMutate = (queryKey, userId, page) => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: ({ id, content }) => updateMyActivity({ queryKey, id, content }),
-    // onSuccess: () => {
-    //   queryClient.invalidateQueries(queryKey);
-    // },
     onMutate: async (newReview) => {
-      console.log('queryKey', queryKey);
-      await queryClient.cancelQueries({ queryKey: ['allReviews'] });
+      console.log('newReview', newReview);
+      await queryClient.cancelQueries({ queryKey: [queryKey, userId, page] });
 
-      const previousReviews = queryClient.getQueriesData(['allReviews']);
-      // console.log('previousTeviews', previousReviews);
+      const { data: preLogs } = queryClient.getQueriesData([queryKey, userId, page]);
 
-      queryClient.setQueryData(['reviews'], (old) => {
-        console.log('old', old);
+      queryClient.setQueryData([queryKey, userId, page], ({ data: reviews }) => {
+        reviews.map((review) => (review.id === newReview.id ? (review.content = newReview.content) : review));
       });
 
-      return { previousReviews };
+      return { preLogs };
     },
-    onError: (error, newReview, context) => {
+    onError: (error, _, context) => {
       alert(error.response.data.message);
-      queryClient.setQueryData([queryKey], context.previousTodos);
+      queryClient.setQueryData([queryKey, userId, page], context.preLogs);
     },
     onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: [queryKey] });
+      queryClient.invalidateQueries({ queryKey: [queryKey, userId, page] });
     }
   });
 };
