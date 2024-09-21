@@ -21,21 +21,24 @@ export const useMyActivityRemoveMutate = (queryKey) => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (targetId) => removeMyActivity({ queryKey, id: targetId }),
-    onSuccess: () => {
-      queryClient.invalidateQueries(queryKey);
-    },
-    onMutate: async (newReview) => {
-      await queryClient.cancelQueries({ queryKey: ['preReview'] });
+    // onSuccess: () => {
+    //   queryClient.invalidateQueries(queryKey);
+    // },
+    onMutate: async (targetId) => {
+      await queryClient.cancelQueries({ queryKey: [queryKey] });
 
-      const previousTeviews = queryClient.getQueryData(['preReview']);
+      const { data:preLogs } = queryClient.getQueryData([queryKey, 'dnjsqls!', 1]);
 
-      queryClient.setQueryData(['preReview'], (old) => [...old, newReview]);
+      queryClient.setQueryData([queryKey, 'dnjsqls!', 1], ({ data }) => data.filter((log) => log.id !== targetId));
 
-      return { previousTeviews };
+      return { preLogs };
     },
     onError: (error, newReview, context) => {
       alert(error.response.data.message);
-      queryClient.setQueryData(['preReview'], context.previousTodos);
+      queryClient.setQueryData([queryKey, 'dnjsqls!', 1], context.preLogs);
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: [queryKey] });
     }
   });
 };
@@ -45,21 +48,28 @@ export const useMyActivityUpdateMutate = (queryKey) => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: ({ id, content }) => updateMyActivity({ queryKey, id, content }),
-    onSuccess: () => {
-      queryClient.invalidateQueries(queryKey);
-    },
+    // onSuccess: () => {
+    //   queryClient.invalidateQueries(queryKey);
+    // },
     onMutate: async (newReview) => {
-      await queryClient.cancelQueries({ queryKey: ['preReview'] });
+      console.log('queryKey', queryKey);
+      await queryClient.cancelQueries({ queryKey: ['allReviews'] });
 
-      const previousTeviews = queryClient.getQueryData(['preReview']);
+      const previousReviews = queryClient.getQueriesData(['allReviews']);
+      // console.log('previousTeviews', previousReviews);
 
-      queryClient.setQueryData(['preReview'], (old) => [...old, newReview]);
+      queryClient.setQueryData(['reviews'], (old) => {
+        console.log('old', old);
+      });
 
-      return { previousTeviews };
+      return { previousReviews };
     },
     onError: (error, newReview, context) => {
       alert(error.response.data.message);
-      queryClient.setQueryData(['preReview'], context.previousTodos);
+      queryClient.setQueryData([queryKey], context.previousTodos);
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: [queryKey] });
     }
   });
 };

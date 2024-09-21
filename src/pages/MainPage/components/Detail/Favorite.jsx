@@ -1,7 +1,7 @@
 import { PiStar } from 'react-icons/pi';
 import { PiStarFill } from 'react-icons/pi';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { addMyActivity, getMyActivity, removeMyActivity } from '../../../../api/MyActivitesApi';
+import { addMyActivity, getMyActivity, removeMyActivity } from '../../../../api/myActivitesApi';
 import useUserStore from '../../../../store/useUserStore';
 
 const Favorite = ({ detailInfo }) => {

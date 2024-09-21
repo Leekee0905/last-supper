@@ -108,5 +108,3 @@ const MyActivityList = ({ log, mode, queryKey }) => {
 };
 
 export default MyActivityList;
-
-// const editStyle = 'border w-10 bg-[var(--dark-khaki-color)]';
