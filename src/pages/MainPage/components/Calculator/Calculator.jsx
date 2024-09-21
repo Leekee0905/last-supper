@@ -88,7 +88,7 @@ const Calculator = () => {
   }, [enlistmentDate, branch]);
 
   return (
-    <Modal>
+    <div>
       <div className="p-4 md:p-8 bg-white rounded-lg shadow-lg max-w-full md:max-w-7xl mx-auto">
         <h2 className="text-2xl md:text-3xl font-bold mb-6 text-center text-gray-800">군별 전역일 계산기</h2>
 
@@ -119,7 +119,7 @@ const Calculator = () => {
         {/* 연혁 표시 (군 복무 일정) */}
         <EventTimeline events={events} />
       </div>
-    </Modal>
+    </div>
   );
 };
 
