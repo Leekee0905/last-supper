@@ -30,7 +30,7 @@ const Modal = ({ children, contentStyle, isLoading }) => {
   };
 
   return (
-    <ReactModal isOpen={hasModalOpen} style={customStyles}>
+    <ReactModal isOpen={hasModalOpen} style={customStyles} onRequestClose={() => setHasModalOpen(false)}>
       {isLoading || (
         <div className="flex justify-end h-[5vh] pt-[1vh] pr-[1vw]">
           <button onClick={() => setHasModalOpen(false)}>

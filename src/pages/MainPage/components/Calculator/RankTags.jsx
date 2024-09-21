@@ -1,7 +1,6 @@
 import React from 'react';
 
-const RankTags = ({ enlistmentDate, branch }) => {
-  // 계급별 기준 월 수
+const RankTags = ({ enlistmentDate }) => {
   const ranks = [
     { label: '이병', months: 0 },
     { label: '일병', months: 2 },
@@ -9,38 +8,27 @@ const RankTags = ({ enlistmentDate, branch }) => {
     { label: '병장', months: 15 },
   ];
 
-  // 현재 날짜와 입대 날짜를 비교하여 경과 개월 수 계산
   const calculateElapsedMonths = () => {
     if (!enlistmentDate) return 0;
-    
+
     const today = new Date();
     const enlistment = new Date(enlistmentDate);
     const diffInTime = today - enlistment;
-    const diffInMonths = Math.floor(diffInTime / (1000 * 60 * 60 * 24 * 30)); // 개월 수 계산
-    
+    const diffInMonths = Math.floor(diffInTime / (1000 * 60 * 60 * 24 * 30));
+
     return diffInMonths;
   };
 
   const elapsedMonths = calculateElapsedMonths();
 
-  // 현재 계급 결정
-  const getCurrentRank = () => {
-    for (let i = ranks.length - 1; i >= 0; i--) {
-      if (elapsedMonths >= ranks[i].months) {
-        return ranks[i].label;
-      }
-    }
-    return '이병'; // 기본값
-  };
-
-  const currentRank = getCurrentRank();
-
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col items-center gap-2">
       {ranks.map(({ label, months }) => (
         <div
           key={label}
-          className={`p-2 rounded-lg ${months <= elapsedMonths ? 'bg-green-500 text-white' : 'bg-gray-200'}`}
+          className={`p-4 rounded-lg shadow-md transition duration-300 
+            ${months <= elapsedMonths ? 'bg-gradient-to-r from-green-400 to-blue-500 text-white' : 'bg-gray-200 text-gray-700'}`}
+          style={{ width: '752px' }}
         >
           <span className="font-semibold">{label}</span> - 입대 후 {months}개월
         </div>
