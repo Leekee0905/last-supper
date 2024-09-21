@@ -87,13 +87,13 @@ const MyActivityList = ({ log, mode, queryKey }) => {
                 <textarea
                   required
                   rows="1"
-                  className="w-[20vw] absolute top-12 h-1/2 resize-none rounded"
+                  className="w-[82%] absolute top-12 h-1/2 resize-none rounded"
                   ref={editReviewInputRef}
                   value={editReviewInput}
                   onChange={(e) => setEditReviewInput(e.target.value)}
                   onKeyDown={(e) => e.code === 'Enter' && !e.shiftKey && handleReviewChange(e, log.id)}
                 />
-                <button className="bg-[var(--dark-khaki-color)] absolute rounded right-[1vw] w-[42px] h-1/2 top-12">
+                <button className="bg-[var(--dark-khaki-color)] absolute rounded right-[1vw] w-[12%] h-1/2 top-12">
                   확인
                 </button>
               </form>

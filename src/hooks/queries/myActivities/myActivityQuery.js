@@ -24,7 +24,19 @@ export const useMyActivityRemoveMutate = (queryKey) => {
     onSuccess: () => {
       queryClient.invalidateQueries(queryKey);
     },
-    onError: (error) => alert(error.response.data.message)
+    onMutate: async (newReview) => {
+      await queryClient.cancelQueries({ queryKey: ['preReview'] });
+
+      const previousTeviews = queryClient.getQueryData(['preReview']);
+
+      queryClient.setQueryData(['preReview'], (old) => [...old, newReview]);
+
+      return { previousTeviews };
+    },
+    onError: (error, newReview, context) => {
+      alert(error.response.data.message);
+      queryClient.setQueryData(['preReview'], context.previousTodos);
+    }
   });
 };
 
@@ -36,7 +48,19 @@ export const useMyActivityUpdateMutate = (queryKey) => {
     onSuccess: () => {
       queryClient.invalidateQueries(queryKey);
     },
-    onError: (error) => alert(error.response.data.message)
+    onMutate: async (newReview) => {
+      await queryClient.cancelQueries({ queryKey: ['preReview'] });
+
+      const previousTeviews = queryClient.getQueryData(['preReview']);
+
+      queryClient.setQueryData(['preReview'], (old) => [...old, newReview]);
+
+      return { previousTeviews };
+    },
+    onError: (error, newReview, context) => {
+      alert(error.response.data.message);
+      queryClient.setQueryData(['preReview'], context.previousTodos);
+    }
   });
 };
 
