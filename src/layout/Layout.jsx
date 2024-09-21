@@ -17,6 +17,7 @@ const Layout = () => {
   const [detailInfo, setDetailInfo] = useState([]);
   const modalType = useModalStore((state) => state.modalType);
   const setHasAuthenticated = useUserStore((state) => state.setHasAuthenticated);
+  const setHasOpenModal = useModalStore((state) => state.setHasOpen);
   const { isOpen } = useRestaurantsStore((state) => state);
   const { isError } = useHasTokenAuthenticatedQuery();
 
@@ -37,6 +38,7 @@ const Layout = () => {
     alert('토큰이 만료되었습니다. 다시 로그인 해주세요.');
     useUserStore.setState({ user: { accessToekn: '', avatar: null, nickname: '', success: false, userId: '' } });
     setHasAuthenticated(false);
+    setHasOpenModal(false);
   };
 
   useEffect(() => {
