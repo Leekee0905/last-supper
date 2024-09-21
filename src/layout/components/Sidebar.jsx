@@ -1,12 +1,12 @@
 import useRestaurantsStore from '../../store/useRestaurantsInfo';
 import SidebarHeader from './SidebarHeader';
 
-const Sidebar = ({ toggleModal, setDetailInfo }) => {
+const Sidebar = ({ setDetailInfo }) => {
   const { info, setIsOpen } = useRestaurantsStore((state) => state);
 
   return (
     <aside className="fixed top-0 left-0 h-full w-[400px] bg-white shadow-md">
-      <SidebarHeader toggleModal={toggleModal} />
+      <SidebarHeader />
       <div className="p-4 space-y-4 overflow-y-auto h-[calc(100vh-72px)]">
         {info.map((el, index) => {
           return (
