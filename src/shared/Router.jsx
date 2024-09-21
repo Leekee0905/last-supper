@@ -5,18 +5,18 @@ import MainPage from '../pages/MainPage/MainPage';
 
 const pages = createBrowserRouter([
   {
-    path: '/',
+    path: '/mainpage',
     element: <Layout />,
     children: [
-      {
-        path: '/',
-        element: <Home />
-      },
       {
         path: '/mainpage',
         element: <MainPage />
       }
     ]
+  },
+  {
+    path: '/',
+    element: <Home />
   }
 ]);
 
