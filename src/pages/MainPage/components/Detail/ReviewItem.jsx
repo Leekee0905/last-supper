@@ -12,6 +12,20 @@ const ReviewItem = ({ el }) => {
   // 리뷰 삭제
   const { mutate: deleteFunc } = useMutation({
     mutationFn: removeMyActivity,
+
+    onMutate: async ({ id }) => {
+      await queryClient.cancelQueries(['allReviews']);
+      const previousReviews = queryClient.getQueryData(['allReviews']);
+
+      queryClient.setQueryData(['allReviews'], (old) => old.filter((review) => review.id !== id));
+
+      return { previousReviews };
+    },
+
+    onError: (context) => {
+      queryClient.setQueryData(['allReviews'], context.previousReviews);
+    },
+
     onSuccess: () => {
       queryClient.invalidateQueries(['allReviews']);
     }
@@ -20,6 +34,32 @@ const ReviewItem = ({ el }) => {
   // 리뷰 수정
   const { mutate: updateFunc } = useMutation({
     mutationFn: updateMyActivity,
+
+    onMutate: async ({ id, content }) => {
+      await queryClient.cancelQueries(['allReviews']);
+      const previousReviews = queryClient.getQueryData(['allReviews']);
+
+      queryClient.setQueryData(['allReviews'], (old) => {
+        const updateReview = old.filter((review) => review.id === id)[0];
+        const result = { ...updateReview, review: content };
+
+        const updateReviews = old.map((el) => {
+          if (el.id === id) {
+            return result;
+          }
+          return el;
+        });
+
+        return updateReviews;
+      });
+
+      return { previousReviews };
+    },
+
+    onError: (context) => {
+      queryClient.setQueryData(['allReviews'], context.previousReviews);
+    },
+
     onSuccess: () => {
       queryClient.invalidateQueries(['allReviews']);
     }
@@ -30,7 +70,7 @@ const ReviewItem = ({ el }) => {
     setIsUpdatePost((prev) => !prev);
     if (isUpdatePost) {
       if (content === '') {
-        alert('내용을 입력해 주세요.');
+        alert('변경된 내용이 없습니다.');
         return;
       }
       updateFunc({ queryKey, id, content });
@@ -39,33 +79,38 @@ const ReviewItem = ({ el }) => {
   };
 
   return (
-    <div style={{ border: '1px solid black', padding: '20px', lineHeight: '28px' }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-        <div>{el.nickName}</div>
+    <div className="border border-solid border-black p-[20px] leading-[28px] rounded-[16px] bg-white">
+      <div className="flex justify-between">
+        <div className="font-black text-[20px]">{el.nickName}</div>
         <div>{el.date}</div>
       </div>
-      <p style={{ margin: '20px' }}>
+      <p className="m-[20px] break-all">
         {isUpdatePost ? (
-          <input
+          <textarea
             type="text"
-            value={updatePost}
+            rows="4"
             placeholder="수정할 내용을 입력하세요."
             onChange={(e) => setUpdatePost(e.target.value)}
+            defaultValue={el.review}
+            onKeyDown={(e) =>
+              e.code === 'Enter' && !e.shiftKey && onUpdatePost({ queryKey: 'reviews', id: el.id, content: updatePost })
+            }
+            className="placeholder:text-black border border-solid placeholder:text-[12px] border-black w-full"
           />
         ) : (
           el.review
         )}
       </p>
       {el.userId === user.userId ? (
-        <div style={{ display: 'flex', justifyContent: 'right', gap: '20px' }}>
+        <div className="flex justify-end gap-[20px]">
           <button
-            style={{ border: '1px solid black', padding: '4px', borderRadius: '12px' }}
+            className="border border-solid border-black rounded-[8px] w-[60px] bg-[#536349] text-white hover:bg-[#A4AE9D] hover:text-black"
             onClick={() => onUpdatePost({ queryKey: 'reviews', id: el.id, content: updatePost })}
           >
             {isUpdatePost ? '완료' : '수정'}
           </button>
           <button
-            style={{ border: '1px solid black', padding: '4px', borderRadius: '12px' }}
+            className="border border-solid border-black rounded-[8px] w-[60px] bg-[#536349] text-white hover:bg-[#A4AE9D] hover:text-black"
             onClick={() => deleteFunc({ queryKey: 'reviews', id: el.id })}
           >
             삭제

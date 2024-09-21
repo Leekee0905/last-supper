@@ -1,4 +1,27 @@
 {
   "favorites": [],
-  "reviews": []
+  "reviews": [
+    {
+      "id": "edc5",
+      "userId": "hee6968",
+      "nickName": "SHB",
+      "storeId": "9992115",
+      "storeName": "평남면옥",
+      "storeAddress": "강원특별자치도 철원군 서면 와수리 1172-23",
+      "storePhone": "033-458-2044",
+      "review": "리뷰 테스트 1",
+      "date": "2024. 9. 21. 오후 2:04:47"
+    },
+    {
+      "id": "39d1",
+      "userId": "hee6968",
+      "nickName": "SHB",
+      "storeId": "9992115",
+      "storeName": "평남면옥",
+      "storeAddress": "강원특별자치도 철원군 서면 와수리 1172-23",
+      "storePhone": "033-458-2044",
+      "review": "테스트 33",
+      "date": "2024. 9. 21. 오후 5:23:10"
+    }
+  ]
 }

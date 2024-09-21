@@ -7,17 +7,35 @@ import useUserStore from '../../../../store/useUserStore';
 const Favorite = ({ detailInfo }) => {
   const { user, hasAuthenticated } = useUserStore((state) => state);
   const queryClient = useQueryClient();
+  const styleBtn = 'text-yellow-500 text-[24px]';
 
   // 즐겨찾기 가져오기
-  const { data: starData } = useQuery({
+  const {
+    data: starData,
+    isPending,
+    isError
+  } = useQuery({
     queryKey: ['allFavorites'],
-    queryFn: () => getMyActivity('favorites'),
-    suspense: true
+    queryFn: () => getMyActivity('favorites')
   });
 
   // 즐겨찾기 추가
   const { mutate: addFunc } = useMutation({
     mutationFn: addMyActivity,
+
+    onMutate: async ({ post }) => {
+      await queryClient.cancelQueries(['allFavorites']);
+      const previousReviews = queryClient.getQueryData(['allFavorites']);
+
+      queryClient.setQueryData(['allFavorites'], (old) => [...old, post]);
+
+      return { previousReviews };
+    },
+
+    onError: (context) => {
+      queryClient.setQueryData(['allFavorites'], context.previousReviews);
+    },
+
     onSuccess: () => {
       queryClient.invalidateQueries(['allFavorites']);
     }
@@ -26,10 +44,27 @@ const Favorite = ({ detailInfo }) => {
   // 즐겨찾기 삭제
   const { mutate: deleteFunc } = useMutation({
     mutationFn: removeMyActivity,
+
+    onMutate: async ({ id }) => {
+      await queryClient.cancelQueries(['allFavorites']);
+      const previousReviews = queryClient.getQueryData(['allFavorites']);
+
+      queryClient.setQueryData(['allFavorites'], (old) => old.filter((favorite) => favorite.id !== id));
+
+      return { previousReviews };
+    },
+
+    onError: (context) => {
+      queryClient.setQueryData(['allFavorites'], context.previousReviews);
+    },
+
     onSuccess: () => {
       queryClient.invalidateQueries(['allFavorites']);
     }
   });
+
+  if (isPending) return <div>로딩중 입니다.</div>;
+  if (isError) return <div>로딩중 에러가 발견되었습니다.</div>;
 
   // 즐겨찾기 클릭 시
   const onClickStar = () => {
@@ -66,15 +101,15 @@ const Favorite = ({ detailInfo }) => {
   const filterData = starData.some((el) => el.storeId === detailInfo.id && el.userId === user.userId);
 
   return (
-    <div style={{ cursor: 'pointer' }} onClick={onClickStar}>
+    <div className="cursor-pointer text-[30px]" onClick={onClickStar}>
       {filterData ? (
         starData.filter((el) => el.storeId === detailInfo.id && el.userId === user.userId)[0].favorite ? (
-          <PiStarFill style={{ color: 'yellow', fontSize: '24px' }} />
+          <PiStarFill className={styleBtn} />
         ) : (
-          <PiStar style={{ color: 'yellow', fontSize: '24px' }} />
+          <PiStar className={styleBtn} />
         )
       ) : (
-        <PiStar style={{ color: 'yellow', fontSize: '24px' }} />
+        <PiStar className={styleBtn} />
       )}
     </div>
   );
