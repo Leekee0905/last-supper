@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { removeMyActivity, updateMyActivity } from '../../../../api/MyActivitesApi';
+import { removeMyActivity, updateMyActivity } from '../../../../api/myActivitesApi';
 import useUserStore from '../../../../store/useUserStore';
 
 const ReviewItem = ({ el }) => {
