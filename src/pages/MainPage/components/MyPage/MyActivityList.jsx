@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { IoRestaurantSharp } from 'react-icons/io5';
 import { RxDotsVertical } from 'react-icons/rx';
 import {
@@ -8,11 +8,17 @@ import {
 import { REVIEWS_QUERY_KEY } from '../../../../hooks/queries/queryKeys';
 
 const MyActivityList = ({ log, mode, queryKey }) => {
-  const [edit, setEdit] = useState(false);
+  const [editMenu, setEditMenu] = useState(false);
   const [editReview, setEditReview] = useState(false);
   const [editReviewInput, setEditReviewInput] = useState('');
 
-  // const editReviewInputRef=useRef()
+  const editReviewInputRef = useRef();
+  useEffect(() => {
+    if (editReviewInputRef.current) {
+      editReviewInputRef.current.focus();
+      editReviewInputRef.current.setSelectionRange(editReviewInput.length, editReviewInput.length);
+    }
+  }, [editMenu]);
 
   // 리뷰 수정 뮤테이트
   const { mutate: updateMyReviewMutate } = useMyActivityUpdateMutate(REVIEWS_QUERY_KEY);
@@ -61,12 +67,12 @@ const MyActivityList = ({ log, mode, queryKey }) => {
                   required
                   rows="1"
                   className="w-full absolute top-12 h-1/2 resize-none rounded"
-                  // ref={editReviewInputRef}
+                  ref={editReviewInputRef}
                   value={editReviewInput}
                   onChange={(e) => setEditReviewInput(e.target.value)}
                   onKeyDown={(e) => e.code === 'Enter' && !e.shiftKey && handleReviewChange(e, log.id)}
                 />
-                <button className="bg-[var(--dark-khaki-color)] absolute rounded -right-[46px] w-[42px] h-1/2 top-12">
+                <button className="bg-[var(--dark-khaki-color)] absolute rounded -right-[46px] w-[42px] h-1/2 top-12 cursor-pointer">
                   확인
                 </button>
               </form>
@@ -77,18 +83,17 @@ const MyActivityList = ({ log, mode, queryKey }) => {
         )}
       </main>
       <div className="flex-col flex justify-start items-center h-full w-10 select-none z-10">
-        <button onClick={() => setEdit((prev) => !prev)} className="pt-4">
+        <button onClick={() => setEditMenu((prev) => !prev)} className="pt-4">
           <RxDotsVertical className="text-xl" />
         </button>
-        {edit && (
+        {editMenu && (
           <div className="shadow-lg">
             {mode === '내 리뷰' && (
               <button
                 onClick={() => {
                   setEditReview((prev) => !prev);
-                  setEdit((prev) => !prev);
+                  setEditMenu((prev) => !prev);
                   editReview || setEditReviewInput(log.review);
-                  //  editReviewInputRef.current.focus());
                 }}
                 className={editStyle}
               >
@@ -98,7 +103,7 @@ const MyActivityList = ({ log, mode, queryKey }) => {
             <button
               onClick={() => {
                 removeMyActivity(log.id);
-                setEdit((prev) => !prev);
+                setEditMenu((prev) => !prev);
               }}
               className={editStyle}
             >

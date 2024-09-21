@@ -6,11 +6,11 @@ import MyActivityList from './MyActivityList';
 
 const MyActivities = ({ queryKey }) => {
   const mode = queryKey === 'favorites' ? '즐겨찾기' : '내 리뷰';
-  const { userId } = useUserStore((state) => state);
+  const { userId } = useUserStore((state) => state.user);
 
   const [page, setPage] = useState(1);
-  const { data } = useGetMyActivitiesQuery(queryKey, userId, page);
-  const { data: activityLogs, totalPages } = data;
+  const { data: activityLogs, totalDatas } = useGetMyActivitiesQuery(queryKey, userId, page).data;
+  const totalPages = Math.ceil(totalDatas / 6);
 
   return (
     <>

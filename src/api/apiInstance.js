@@ -4,10 +4,8 @@ export const authApi = axios.create({
   baseURL: 'https://moneyfulpublicpolicy.co.kr'
 });
 
-// https://available-garnet-quince.glitch.me
-// https://dull-merciful-curve.glitch.me
 export const jsonApi = axios.create({
-  baseURL: 'http://localhost:4000'
+  baseURL: 'https://temporal-unequaled-tithonia.glitch.me'
 });
 
 jsonApi.interceptors.request.use(
@@ -20,7 +18,10 @@ jsonApi.interceptors.request.use(
 );
 
 jsonApi.interceptors.response.use(
-  (response) => response,
+  (response) => {
+    const totalDatas = response.headers['x-total-count'];
+    return { ...response, totalDatas };
+  },
   (error) => {
     console.error('response error', error);
     alert(error.message);

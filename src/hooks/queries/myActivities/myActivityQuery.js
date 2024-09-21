@@ -7,8 +7,8 @@ export const useGetMyActivitiesQuery = (type, userId, page) => {
   return useQuery({
     queryKey: queryKeys.boardController.MyActivity(type, userId, page),
     queryFn: (signal) => getMyActivities(signal),
-    select: ({ data, pages: totalPages }) => {
-      return { data, totalPages };
+    select: ({ data, totalDatas }) => {
+      return { data, totalDatas };
     },
     placeholderData: keepPreviousData,
     suspense: true,
