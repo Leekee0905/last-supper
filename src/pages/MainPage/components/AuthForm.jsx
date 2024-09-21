@@ -53,6 +53,14 @@ const AuthForm = ({ mode }) => {
     }
   };
 
+  const handleAskAccountLink = () => {
+    if (mode === 'signup') {
+      setModalType('login');
+    }
+    if (mode === 'login') {
+      setModalType('signup');
+    }
+  };
   return (
     <div className="shadow-xl rounded-lg w-5/6 h-[600px] p-10 flex flex-col justify-between bg-white ">
       <span className="lg:text-2xl md:text-xl font-bold px-10">{mode === 'login' ? '로그인' : '회원가입'}</span>
@@ -101,24 +109,14 @@ const AuthForm = ({ mode }) => {
             {mode === 'login' ? '로그인' : '회원가입'}
           </button>
         </form>
-        {mode === 'signup' ? (
-          <span className="text-sm my-5">
-            이미 계정이 있으신가요?{' '}
-            <span className="text-[--dark-khaki-color] font-bold cursor-pointer" onClick={() => setModalType('login')}>
-              로그인
-            </span>
+        <span className="text-sm my-5">
+          {mode === 'signup' ? '이미 계정이 있으신가요? ' : '계정이 없으신가요? '}
+          <span className="text-[--dark-khaki-color] font-bold cursor-pointer" onClick={handleAskAccountLink}>
+            {mode === 'signup' ? '로그인' : '회원가입'}
           </span>
-        ) : (
-          <span className="text-sm mb-5">
-            계정이 없으신가요?{' '}
-            <span className="text-[--dark-khaki-color] font-bold cursor-pointer" onClick={() => setModalType('signup')}>
-              회원가입
-            </span>
-          </span>
-        )}
+        </span>
       </div>
     </div>
   );
 };
-
 export default AuthForm;
