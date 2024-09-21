@@ -5,7 +5,13 @@ import { createRoot } from 'react-dom/client';
 import Router from './shared/Router';
 import LoadingModal from './components/LoadingModal';
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 1000 * 60 * 10
+    }
+  }
+});
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>

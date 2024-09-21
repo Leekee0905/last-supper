@@ -15,15 +15,11 @@ const MainPage = () => {
   const places = new window.kakao.maps.services.Places();
 
   const getPlacesPositionForMarkers = (data) => {
-    let temp = [];
-    for (let i = 0; i < data.length; i++) {
-      temp.push(data[i]);
-    }
-    let addedReviewsAndBookMarks = temp.map((e) => {
+    const addedReviewsAndBookMarks = data.map((e) => {
       return { ...e, reviews: [], bookmark: 0 };
     });
     setRestaurants(addedReviewsAndBookMarks);
-    setMarkers(temp);
+    setMarkers(data);
   };
 
   const searchRestaurants = (bounds) => {
@@ -36,7 +32,6 @@ const MainPage = () => {
   const keywordSearch = () => {
     if (!map) return;
     places.keywordSearch(campSearchWordConverter(paramId), (data, status, _pagination) => {
-
       if (status === window.kakao.maps.services.Status.OK) {
         const bounds = new window.kakao.maps.LatLngBounds();
         let markers = [];
@@ -76,13 +71,7 @@ const MainPage = () => {
       onCreate={setMap}
     >
       {markers.map((marker) => {
-        return (
-          <EventMarkerContainer
-            key={marker.id}
-            position={{ lat: marker.y, lng: marker.x }}
-            content={marker.place_name}
-          />
-        );
+        return <EventMarkerContainer key={marker.id} position={{ lat: marker.y, lng: marker.x }} content={marker} />;
       })}
     </Map>
   );
