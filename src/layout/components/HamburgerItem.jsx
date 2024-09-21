@@ -19,7 +19,7 @@ const HamburgerItem = ({ icon, text }) => {
   const setHasModalOpen = useModalStore((state) => state.setHasOpen);
   const setModalType = useModalStore((state) => state.setModalType);
   const setHasAuthenticated = useUserStore((state) => state.setHasAuthenticated);
-  const setIsHamburgerMenuModalOpen = useHamburgerStore((state) => state.setIsHamburgerMenuModalOpen);
+  const setIsHamburgerMenuOpen = useHamburgerStore((state) => state.setIsHamburgerMenuOpen);
 
   const handleClickHamburgerMenu = () => {
     if (text === '로그아웃') {
@@ -28,7 +28,7 @@ const HamburgerItem = ({ icon, text }) => {
       localStorage.clear();
       return;
     }
-    setIsHamburgerMenuModalOpen(false);
+    setIsHamburgerMenuOpen(false);
     setModalType(icon);
     setHasModalOpen(true);
   };
