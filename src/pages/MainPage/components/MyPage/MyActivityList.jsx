@@ -60,7 +60,6 @@ const MyActivityList = ({ log, mode, queryKey }) => {
                   setEditReview((prev) => !prev);
                   editReview || setEditReviewInput(log.review);
                 }}
-                className=""
               >
                 {editReview ? <RiCloseLine /> : <RiEditLine />}
               </button>
@@ -69,7 +68,6 @@ const MyActivityList = ({ log, mode, queryKey }) => {
               onClick={() => {
                 removeMyActivity(log.id);
               }}
-              className=""
             >
               <RiDeleteBin6Line />
             </button>
