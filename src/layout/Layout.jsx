@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Outlet, useSearchParams } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import Sidebar from './components/Sidebar';
 import HamburgerMenu from './components/HamburgerMenu';
 import useModalStore from '../store/useModalStore';
@@ -14,16 +14,11 @@ import DetailModal from '../pages/MainPage/components/Detail/DetailModal';
 import useRestaurantsStore from '../store/useRestaurantsInfo';
 
 const Layout = () => {
-  const modalType = useModalStore((state) => state.modalType);
-  const [hasModalOpen, setIsModalOpen] = useState(false);
-  const setHasAuthenticated = useUserStore((state) => state.setHasAuthenticated);
   const [detailInfo, setDetailInfo] = useState([]);
-  const { isOpen, setIsOpen } = useRestaurantsStore((state) => state);
-  const { data: hasAuthenticated, isPending, isError, error } = useHasTokenAuthenticatedQuery();
-
-  const toggleModal = () => {
-    setIsModalOpen(!hasModalOpen);
-  };
+  const modalType = useModalStore((state) => state.modalType);
+  const setHasAuthenticated = useUserStore((state) => state.setHasAuthenticated);
+  const { isOpen } = useRestaurantsStore((state) => state);
+  const { isError } = useHasTokenAuthenticatedQuery();
 
   const renderModalType = () => {
     switch (modalType) {
@@ -53,8 +48,8 @@ const Layout = () => {
   return (
     <div className="relative flex min-h-screen">
       <Modal>{renderModalType()}</Modal>
-      <Sidebar toggleModal={toggleModal} setDetailInfo={setDetailInfo} />
-      <HamburgerMenu hasModalOpen={hasModalOpen} toggleModal={toggleModal} setIsModalOpen={setIsModalOpen} />
+      <Sidebar setDetailInfo={setDetailInfo} />
+      <HamburgerMenu />
       <main className="flex-1 ml-[400px]">
         <Outlet />
       </main>
