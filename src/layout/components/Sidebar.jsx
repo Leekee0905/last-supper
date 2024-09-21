@@ -12,13 +12,13 @@ const Sidebar = ({ toggleModal, setDetailInfo }) => {
           return (
             <div
               key={index}
-              style={{ border: '1px solid black', padding: '20px' }}
+              className="p-[20px] bg-[--khaki-color] bounded-[16px] cursor-pointer"
               onClick={() => {
                 setDetailInfo(el);
                 setIsOpen(true);
               }}
             >
-              <p>{el.place_name}</p>
+              <p className="text-[24px] font-black">{el.place_name}</p>
               <p>{el.address_name}</p>
               <p>{el.phone}</p>
             </div>
