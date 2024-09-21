@@ -21,7 +21,7 @@ const MyActivities = ({ queryKey }) => {
             return (
               <li
                 key={log.id}
-                className="flex shadow-md flex-row w-full items-center pl-4 rounded justify gap-3 bg-[var(--khaki-color)] break-all"
+                className="flex shadow-md flex-row w-full items-center pl-4 rounded justify gap-3 bg-[var(--khaki-color)] break-all relative"
               >
                 <MyActivityList log={log} mode={mode} queryKey={queryKey} />
               </li>

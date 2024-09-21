@@ -13,8 +13,6 @@ const MY_PAGE_NAV = { profile: 'profile', favorites: 'favorites', myReviews: 'my
 const MyPage = () => {
   const { userId } = useUserStore((state) => state);
 
-
-
   // prefetch 함수
   const prefetchMyActivities = useMyActivitiesPrefetchQuery(userId);
 
