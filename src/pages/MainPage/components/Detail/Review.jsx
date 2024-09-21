@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { addMyActivity, getMyActivity } from '../../../../api/MyActivitesApi';
+import { addMyActivity, getMyActivity } from '../../../../api/myActivitesApi';
 import useUserStore from '../../../../store/useUserStore';
 import ReviewItem from './ReviewItem';
 
