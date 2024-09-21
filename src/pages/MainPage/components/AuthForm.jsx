@@ -62,7 +62,7 @@ const AuthForm = ({ mode }) => {
     }
   };
   return (
-    <div className="shadow-xl rounded-lg w-5/6 h-[600px] p-10 flex flex-col justify-between">
+    <div className="shadow-xl rounded-lg w-5/6 h-[600px] p-10 flex flex-col justify-between bg-white ">
       <span className="lg:text-2xl md:text-xl font-bold px-10">{mode === 'login' ? '로그인' : '회원가입'}</span>
       <div className="flex justify-center items-center h-full flex-col">
         <form

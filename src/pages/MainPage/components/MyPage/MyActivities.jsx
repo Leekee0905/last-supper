@@ -1,46 +1,34 @@
-import { IoRestaurantSharp } from 'react-icons/io5';
-import { RxDotsVertical } from 'react-icons/rx';
 import Pagination from '../../../../components/Pagination';
 import { useState } from 'react';
 import { useGetMyActivitiesQuery } from '../../../../hooks/queries/myActivities/myActivityQuery';
 import useUserStore from '../../../../store/useUserStore';
+import MyActivityList from './MyActivityList';
 
-const MyActivities = ({ queryKey, removeFavorite }) => {
-  const { userId } = useUserStore((state) => state);
+const MyActivities = ({ queryKey }) => {
+  const mode = queryKey === 'favorites' ? '즐겨찾기' : '내 리뷰';
+  const { userId } = useUserStore((state) => state.user);
 
   const [page, setPage] = useState(1);
-  const { data } = useGetMyActivitiesQuery(queryKey, userId, page);
-  const { data: activityLogs, totalPages } = data;
+  const { data: activityLogs, totalDatas } = useGetMyActivitiesQuery(queryKey, userId, page).data;
+  const totalPages = Math.ceil(totalDatas / 6);
 
   return (
     <>
-      <h3>{!!removeFavorite ? '즐겨찾기' : '내 리뷰'}</h3>
-      <ol className="grid justify-items-center grid-cols-2 grid-rows-3 h-full rounded gap-4 p-4">
+      <h3>{mode}</h3>
+      <ol className="grid justify-items-center grid-cols-2 grid-rows-3 h-full rounded gap-4 p-4 bg-white">
         {!!activityLogs?.length ? (
           activityLogs.map((log) => {
             return (
               <li
                 key={log.id}
-                className="flex shadow-md flex-row w-full items-center pl-4 pr-3 border rounded justify gap-3"
+                className="flex shadow-md flex-row w-full items-center pl-4 rounded justify gap-3 bg-[var(--khaki-color)] break-all relative"
               >
-                <IoRestaurantSharp className="text-2xl w-[24px]" />
-                <main className="grow">
-                  <h4>{log.storeName}</h4>
-                  <p>주소 : {log.storeAddress}</p>
-                  <p>
-                    <small>전화번호 : {log.storePhone}</small>
-                  </p>
-                </main>
-                {
-                  <button className="pt-4 mb-auto" onClick={() => removeFavorite(log.id)}>
-                    <RxDotsVertical className="text-xl hover:text-[var(--sand-color)]" />
-                  </button>
-                }
+                <MyActivityList log={log} mode={mode} queryKey={queryKey} />
               </li>
             );
           })
         ) : (
-          <p className={guideStyle}>등록한 {!!removeFavorite ? '즐겨찾기' : '리뷰'}가 없습니다.</p>
+          <p className={guideStyle}>등록한 {mode}가 없습니다.</p>
         )}
       </ol>
       <div className="h-6">

@@ -3,17 +3,16 @@ import { jsonApi } from './apiInstance';
 // 즐겨찾기 추가나 리뷰를 작성한 가게들 불러오기
 export const getMyActivities = async ({ queryKey, signal }) => {
   const [target, userId, page] = queryKey;
-  const { data } = await jsonApi.get(`/${target}`, {
+  const response = await jsonApi.get(`/${target}`, {
     params: {
       userId: userId,
       _page: page,
-      _per_page: 6
-      // _sort: 'date',
-      // _order: 'desc'
+      _per_page: 6,
+      _limit: 6
     },
     signal
   });
-  return data;
+  return response;
 };
 
 // 리뷰 및 즐겨찾기 조회 api
