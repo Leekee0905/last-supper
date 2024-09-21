@@ -50,9 +50,9 @@ export const useMyActivityUpdateMutate = (queryKey, userId, page) => {
 
       const { data: preLogs } = queryClient.getQueriesData([queryKey, userId, page]);
 
-      queryClient.setQueryData([queryKey, userId, page], ({ data }) =>
-        data.map((log) => (log.id === newLog.id ? (log.review = newLog.content) : log))
-      );
+      queryClient.setQueryData([queryKey, userId, page], ({ data }) => {
+        data.map((log) => (log.id === newLog.id ? (log.review = newLog.content) : log));
+      });
 
       return { preLogs };
     },

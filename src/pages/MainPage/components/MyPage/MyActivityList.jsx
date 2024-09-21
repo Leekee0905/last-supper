@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { IoRestaurantSharp } from 'react-icons/io5';
 import { RiEditLine, RiCloseLine, RiDeleteBin6Line } from 'react-icons/ri';
 
-const MyActivityList = ({ log, mode, queryKey, updateMutate, removeMutate }) => {
+const MyActivityList = ({ log, mode, updateMutate, removeMutate }) => {
   const [editReview, setEditReview] = useState(false);
   const [editReviewInput, setEditReviewInput] = useState('');
 
@@ -45,7 +45,12 @@ const MyActivityList = ({ log, mode, queryKey, updateMutate, removeMutate }) => 
           <h4 className="truncate w-4/5">{log.storeName}</h4>
           <div className="flex gap-[1vw] text-xl">
             {mode === '내 리뷰' && (
-              <button onClick={() => setEditReview((prev) => !prev)}>
+              <button
+                onClick={() => {
+                  setEditReview((prev) => !prev);
+                  setEditReviewInput(log.review);
+                }}
+              >
                 {editReview ? <RiCloseLine /> : <RiEditLine />}
               </button>
             )}
@@ -74,6 +79,7 @@ const MyActivityList = ({ log, mode, queryKey, updateMutate, removeMutate }) => 
                   rows="1"
                   className="w-[82%] absolute top-12 h-1/2 resize-none rounded"
                   ref={editReviewInputRef}
+                  // value={editReviewInput}
                   defaultValue={log.review}
                   onChange={(e) => setEditReviewInput(e.target.value)}
                   onKeyDown={(e) => e.code === 'Enter' && !e.shiftKey && handleReviewChange(e, log.id)}
