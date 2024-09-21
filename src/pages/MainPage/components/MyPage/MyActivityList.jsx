@@ -12,6 +12,7 @@ const MyActivityList = ({ log, mode, queryKey }) => {
   const [editReview, setEditReview] = useState(false);
   const [editReviewInput, setEditReviewInput] = useState('');
 
+  // 리뷰 수정 시 textarea 포커싱
   const editReviewInputRef = useRef();
   useEffect(() => {
     if (editReviewInputRef.current) {
@@ -72,7 +73,7 @@ const MyActivityList = ({ log, mode, queryKey }) => {
                   onChange={(e) => setEditReviewInput(e.target.value)}
                   onKeyDown={(e) => e.code === 'Enter' && !e.shiftKey && handleReviewChange(e, log.id)}
                 />
-                <button className="bg-[var(--dark-khaki-color)] absolute rounded -right-[46px] w-[42px] h-1/2 top-12 cursor-pointer">
+                <button className="bg-[var(--dark-khaki-color)] absolute rounded -right-[46px] w-[42px] h-1/2 top-12">
                   확인
                 </button>
               </form>
