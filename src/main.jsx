@@ -5,8 +5,6 @@ import { createRoot } from 'react-dom/client';
 import Router from './shared/Router';
 import LoadingModal from './components/LoadingModal';
 import AlertProvider from './styles/CustomAlert/AlertProvider';
-import TestPage from './styles/CustomAlert/test';
-
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -26,5 +24,4 @@ createRoot(document.getElementById('root')).render(
     </QueryClientProvider>
   </StrictMode>
 
-  // <TestPage/>
 );
