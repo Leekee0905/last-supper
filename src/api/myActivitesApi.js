@@ -3,16 +3,17 @@ import { jsonApi } from './apiInstance';
 // 즐겨찾기 추가나 리뷰를 작성한 가게들 불러오기
 export const getMyActivities = async ({ queryKey, signal }) => {
   const [target, userId, page] = queryKey;
-  const response = await jsonApi.get(`/${target}`, {
+
+  const division = () => {
+    return page && { _page: page, _per_page: 6, _limit: 6 };
+  };
+  return await jsonApi.get(`/${target}`, {
     params: {
       userId: userId,
-      _page: page,
-      _per_page: 6,
-      _limit: 6
+      ...division()
     },
     signal
   });
-  return response;
 };
 
 // 리뷰 및 즐겨찾기 조회 api
@@ -35,5 +36,12 @@ export const removeMyActivity = async ({ queryKey, id }) => {
 export const updateMyActivity = async ({ queryKey, id, content }) => {
   await jsonApi.patch(`${queryKey}/${id}`, {
     review: content
+  });
+};
+
+// 리뷰 닉네임 수정 api
+export const updateReviewNickname = async ({ queryKey, targetId, nickName }) => {
+  await jsonApi.patch(`${queryKey}/${targetId}`, {
+    nickName
   });
 };

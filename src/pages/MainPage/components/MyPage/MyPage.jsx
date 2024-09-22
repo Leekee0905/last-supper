@@ -11,7 +11,7 @@ import useUserStore from '../../../../store/useUserStore';
 const MY_PAGE_NAV = { profile: 'profile', favorites: 'favorites', myReviews: 'myReviews' };
 
 const MyPage = () => {
-  const { userId } = useUserStore((state) => state);
+  const { userId } = useUserStore((state) => state.user);
 
   // prefetch 함수
   const prefetchMyActivities = useMyActivitiesPrefetchQuery(userId);

@@ -11,10 +11,12 @@ const Review = ({ detailInfo }) => {
   let today = new Date();
 
   // 리뷰 가져오기
-  const { data, isPending, isError } = useQuery({
-    queryKey: ['allReviews'],
-    queryFn: () => getMyActivity('reviews')
-  });
+  const { data, isPending, isError } = useQuery(
+    {
+      queryKey: ['allReviews'],
+      queryFn: () => getMyActivity('reviews')
+    },
+  );
 
   // 리뷰 추가
   const { mutate: addFunc } = useMutation({

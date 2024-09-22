@@ -4,6 +4,7 @@ import { StrictMode, Suspense } from 'react';
 import { createRoot } from 'react-dom/client';
 import Router from './shared/Router';
 import LoadingModal from './components/LoadingModal';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -16,6 +17,7 @@ const queryClient = new QueryClient({
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
+      <ReactQueryDevtools/>
       <Suspense fallback={<LoadingModal />}>
         <Router />
       </Suspense>
