@@ -26,16 +26,19 @@ export const useMyActivityRemoveMutate = (queryKey, userId, page) => {
 
     //   const { data: preLogs } = queryClient.getQueryData([queryKey, userId, page]);
 
-    //   queryClient.setQueryData([queryKey, userId, page], ({ data }) => data.filter((log) => log.id !== targetId));
+    //   queryClient.setQueryData([queryKey, userId, page], ({ data }) => {
+    //     return data.filter((log) => log.id !== targetId);
+    //   });
 
     //   return { preLogs };
     // },
-    // onError: (error, _, context) => {
-    //   alert(error.response.data.message);
-    //   queryClient.setQueryData([queryKey, userId, page], context.preLogs);
-    // },
+    onError: (error, _, context) => {
+      alert(error.response.data.message);
+      queryClient.setQueryData([queryKey, userId, page], context.preLogs);
+    },
     onSettled: () => {
       queryClient.invalidateQueries({ queryKey: [queryKey, userId, page] });
+      queryClient.invalidateQueries({ queryKey: ['allReviews'] });
     }
   });
 };
@@ -70,7 +73,7 @@ export const useMyActivityUpdateMutate = (queryKey, userId, page) => {
 export const useReviewNicknameUpdateMutate = (queryKey, userId) => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: ({ targetId, nickName }) => updateReviewNickname({ queryKey, targetId, nickName })
+    mutationFn: ({ targetId, nickName }) => updateReviewNickname({ queryKey, targetId, nickName }),
     // onMutate: async (newNickname) => {
     //   await queryClient.cancelQueries({ queryKey: [queryKey, userId] });
 
@@ -86,9 +89,9 @@ export const useReviewNicknameUpdateMutate = (queryKey, userId) => {
     //   alert(error.response.data.message);
     //   queryClient.setQueryData([queryKey, userId, null], context.beforeNicknameChange);
     // },
-    // onSuccess: () => {
-    //   queryClient.invalidateQueries({ queryKey: ['allReviews'] });
-    // }
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['allReviews'] });
+    }
   });
 };
 
