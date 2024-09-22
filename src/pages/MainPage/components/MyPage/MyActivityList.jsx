@@ -1,13 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import { IoRestaurantSharp } from 'react-icons/io5';
 import { RiEditLine, RiCloseLine, RiDeleteBin6Line } from 'react-icons/ri';
-import {
-  useMyActivityRemoveMutate,
-  useMyActivityUpdateMutate
-} from '../../../../hooks/queries/myActivities/myActivityQuery';
-import { REVIEWS_QUERY_KEY } from '../../../../hooks/queries/queryKeys';
 
-const MyActivityList = ({ log, mode, queryKey }) => {
+const MyActivityList = ({ log, mode, updateMutate, removeMutate }) => {
   const [editReview, setEditReview] = useState(false);
   const [editReviewInput, setEditReviewInput] = useState('');
 
@@ -20,14 +15,11 @@ const MyActivityList = ({ log, mode, queryKey }) => {
     }
   }, [editReview]);
 
-  // 리뷰 수정 뮤테이트
-  const { mutate: updateMyReviewMutate } = useMyActivityUpdateMutate(REVIEWS_QUERY_KEY);
-
   // 리뷰 내용 수정 함수
   const handleReviewChange = (e, id) => {
     e.preventDefault();
     if (confirm('리뷰 내용을 수정하시겠습니까?')) {
-      updateMyReviewMutate({ id, content: editReviewInput });
+      updateMutate({ id, content: editReviewInput });
       setEditReview(false);
       alert('리뷰 내용이 수정되었습니다.');
     } else {
@@ -35,12 +27,10 @@ const MyActivityList = ({ log, mode, queryKey }) => {
     }
   };
 
-  // 즐겨찾기 및 리뷰 삭제 함수
-  const { mutate: removeMyActivityMutate } = useMyActivityRemoveMutate(queryKey);
-
+  // 즐겨찾기, 리뷰 삭제 함수
   const removeMyActivity = (logId) => {
     if (confirm(`${mode}를 삭제하시겠습니까?`)) {
-      removeMyActivityMutate(logId);
+      removeMutate(logId);
       alert(`${mode}가 삭제되었습니다.`);
     } else {
       alert('삭제를 취소하였습니다.');
@@ -58,7 +48,7 @@ const MyActivityList = ({ log, mode, queryKey }) => {
               <button
                 onClick={() => {
                   setEditReview((prev) => !prev);
-                  editReview || setEditReviewInput(log.review);
+                  setEditReviewInput(log.review);
                 }}
               >
                 {editReview ? <RiCloseLine /> : <RiEditLine />}
@@ -89,7 +79,8 @@ const MyActivityList = ({ log, mode, queryKey }) => {
                   rows="1"
                   className="w-[82%] absolute top-12 h-1/2 resize-none rounded"
                   ref={editReviewInputRef}
-                  value={editReviewInput}
+                  // value={editReviewInput}
+                  defaultValue={log.review}
                   onChange={(e) => setEditReviewInput(e.target.value)}
                   onKeyDown={(e) => e.code === 'Enter' && !e.shiftKey && handleReviewChange(e, log.id)}
                 />
@@ -108,5 +99,3 @@ const MyActivityList = ({ log, mode, queryKey }) => {
 };
 
 export default MyActivityList;
-
-// const editStyle = 'border w-10 bg-[var(--dark-khaki-color)]';
