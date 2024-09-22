@@ -4,10 +4,10 @@ import { CustomOverlayMap, MapMarker, useMap } from 'react-kakao-maps-sdk';
 
 const EventMarkerContainer = ({ position, content }) => {
   const map = useMap();
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOVerlayOpen, setIsOverlayOpen] = useState(false);
   const handleMarkerInfo = (marker) => {
     map.panTo(marker.getPosition());
-    setIsOpen(true);
+    setIsOverlayOpen(true);
   };
 
   return (
@@ -18,11 +18,11 @@ const EventMarkerContainer = ({ position, content }) => {
         onClick={(marker) => handleMarkerInfo(marker)}
         image={{ src: '/assets/markerLine2.png', size: { width: 70, height: 70 } }}
       />
-      {isOpen && (
+      {isOVerlayOpen && (
         <CustomOverlayMap position={{ lat: String(Number(position.lat) + 0.0002), lng: position.lng }}>
           <div className="bg-white flex flex-col items-center min-w-[350px] h-[200px] p-5 rounded-lg">
             <div className="flex flex-col w-full items-end">
-              <button onClick={() => setIsOpen(false)}>
+              <button onClick={() => setIsOverlayOpen(false)}>
                 <FiX className="w-[20px] h-[20px]" />
               </button>
             </div>

@@ -104,7 +104,7 @@ const AuthForm = ({ mode }) => {
           )}
           <button
             type="submit"
-            className={`flex justify-center items-center border-2 w-full h-[65px] bg-[--dark-khaki-color] text-white lg:text-2xl md:text-base sm:text-sm`}
+            className="flex justify-center items-center border-2 w-full h-[65px] bg-[--dark-khaki-color] text-white lg:text-2xl md:text-base sm:text-sm"
           >
             {mode === 'login' ? '로그인' : '회원가입'}
           </button>

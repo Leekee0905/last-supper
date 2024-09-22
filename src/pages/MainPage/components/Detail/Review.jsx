@@ -10,6 +10,7 @@ const Review = ({ detailInfo }) => {
   const queryClient = useQueryClient();
   let today = new Date();
 
+  // NOTE query hook으로 빼기
   // 리뷰 가져오기
   const { data, isPending, isError } = useQuery({
     queryKey: ['allReviews'],

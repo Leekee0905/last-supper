@@ -21,7 +21,7 @@ const DetailModal = ({ detailInfo }) => {
         </div>
         <p className="text-[13px] opacity-50">{subContent}</p>
         <p>주소: {detailInfo.address_name}</p>
-        <p>전화번호: {detailInfo.phone}</p>
+        <p>전화번호: {detailInfo.phone ? detailInfo.phone : '전화번호가 없습니다.'}</p>
       </div>
       <Review detailInfo={detailInfo} />
     </div>
