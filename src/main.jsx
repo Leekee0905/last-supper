@@ -4,7 +4,7 @@ import { StrictMode, Suspense } from 'react';
 import { createRoot } from 'react-dom/client';
 import Router from './shared/Router';
 import LoadingModal from './components/LoadingModal';
-import {AlertProvider} from './styles/CustomAlert/AlertProvider';
+import { AlertProvider } from './styles/CustomAlert/AlertProvider';
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -14,14 +14,11 @@ const queryClient = new QueryClient({
 });
 
 createRoot(document.getElementById('root')).render(
-  <StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <AlertProvider>
-        <Suspense fallback={<LoadingModal />}>
-          <Router />
-        </Suspense>
-      </AlertProvider>
-    </QueryClientProvider>
-  </StrictMode>
-
+  <QueryClientProvider client={queryClient}>
+    <AlertProvider>
+      <Suspense fallback={<LoadingModal />}>
+        <Router />
+      </Suspense>
+    </AlertProvider>
+  </QueryClientProvider>
 );

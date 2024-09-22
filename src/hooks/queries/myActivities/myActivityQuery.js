@@ -21,19 +21,19 @@ export const useMyActivityRemoveMutate = (queryKey, userId, page) => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (targetId) => removeMyActivity({ queryKey, id: targetId }),
-    onMutate: async (targetId) => {
-      await queryClient.cancelQueries({ queryKey: [queryKey, userId, page] });
+    // onMutate: async (targetId) => {
+    //   await queryClient.cancelQueries({ queryKey: [queryKey, userId, page] });
 
-      const { data: preLogs } = queryClient.getQueryData([queryKey, userId, page]);
+    //   const { data: preLogs } = queryClient.getQueryData([queryKey, userId, page]);
 
-      queryClient.setQueryData([queryKey, userId, page], ({ data }) => data.filter((log) => log.id !== targetId));
+    //   queryClient.setQueryData([queryKey, userId, page], ({ data }) => data.filter((log) => log.id !== targetId));
 
-      return { preLogs };
-    },
-    onError: (error, _, context) => {
-      alert(error.response.data.message);
-      queryClient.setQueryData([queryKey, userId, page], context.preLogs);
-    },
+    //   return { preLogs };
+    // },
+    // onError: (error, _, context) => {
+    //   alert(error.response.data.message);
+    //   queryClient.setQueryData([queryKey, userId, page], context.preLogs);
+    // },
     onSettled: () => {
       queryClient.invalidateQueries({ queryKey: [queryKey, userId, page] });
     }
@@ -45,21 +45,21 @@ export const useMyActivityUpdateMutate = (queryKey, userId, page) => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: ({ id, content }) => updateMyActivity({ queryKey, id, content }),
-    onMutate: async (newLog) => {
-      await queryClient.cancelQueries({ queryKey: [queryKey, userId, page] });
+    // onMutate: async (newLog) => {
+    //   await queryClient.cancelQueries({ queryKey: [queryKey, userId, page] });
 
-      const { data: preLogs } = queryClient.getQueriesData([queryKey, userId, page]);
+    //   const { data: preLogs } = queryClient.getQueriesData([queryKey, userId, page]);
 
-      queryClient.setQueryData([queryKey, userId, page], ({ data }) => {
-        data.map((log) => (log.id === newLog.id ? (log.review = newLog.content) : log));
-      });
+    //   queryClient.setQueryData([queryKey, userId, page], ({ data }) => {
+    //     data.map((log) => (log.id === newLog.id ? (log.review = newLog.content) : log));
+    //   });
 
-      return { preLogs };
-    },
-    onError: (error, _, context) => {
-      alert(error.response.data.message);
-      queryClient.setQueryData([queryKey, userId, page], context.preLogs);
-    },
+    //   return { preLogs };
+    // },
+    // onError: (error, _, context) => {
+    //   alert(error.response.data.message);
+    //   queryClient.setQueryData([queryKey, userId, page], context.preLogs);
+    // },
     onSettled: () => {
       queryClient.invalidateQueries({ queryKey: [queryKey, userId, page] });
     }
