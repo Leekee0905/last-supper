@@ -1,15 +1,24 @@
 import { useEffect, useRef, useState } from 'react';
 import { IoRestaurantSharp } from 'react-icons/io5';
 import { RiEditLine, RiCloseLine, RiDeleteBin6Line } from 'react-icons/ri';
+import {
+  useMyActivityRemoveMutate,
+  useMyActivityUpdateMutate
+} from '../../../../hooks/queries/myActivities/myActivityQuery';
+import useUserStore from '../../../../store/useUserStore';
 
-const MyActivityList = ({ log, mode, updateMutate, removeMutate }) => {
+const MyActivityList = ({ log, mode, queryKey, page }) => {
   const [editReview, setEditReview] = useState(false);
   const [editReviewInput, setEditReviewInput] = useState('');
+  const { userId } = useUserStore((state) => state.user);
+
+  const { mutate: updateReviewMutate } = useMyActivityUpdateMutate(queryKey, userId, page);
+  const { mutate: removeMyactivityMutate } = useMyActivityRemoveMutate(queryKey, userId, page);
 
   // 리뷰 수정 시 textarea 포커싱
   const editReviewInputRef = useRef();
   useEffect(() => {
-    if (!!editReviewInputRef.current) {
+    if (editReviewInputRef.current) {
       editReviewInputRef.current.focus();
       editReviewInputRef.current.setSelectionRange(editReviewInput.length, editReviewInput.length);
     }
@@ -19,22 +28,22 @@ const MyActivityList = ({ log, mode, updateMutate, removeMutate }) => {
   const handleReviewChange = (e, id) => {
     e.preventDefault();
     if (confirm('리뷰 내용을 수정하시겠습니까?')) {
-      updateMutate({ id, content: editReviewInput });
+      updateReviewMutate({ id, content: editReviewInput });
       setEditReview(false);
       alert('리뷰 내용이 수정되었습니다.');
-    } else {
-      alert('리뷰 내용이 수정을 취소하였습니다.');
+      return;
     }
+    alert('리뷰 내용이 수정을 취소하였습니다.');
   };
 
   // 즐겨찾기, 리뷰 삭제 함수
   const removeMyActivity = (logId) => {
     if (confirm(`${mode}를 삭제하시겠습니까?`)) {
-      removeMutate(logId);
+      removeMyactivityMutate(logId);
       alert(`${mode}가 삭제되었습니다.`);
-    } else {
-      alert('삭제를 취소하였습니다.');
+      return;
     }
+    alert('삭제를 취소하였습니다.');
   };
 
   return (

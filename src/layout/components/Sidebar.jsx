@@ -12,7 +12,7 @@ const Sidebar = ({ setDetailInfo }) => {
           return (
             <div
               key={index}
-              className="p-[20px] bg-[--khaki-color] bounded-[16px] cursor-pointer"
+              className="p-[20px] bg-[--khaki-color] rounded-[16px] cursor-pointer"
               onClick={() => {
                 setDetailInfo(el);
                 setIsOpen(true);

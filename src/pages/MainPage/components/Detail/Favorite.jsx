@@ -9,6 +9,7 @@ const Favorite = ({ detailInfo }) => {
   const queryClient = useQueryClient();
   const styleBtn = 'text-yellow-500 text-[24px]';
 
+  // NOTE query hook으로 만들기
   // 즐겨찾기 가져오기
   const {
     data: starData,
