@@ -16,15 +16,15 @@ const queryClient = new QueryClient({
 });
 
 createRoot(document.getElementById('root')).render(
-  // <StrictMode>
-  //   <QueryClientProvider client={queryClient}>
-  //     <AlertProvider>
-  //       <Suspense fallback={<LoadingModal />}>
-  //         <Router />
-  //       </Suspense>
-  //     </AlertProvider>
-  //   </QueryClientProvider>
-  // </StrictMode>
+  <StrictMode>
+    <QueryClientProvider client={queryClient}>
+      <AlertProvider>
+        <Suspense fallback={<LoadingModal />}>
+          <Router />
+        </Suspense>
+      </AlertProvider>
+    </QueryClientProvider>
+  </StrictMode>
 
-  <TestPage/>
+  // <TestPage/>
 );
