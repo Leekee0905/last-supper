@@ -21,10 +21,10 @@ createRoot(document.getElementById('root')).render(
       <ReactQueryDevtools/>
       <AlertProvider>
         <Suspense fallback={<LoadingModal />}>
+          <ReactQueryDevtools />
           <Router />
         </Suspense>
       </AlertProvider>
     </QueryClientProvider>
   </StrictMode>
-
 );
