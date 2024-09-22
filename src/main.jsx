@@ -4,6 +4,8 @@ import { StrictMode, Suspense } from 'react';
 import { createRoot } from 'react-dom/client';
 import Router from './shared/Router';
 import LoadingModal from './components/LoadingModal';
+import AlertProvider from './styles/CustomAlert/AlertProvider';
+import TestPage from './styles/CustomAlert/test';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -14,11 +16,15 @@ const queryClient = new QueryClient({
 });
 
 createRoot(document.getElementById('root')).render(
-  <StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <Suspense fallback={<LoadingModal />}>
-        <Router />
-      </Suspense>
-    </QueryClientProvider>
-  </StrictMode>
+  // <StrictMode>
+  //   <QueryClientProvider client={queryClient}>
+  //     <AlertProvider>
+  //       <Suspense fallback={<LoadingModal />}>
+  //         <Router />
+  //       </Suspense>
+  //     </AlertProvider>
+  //   </QueryClientProvider>
+  // </StrictMode>
+
+  <TestPage/>
 );
