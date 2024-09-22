@@ -2,12 +2,11 @@ import { useState } from 'react';
 import { FiX } from 'react-icons/fi';
 import { CustomOverlayMap, MapMarker, useMap } from 'react-kakao-maps-sdk';
 
-const EventMarkerContainer = ({ position, content }) => {
+const EventMarkerContainer = ({ position, content, isClicked, index, setSelectedMarker }) => {
   const map = useMap();
-  const [isOVerlayOpen, setIsOverlayOpen] = useState(false);
   const handleMarkerInfo = (marker) => {
     map.panTo(marker.getPosition());
-    setIsOverlayOpen(true);
+    setSelectedMarker(index);
   };
 
   return (
@@ -15,14 +14,14 @@ const EventMarkerContainer = ({ position, content }) => {
       <MapMarker
         position={position}
         clickable={true}
-        onClick={(marker) => handleMarkerInfo(marker)}
+        onClick={handleMarkerInfo}
         image={{ src: '/assets/markerLine2.png', size: { width: 70, height: 70 } }}
       />
-      {isOVerlayOpen && (
+      {isClicked && (
         <CustomOverlayMap position={{ lat: String(Number(position.lat) + 0.0002), lng: position.lng }}>
           <div className="bg-white flex flex-col items-center min-w-[350px] h-[200px] p-5 rounded-lg">
             <div className="flex flex-col w-full items-end">
-              <button onClick={() => setIsOverlayOpen(false)}>
+              <button onClick={() => setSelectedMarker(null)}>
                 <FiX className="w-[20px] h-[20px]" />
               </button>
             </div>

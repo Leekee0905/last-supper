@@ -9,7 +9,7 @@ const MyActivityList = ({ log, mode, updateMutate, removeMutate }) => {
   // 리뷰 수정 시 textarea 포커싱
   const editReviewInputRef = useRef();
   useEffect(() => {
-    if (editReviewInputRef.current) {
+    if (!!editReviewInputRef.current) {
       editReviewInputRef.current.focus();
       editReviewInputRef.current.setSelectionRange(editReviewInput.length, editReviewInput.length);
     }
@@ -85,7 +85,6 @@ const MyActivityList = ({ log, mode, updateMutate, removeMutate }) => {
                   rows="1"
                   className="w-[82%] absolute top-12 h-1/2 resize-none rounded"
                   ref={editReviewInputRef}
-                  // value={editReviewInput}
                   defaultValue={log.review}
                   onChange={(e) => setEditReviewInput(e.target.value)}
                   onKeyDown={(e) => e.code === 'Enter' && !e.shiftKey && handleReviewChange(e, log.id)}

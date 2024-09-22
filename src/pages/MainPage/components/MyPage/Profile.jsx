@@ -1,23 +1,31 @@
 import React, { useState } from 'react';
 import useUserStore from '../../../../store/useUserStore';
 import useUpdateProfileQuery from '../../../../hooks/queries/auth/useUpdateProfileQuery';
+import {
+  useGetMyActivitiesQuery,
+  useReviewNicknameUpdateMutate
+} from '../../../../hooks/queries/myActivities/myActivityQuery';
+import { REVIEWS_QUERY_KEY } from '../../../../hooks/queries/queryKeys';
 
 const Profile = () => {
   const { user } = useUserStore((state) => state);
   const { mutate: updateNickname } = useUpdateProfileQuery();
+  const { mutate: reviewsNicknameUpdate } = useReviewNicknameUpdateMutate(REVIEWS_QUERY_KEY, user.userId);
+  const { data: myReviews } = useGetMyActivitiesQuery(REVIEWS_QUERY_KEY, user.userId).data;
 
   const [nickname, setNickname] = useState('');
 
   const handleNicknameChange = (e) => {
     e.preventDefault();
     updateNickname({ nickname });
+    myReviews.forEach((review) => reviewsNicknameUpdate({ targetId: review.id, nickName: nickname }));
     setNickname('');
   };
 
   return (
     <>
       <h3>개인정보</h3>
-      <p className='mt-2 text-lg'>현재 닉네임 : {user.nickname}</p>
+      <p className="mt-2 text-lg">현재 닉네임 : {user.nickname}</p>
       <form onSubmit={(e) => handleNicknameChange(e)} className="flex flex-col items-center gap-5">
         <input
           value={nickname}
