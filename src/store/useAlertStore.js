@@ -1,4 +1,4 @@
-import {create} from 'zustand';
+import { create } from 'zustand';
 
 const useAlertStore = create((set) => ({
   alerts: [],
@@ -6,16 +6,15 @@ const useAlertStore = create((set) => ({
 
   addAlert: (message, type = 'info') => {
     const id = Date.now();
-
-    // 기존 타이머가 존재하는 경우 클리어
-    const state = useAlertStore.getState(); // 현재 상태 가져오기
-    const existingTimeoutId = state.timeoutIds.get(id);
-    if (existingTimeoutId) {
-      clearTimeout(existingTimeoutId);
-    }
-
+    
     // 새 알럿 추가
     set((prevState) => {
+      // 기존 타이머가 존재하는 경우 클리어
+      const existingTimeoutId = prevState.timeoutIds.get(id);
+      if (existingTimeoutId) {
+        clearTimeout(existingTimeoutId);
+      }
+
       const newTimeoutIds = new Map(prevState.timeoutIds);
       newTimeoutIds.set(id, null); // 타이머 ID를 추가 (초기값 null)
 
