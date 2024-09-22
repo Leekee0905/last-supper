@@ -1,6 +1,10 @@
 import Pagination from '../../../../components/Pagination';
 import { useState } from 'react';
-import { useGetMyActivitiesQuery } from '../../../../hooks/queries/myActivities/myActivityQuery';
+import {
+  useGetMyActivitiesQuery,
+  useMyActivityRemoveMutate,
+  useMyActivityUpdateMutate
+} from '../../../../hooks/queries/myActivities/myActivityQuery';
 import useUserStore from '../../../../store/useUserStore';
 import MyActivityList from './MyActivityList';
 
@@ -11,6 +15,12 @@ const MyActivities = ({ queryKey }) => {
   const [page, setPage] = useState(1);
   const { data: activityLogs, totalDatas } = useGetMyActivitiesQuery(queryKey, userId, page).data;
   const totalPages = Math.ceil(totalDatas / 6);
+
+  // 리뷰 수정 뮤테이트
+  const { mutate: updateMutate } = useMyActivityUpdateMutate(queryKey, userId, page);
+
+  // 리뷰, 즐겨찾기 삭제 뮤테이트
+  const { mutate: removeMutate } = useMyActivityRemoveMutate(queryKey, userId, page);
 
   return (
     <>
@@ -23,7 +33,13 @@ const MyActivities = ({ queryKey }) => {
                 key={log.id}
                 className="flex shadow-md flex-row w-full items-center pl-4 rounded justify gap-3 bg-[var(--khaki-color)] break-all relative"
               >
-                <MyActivityList log={log} mode={mode} queryKey={queryKey} />
+                <MyActivityList
+                  log={log}
+                  mode={mode}
+                  queryKey={queryKey}
+                  updateMutate={updateMutate}
+                  removeMutate={removeMutate}
+                />
               </li>
             );
           })
