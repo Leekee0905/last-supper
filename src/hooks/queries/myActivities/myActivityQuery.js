@@ -86,9 +86,9 @@ export const useReviewNicknameUpdateMutate = (queryKey, userId) => {
     //   alert(error.response.data.message);
     //   queryClient.setQueryData([queryKey, userId, null], context.beforeNicknameChange);
     // },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['allReviews'] });
-    }
+    // onSuccess: () => {
+    //   queryClient.invalidateQueries({ queryKey: ['allReviews'] });
+    // }
 
   });
 };
