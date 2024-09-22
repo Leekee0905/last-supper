@@ -26,7 +26,8 @@ const MyActivities = ({ queryKey }) => {
     <>
       <h3>{mode}</h3>
       <ol className="grid justify-items-center grid-cols-2 grid-rows-3 h-full rounded gap-4 p-4 bg-white">
-        {activityLogs?.length ? (
+        {activityLogs.length ? (
+
           activityLogs.map((log) => {
             return (
               <li
