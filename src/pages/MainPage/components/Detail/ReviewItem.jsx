@@ -9,6 +9,7 @@ const ReviewItem = ({ el }) => {
   const [isUpdatePost, setIsUpdatePost] = useState(false);
   const queryClient = useQueryClient();
 
+  // NOTE query hook으로 빼기
   // 리뷰 삭제
   const { mutate: deleteFunc } = useMutation({
     mutationFn: removeMyActivity,
