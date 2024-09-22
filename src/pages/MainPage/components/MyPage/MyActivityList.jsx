@@ -18,7 +18,7 @@ const MyActivityList = ({ log, mode, queryKey, page }) => {
   // 리뷰 수정 시 textarea 포커싱
   const editReviewInputRef = useRef();
   useEffect(() => {
-    if (editReviewInputRef.current) {
+    if (!!editReviewInputRef.current) {
       editReviewInputRef.current.focus();
       editReviewInputRef.current.setSelectionRange(editReviewInput.length, editReviewInput.length);
     }

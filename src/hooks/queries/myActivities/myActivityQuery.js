@@ -92,6 +92,7 @@ export const useReviewNicknameUpdateMutate = (queryKey, userId) => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['allReviews'] });
     }
+
   });
 };
 

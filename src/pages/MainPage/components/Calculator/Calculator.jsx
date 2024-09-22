@@ -65,10 +65,7 @@ const Calculator = () => {
         <EventTimeline />
       </div>
 
-      <div
-        className="mt-10 w-full md:w-2/3 bg-gray-200 rounded-lg shadow-md p-6 flex flex-col justify-center"
-        style={{ height: '625px' }}
-      >
+      <div className="mt-10 w-full h-full md:w-2/3 bg-gray-200 rounded-lg shadow-md p-6 flex flex-col justify-center">
         <h2 className="text-2xl md:text-3xl font-bold mb-6 text-center text-gray-800 transition-colors duration-300 hover:text-blue-600">
           군별 전역일 계산기
         </h2>
