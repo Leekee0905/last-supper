@@ -12,11 +12,13 @@ import MyPage from '../pages/MainPage/components/MyPage/MyPage';
 import SignupModal from '../pages/MainPage/components/Signup/SignupModal';
 import DetailModal from '../pages/MainPage/components/Detail/DetailModal';
 import useRestaurantsStore from '../store/useRestaurantsInfo';
+import { useAlertStore } from '../store/useAlertStore';
 
 const Layout = () => {
   const [detailInfo, setDetailInfo] = useState([]);
   const modalType = useModalStore((state) => state.modalType);
   const setHasAuthenticated = useUserStore((state) => state.setHasAuthenticated);
+  const addAlert = useAlertStore((state) => state.addAlert);
   // NOTE 이름 명확하게?
   const setHasOpenModal = useModalStore((state) => state.setHasOpen);
   // NOTE isOpen 이름만 바꾸기
@@ -37,7 +39,7 @@ const Layout = () => {
   };
 
   const resetTokenAuthenticatedAndUserInfo = () => {
-    alert('토큰이 만료되었습니다. 다시 로그인 해주세요.');
+    addAlert('토큰이 만료되었습니다. 다시 로그인 해주세요.', 'error');
     useUserStore.setState({ user: { accessToekn: '', avatar: null, nickname: '', success: false, userId: '' } });
     setHasAuthenticated(false);
     setHasOpenModal(false);
