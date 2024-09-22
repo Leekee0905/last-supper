@@ -62,8 +62,8 @@ const AuthForm = ({ mode }) => {
     }
   };
   return (
-    <div className="shadow-xl rounded-lg w-5/6 h-[600px] p-10 flex flex-col justify-between bg-white ">
-      <span className="lg:text-2xl md:text-xl font-bold px-10">{mode === 'login' ? '로그인' : '회원가입'}</span>
+    <div className="shadow-xl rounded-lg w-5/6 h-[600px] p-10 flex flex-col justify-between bg-white text-black">
+      <span className="lg:text-2xl md:text-xl font-bold px-10 ">{mode === 'login' ? '로그인' : '회원가입'}</span>
       <div className="flex justify-center items-center h-full flex-col">
         <form
           onSubmit={handleSubmit}
@@ -104,12 +104,12 @@ const AuthForm = ({ mode }) => {
           )}
           <button
             type="submit"
-            className="flex justify-center items-center border-2 w-full h-[65px] bg-[--dark-khaki-color] text-white lg:text-2xl md:text-base sm:text-sm"
+            className="flex justify-center items-center border-2 w-full h-[65px] bg-[--dark-khaki-color] lg:text-2xl md:text-base sm:text-sm"
           >
             {mode === 'login' ? '로그인' : '회원가입'}
           </button>
         </form>
-        <span className="text-sm my-5">
+        <span className="text-sm my-5 text-black">
           {mode === 'signup' ? '이미 계정이 있으신가요? ' : '계정이 없으신가요? '}
           <span className="text-[--dark-khaki-color] font-bold cursor-pointer" onClick={handleAskAccountLink}>
             {mode === 'signup' ? '로그인' : '회원가입'}

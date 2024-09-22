@@ -10,6 +10,7 @@ const MainPage = () => {
   const paramId = param.get('query');
   const [markers, setMarkers] = useState([]);
   const [map, setMap] = useState();
+  const [selectedMarker, setSelectedMarker] = useState();
   const setRestaurants = useRestaurantsStore((state) => state.setInfo);
 
   const places = new window.kakao.maps.services.Places();
@@ -52,6 +53,7 @@ const MainPage = () => {
 
   useEffect(() => {
     keywordSearch();
+    setSelectedMarker(null);
   }, [paramId, map]);
 
   return (
@@ -64,8 +66,17 @@ const MainPage = () => {
       level={5}
       onCreate={setMap}
     >
-      {markers.map((marker) => {
-        return <EventMarkerContainer key={marker.id} position={{ lat: marker.y, lng: marker.x }} content={marker} />;
+      {markers.map((marker, index) => {
+        return (
+          <EventMarkerContainer
+            key={marker.id}
+            index={index}
+            position={{ lat: marker.y, lng: marker.x }}
+            content={marker}
+            setSelectedMarker={setSelectedMarker}
+            isClicked={selectedMarker === index}
+          />
+        );
       })}
     </Map>
   );
