@@ -2,9 +2,11 @@ import { useState } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { removeMyActivity, updateMyActivity } from '../../../../api/myActivitesApi';
 import useUserStore from '../../../../store/useUserStore';
+import { useAlertStore } from '../../../../store/useAlertStore';
 
 const ReviewItem = ({ el }) => {
   const { user } = useUserStore((state) => state);
+  const addAlert = useAlertStore((state) => state.addAlert);
   const [updatePost, setUpdatePost] = useState('');
   const [isUpdatePost, setIsUpdatePost] = useState(false);
   const queryClient = useQueryClient();
@@ -66,14 +68,21 @@ const ReviewItem = ({ el }) => {
     }
   });
 
+  // 리뷰 삭제버튼 클릭 시
+  const onDeletePost = ({ queryKey, id }) => {
+    addAlert('삭제되었습니다.', 'success');
+    deleteFunc({ queryKey, id });
+  };
+
   // 리뷰 수정버튼 클릭 시
   const onUpdatePost = ({ queryKey, id, content }) => {
     setIsUpdatePost((prev) => !prev);
     if (isUpdatePost) {
       if (content === '') {
-        alert('변경된 내용이 없습니다.');
+        addAlert('변경된 내용이 없습니다.', 'error');
         return;
       }
+      addAlert('수정되었습니다.', 'success');
       updateFunc({ queryKey, id, content });
       setUpdatePost('');
     }
@@ -112,7 +121,7 @@ const ReviewItem = ({ el }) => {
           </button>
           <button
             className="border border-solid border-black rounded-[8px] w-[60px] bg-[#536349] text-white hover:bg-[#A4AE9D] hover:text-black"
-            onClick={() => deleteFunc({ queryKey: 'reviews', id: el.id })}
+            onClick={() => onDeletePost({ queryKey: 'reviews', id: el.id })}
           >
             삭제
           </button>
