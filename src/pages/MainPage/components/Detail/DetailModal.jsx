@@ -8,7 +8,7 @@ const DetailModal = ({ detailInfo }) => {
   const subContent = detailInfo.category_name.split('').slice(6).join('');
 
   return (
-    <div className="z-40 absolute bg-[#536349] w-[28%] h-full left-[27%] p-[20px] top-[50%] translate-y-[-50%] overflow-auto">
+    <div className="z-40 absolute bg-[#536349] w-[28%] h-full left-[22%] p-[20px] top-[50%] translate-y-[-50%] overflow-auto">
       <div className="text-right">
         <button onClick={() => setIsOpen(false)} className="text-[30px]">
           <FiX />
