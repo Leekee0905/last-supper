@@ -60,13 +60,13 @@ const Calculator = () => {
   }, [enlistmentDate, branch]);
 
   return (
-    <div className="flex flex-col md:flex-row p-6 md:p-10 bg-gray-100 rounded-lg shadow-lg max-w-full md:max-w-7xl mx-auto">
+    <div className="flex flex-col md:flex-row p-6 md:p-10 bg-gray-100 rounded-lg shadow-lg max-w-full max-h-full md:max-h-7xl md:max-w-7xl mx-auto">
       <div className="w-full md:w-1/3 pr-4 md:pr-8 flex items-center">
         <EventTimeline />
       </div>
 
       <div
-        className="mt-10 w-full md:w-2/3 bg-gray-200 rounded-lg shadow-md p-6 flex flex-col justify-center"
+        className="mt-10 w-full h-full md:h-2/3 md:w-2/3 bg-gray-200 rounded-lg shadow-md p-6 flex flex-col justify-center"
         style={{ height: '625px' }}
       >
         <h2 className="text-2xl md:text-3xl font-bold mb-6 text-center text-gray-800 transition-colors duration-300 hover:text-blue-600">
