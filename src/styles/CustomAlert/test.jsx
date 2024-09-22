@@ -1,5 +1,5 @@
 import React from 'react';
-import { useAlertStore } from '../../store/usealertStore';
+import { useAlertStore } from '../../store/useAlertStore';
 import Alert from './AlertProvider'; // Alert 컴포넌트 임포트
 
 const TestPage = () => {

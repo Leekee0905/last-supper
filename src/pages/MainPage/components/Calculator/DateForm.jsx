@@ -1,6 +1,6 @@
 import React from 'react';
 import useCalculatorStore from '../../../../store/useCalculatorStore';
-import { useAlertStore } from '../../../../store/usealertStore';
+import { useAlertStore } from '../../../../store/useAlertStore';
 
 // 입력 필드와 셀렉트 필드의 공통 스타일을 적용하는 컴포넌트
 const FormField = ({ label, children }) => (

@@ -1,5 +1,5 @@
 import React from 'react';
-import { useAlertStore } from '../../store/usealertStore';
+import { useAlertStore } from '../../store/useAlertStore';
 import { FiX } from 'react-icons/fi';
 import { AiOutlineCheckCircle, AiOutlineWarning } from 'react-icons/ai';
 
