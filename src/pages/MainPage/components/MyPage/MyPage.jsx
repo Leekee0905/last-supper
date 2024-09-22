@@ -33,7 +33,7 @@ const MyPage = () => {
   return (
     <>
       <div className="flex flex-row w-[77vw] h-[70vh] mr-[3vw]">
-        <aside className="flex flex-col w-[200px] gap-6">
+        <aside className="flex flex-col w-max mr-[2vw] gap-[3vh]">
           <h2 className="mb-4">마이페이지</h2>
           <nav
             className={navStyle(MY_PAGE_NAV.profile)}
@@ -62,7 +62,7 @@ const MyPage = () => {
             <span>내 리뷰</span>
           </nav>
         </aside>
-        <section className="flex shadow-xl flex-col gap-2 grow border rounded py-5 px-6 bg-white text-black">
+        <section className="flex shadow-xl flex-col gap-2 grow border rounded py-[4vh] px-[2vw] bg-white text-black">
           {activeSideBtn()}
         </section>
       </div>
