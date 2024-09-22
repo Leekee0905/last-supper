@@ -15,10 +15,7 @@ const MainPage = () => {
   const places = new window.kakao.maps.services.Places();
 
   const getPlacesPositionForMarkers = (data) => {
-    const addedReviewsAndBookMarks = data.map((e) => {
-      return { ...e, reviews: [], bookmark: 0 };
-    });
-    setRestaurants(addedReviewsAndBookMarks);
+    setRestaurants(data);
     setMarkers(data);
   };
 
