@@ -96,7 +96,7 @@ const ReviewItem = ({ el }) => {
             onKeyDown={(e) =>
               e.code === 'Enter' && !e.shiftKey && onUpdatePost({ queryKey: 'reviews', id: el.id, content: updatePost })
             }
-            className="placeholder:text-black border border-solid placeholder:text-[12px] border-black w-full"
+            className="placeholder:text-black border border-solid placeholder:text-[12px] border-black w-full resize-none"
           />
         ) : (
           el.review
