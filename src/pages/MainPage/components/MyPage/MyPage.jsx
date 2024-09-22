@@ -4,9 +4,7 @@ import MyActivities from './MyActivities';
 import { useMyActivitiesPrefetchQuery } from '../../../../hooks/queries/myActivities/myActivityQuery';
 import { FAVORITES_QUERY_KEY, REVIEWS_QUERY_KEY } from '../../../../hooks/queries/queryKeys';
 import useUserStore from '../../../../store/useUserStore';
-
-// NOTE 상수로 빼자
-const MY_PAGE_NAV = { profile: 'profile', favorites: 'favorites', myReviews: 'myReviews' };
+import MY_PAGE_NAV from '../../../../constant/MyPageNav';
 
 const MyPage = () => {
   const { userId } = useUserStore((state) => state.user);
@@ -30,14 +28,15 @@ const MyPage = () => {
     }
   };
 
+  const navStyle = (mode) => `my-page-nav ${activeNav === mode && 'my-page-nav-active'}`;
+
   return (
     <>
       <div className="flex flex-row w-[77vw] h-[70vh] mr-[3vw]">
         <aside className="flex flex-col w-[200px] gap-6">
           <h2 className="mb-4">마이페이지</h2>
-          {/* NOTE css className 묶어버리자*/}
           <nav
-            className={`my-page-nav ${activeNav === MY_PAGE_NAV.profile && 'my-page-nav-active'}`}
+            className={navStyle(MY_PAGE_NAV.profile)}
             onClick={() => {
               setActiveNav(MY_PAGE_NAV.profile);
             }}
@@ -45,7 +44,7 @@ const MyPage = () => {
             <span>개인 정보</span>
           </nav>
           <nav
-            className={`my-page-nav ${activeNav === MY_PAGE_NAV.favorites && 'my-page-nav-active'}`}
+            className={navStyle(MY_PAGE_NAV.favorites)}
             onClick={() => {
               setActiveNav(MY_PAGE_NAV.favorites);
             }}
@@ -54,7 +53,7 @@ const MyPage = () => {
             <span>즐겨찾기</span>
           </nav>
           <nav
-            className={`my-page-nav ${activeNav === MY_PAGE_NAV.myReviews && 'my-page-nav-active'}`}
+            className={navStyle(MY_PAGE_NAV.myReviews)}
             onClick={() => {
               setActiveNav(MY_PAGE_NAV.myReviews);
             }}

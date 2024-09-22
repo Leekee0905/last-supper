@@ -3,22 +3,21 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { addMyActivity, getMyActivity } from '../../../../api/myActivitesApi';
 import useUserStore from '../../../../store/useUserStore';
 import ReviewItem from './ReviewItem';
+import { useAlertStore } from '../../../../store/useAlertStore';
 
 const Review = ({ detailInfo }) => {
   const [content, setContent] = useState('');
   const { user, hasAuthenticated } = useUserStore((state) => state);
+  const addAlert = useAlertStore((state) => state.addAlert);
   const queryClient = useQueryClient();
   let today = new Date();
 
   // NOTE query hook으로 빼기
   // 리뷰 가져오기
-  const { data, isPending, isError } = useQuery(
-    {
-      queryKey: ['allReviews'],
-      queryFn: () => getMyActivity('reviews')
-    },
-    queryClient.invalidateQueries({ queryKey: ['reviews', user.userId, null] })
-  );
+  const { data, isPending, isError } = useQuery({
+    queryKey: ['allReviews'],
+    queryFn: () => getMyActivity('reviews')
+  });
 
   // 리뷰 추가
   const { mutate: addFunc } = useMutation({
@@ -67,7 +66,7 @@ const Review = ({ detailInfo }) => {
         date: today.toLocaleString()
       }
     });
-
+    addAlert('게시글이 추가되었습니다.', 'success');
     setContent('');
   };
 

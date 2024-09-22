@@ -1,4 +1,4 @@
-import {useAlertStore}  from '../../../store/alertStore';
+import { useAlertStore } from "../../../store/useAlertStore";
 
 const useAlert = () => {
   const { addAlert, clearAlerts } = useAlertStore();
