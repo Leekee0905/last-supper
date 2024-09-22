@@ -18,8 +18,8 @@ const Review = ({ detailInfo }) => {
     {
       queryKey: ['allReviews'],
       queryFn: () => getMyActivity('reviews')
-    },
-    queryClient.invalidateQueries({ queryKey: ['reviews', user.userId, null] })
+    }
+    // queryClient.invalidateQueries({ queryKey: ['reviews', user.userId, null] })
   );
 
   // 리뷰 추가
