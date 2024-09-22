@@ -12,7 +12,7 @@ const Sidebar = ({ setDetailInfo }) => {
           return (
             <div
               key={index}
-              className="p-[20px] bg-[--khaki-color] rounded-[16px] cursor-pointer"
+              className="p-[20px] bg-[--khaki-color] rounded-lg cursor-pointer transition-transform duration-300 ease-in-out hover:bg-[--dark-khaki-color] hover:scale-105 active:scale-95 active:bg-[--olive-green-color] shadow-md hover:shadow-lg min-h-32"
               onClick={() => {
                 setDetailInfo(el);
                 setIsOpen(true);
@@ -20,8 +20,8 @@ const Sidebar = ({ setDetailInfo }) => {
             >
               <p className="text-[24px] font-black">{el.place_name}</p>
               <p>{el.address_name}</p>
-              <p>{el.phone}</p>
-            </div>
+              <p>{el.phone ? el.phone : '가게전화번호가 없습니다.'}</p>
+              </div>
           );
         })}
       </div>
