@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { removeMyActivity, updateMyActivity } from '../../../../api/MyActivitesApi';
+import { removeMyActivity, updateMyActivity } from '../../../../api/myActivitesApi';
 import useUserStore from '../../../../store/useUserStore';
 
 const ReviewItem = ({ el }) => {
@@ -95,7 +95,7 @@ const ReviewItem = ({ el }) => {
             onKeyDown={(e) =>
               e.code === 'Enter' && !e.shiftKey && onUpdatePost({ queryKey: 'reviews', id: el.id, content: updatePost })
             }
-            className="placeholder:text-black border border-solid placeholder:text-[12px] border-black w-full"
+            className="placeholder:text-black border border-solid placeholder:text-[12px] border-black w-full resize-none"
           />
         ) : (
           el.review

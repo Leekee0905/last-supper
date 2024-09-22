@@ -16,7 +16,7 @@ const DetailModal = ({ detailInfo }) => {
       </div>
       <div className="leading-[32px] text-white">
         <div className="flex items-center">
-          <p className="font-black text-[36px] mr-[10px] leading-[50px]">{detailInfo.place_name}</p>
+          <p className="font-black text-[36px] mr-[10px] leading-[50px] break-keep">{detailInfo.place_name}</p>
           <Favorite detailInfo={detailInfo} />
         </div>
         <p className="text-[13px] opacity-50">{subContent}</p>
