@@ -4,8 +4,7 @@ import { CustomOverlayMap, MapMarker, useMap } from 'react-kakao-maps-sdk';
 
 const EventMarkerContainer = ({ position, content }) => {
   const map = useMap();
-  const [isOverlayOpen, setIsOverlayOpen] = useState(false);
-
+  const [isOVerlayOpen, setIsOverlayOpen] = useState(false);
   const handleMarkerInfo = (marker) => {
     map.panTo(marker.getPosition());
     setIsOverlayOpen(true);
@@ -13,42 +12,35 @@ const EventMarkerContainer = ({ position, content }) => {
 
   return (
     <>
-    {isOverlayOpen && (
-      <CustomOverlayMap position={position}> 
-        <div className="relative bg-white bg-opacity-90 border border-gray-200 rounded-lg shadow-lg flex flex-col items-center min-w-[320px] p-4"
-             style={{ marginTop:"-220px" }}> 
-          <div className="flex w-full justify-between items-center mb-3">
-            <h1 className="font-semibold text-xl">{content.place_name}</h1>
-            <button onClick={() => setIsOverlayOpen(false)} className="text-gray-600 hover:text-gray-800 transition">
-              <FiX className="w-6 h-6" />
-            </button>
-          </div>
-          <div className="flex flex-col justify-center items-center text-center text-gray-900">
-            <p className="text-sm text-gray-500">{content.category_name}</p>
-            <p className="text-sm text-gray-600">{content.address_name}</p>
-            <p className="text-sm">
-              <a
-                className="text-blue-600 hover:underline hover:text-blue-800 transition-colors"
-                href={content.place_url}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                가게 상세정보
-              </a>
-            </p>
-          </div>
-          <div className="absolute bottom-[-10px] left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-[10px] border-l-transparent border-r-[10px] border-r-transparent border-t-[10px] border-t-white"></div>
-        </div>
-      </CustomOverlayMap>
-    )}
       <MapMarker
         position={position}
         clickable={true}
         onClick={(marker) => handleMarkerInfo(marker)}
         image={{ src: '/assets/markerLine2.png', size: { width: 70, height: 70 } }}
       />
+      {isOVerlayOpen && (
+        <CustomOverlayMap position={{ lat: String(Number(position.lat) + 0.0002), lng: position.lng }}>
+          <div className="bg-white flex flex-col items-center min-w-[350px] h-[200px] p-5 rounded-lg">
+            <div className="flex flex-col w-full items-end">
+              <button onClick={() => setIsOverlayOpen(false)}>
+                <FiX className="w-[20px] h-[20px]" />
+              </button>
+            </div>
+            <div className="w-full h-full flex flex-col justify-center gap-3 whitespace-nowrap">
+              <h1 className="font-bold text-2xl">{content.place_name}</h1>
+              <p className="text-xs text-gray-500">{content.category_name}</p>
+              <p>{content.address_name}</p>
+              <p className="text-sm">
+                URL:{' '}
+                <a className={`hover:underline hover:font-bold`} href={content.place_url}>
+                  {content.place_url}
+                </a>
+              </p>
+            </div>
+          </div>
+        </CustomOverlayMap>
+      )}
     </>
   );
 };
-
 export default EventMarkerContainer;
