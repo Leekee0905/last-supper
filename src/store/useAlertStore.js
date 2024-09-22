@@ -6,7 +6,7 @@ const useAlertStore = create((set) => ({
 
   addAlert: (message, type = 'info') => {
     const id = Date.now();
-    
+
     // 새 알럿 추가
     set((prevState) => {
       // 기존 타이머가 존재하는 경우 클리어
@@ -20,7 +20,7 @@ const useAlertStore = create((set) => ({
 
       return {
         alerts: [...prevState.alerts, { id, message, type }],
-        timeoutIds: newTimeoutIds,
+        timeoutIds: newTimeoutIds
       };
     });
 
@@ -30,8 +30,8 @@ const useAlertStore = create((set) => ({
         const newTimeoutIds = new Map(prevState.timeoutIds);
         newTimeoutIds.delete(id); // 삭제 후 타이머 맵에서도 제거
         return {
-          alerts: prevState.alerts.filter(alert => alert.id !== id),
-          timeoutIds: newTimeoutIds,
+          alerts: prevState.alerts.filter((alert) => alert.id !== id),
+          timeoutIds: newTimeoutIds
         };
       });
     }, 3000);
@@ -46,7 +46,7 @@ const useAlertStore = create((set) => ({
 
   clearAlerts: () => {
     const state = useAlertStore.getState();
-    state.timeoutIds.forEach(timeoutId => clearTimeout(timeoutId)); // 모든 타이머 클리어
+    state.timeoutIds.forEach((timeoutId) => clearTimeout(timeoutId)); // 모든 타이머 클리어
     set({ alerts: [], timeoutIds: new Map() }); // 알럿과 타이머 맵 초기화
   }
 }));
