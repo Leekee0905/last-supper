@@ -21,23 +21,11 @@ export const useMyActivityRemoveMutate = (queryKey, userId, page) => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (targetId) => removeMyActivity({ queryKey, id: targetId }),
-    // onMutate: async (targetId) => {
-    //   await queryClient.cancelQueries({ queryKey: [queryKey, userId, page] });
-
-    //   const { data: preLogs } = queryClient.getQueryData([queryKey, userId, page]);
-
-    //   queryClient.setQueryData([queryKey, userId, page], ({ data }) => {
-    //     return data.filter((log) => log.id !== targetId);
-    //   });
-
-    //   return { preLogs };
-    // },
-    onError: (error, _, context) => {
+    onError: (error) => {
       alert(error.response.data.message);
-      queryClient.setQueryData([queryKey, userId, page], context.preLogs);
     },
-    onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: [queryKey, userId, page] });
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: [queryKey, userId] });
       queryClient.invalidateQueries({ queryKey: ['allReviews'] });
     }
   });
@@ -48,21 +36,21 @@ export const useMyActivityUpdateMutate = (queryKey, userId, page) => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: ({ id, content }) => updateMyActivity({ queryKey, id, content }),
-    // onMutate: async (newLog) => {
-    //   await queryClient.cancelQueries({ queryKey: [queryKey, userId, page] });
+    onMutate: async (newLog) => {
+      await queryClient.cancelQueries({ queryKey: [queryKey, userId, page] });
 
-    // const { data: preLogs } = queryClient.getQueryData([queryKey, userId, page]);
+      const { data: preLogs } = queryClient.getQueryData([queryKey, userId, page]);
 
-    //   queryClient.setQueryData([queryKey, userId, page], ({ data }) => {
-    //     data.map((log) => (log.id === newLog.id ? (log.review = newLog.content) : log));
-    //   });
+      queryClient.setQueryData([queryKey, userId, page], ({ data }) => {
+        data.map((log) => (log.id === newLog.id ? (log.review = newLog.content) : log));
+      });
 
-    //   return { preLogs };
-    // },
-    // onError: (error, _, context) => {
-    //   alert(error.response.data.message);
-    //   queryClient.setQueryData([queryKey, userId, page], context.preLogs);
-    // },
+      return { preLogs };
+    },
+    onError: (error, _, context) => {
+      alert(error.response.data.message);
+      queryClient.setQueryData([queryKey, userId, page], context.preLogs);
+    },
     onSettled: () => {
       queryClient.invalidateQueries({ queryKey: [queryKey, userId, page] });
     }
@@ -74,21 +62,9 @@ export const useReviewNicknameUpdateMutate = (queryKey, userId) => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: ({ targetId, nickName }) => updateReviewNickname({ queryKey, targetId, nickName }),
-    // onMutate: async (newNickname) => {
-    //   await queryClient.cancelQueries({ queryKey: [queryKey, userId] });
-
-    //   const { data: beforeNicknameChange } = queryClient.getQueryData([queryKey, userId, null]).data;
-
-    //   queryClient.setQueryData([queryKey, userId, null], ({ data }) => {
-    //     data.map((review) => (review.id === newNickname.id ? (review.nickName = newNickname.nickName) : review));
-    //   });
-
-    //   return { beforeNicknameChange };
-    // },
-    // onError: (error, _, context) => {
-    //   alert(error.response.data.message);
-    //   queryClient.setQueryData([queryKey, userId, null], context.beforeNicknameChange);
-    // },
+    onError: (error) => {
+      alert(error.response.data.message);
+    },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['allReviews'] });
     }

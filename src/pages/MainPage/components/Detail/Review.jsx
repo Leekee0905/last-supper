@@ -14,13 +14,10 @@ const Review = ({ detailInfo }) => {
 
   // NOTE query hook으로 빼기
   // 리뷰 가져오기
-  const { data, isPending, isError } = useQuery(
-    {
-      queryKey: ['allReviews'],
-      queryFn: () => getMyActivity('reviews')
-    }
-    // queryClient.invalidateQueries({ queryKey: ['reviews', user.userId, null] })
-  );
+  const { data, isPending, isError } = useQuery({
+    queryKey: ['allReviews'],
+    queryFn: () => getMyActivity('reviews')
+  });
 
   // 리뷰 추가
   const { mutate: addFunc } = useMutation({
