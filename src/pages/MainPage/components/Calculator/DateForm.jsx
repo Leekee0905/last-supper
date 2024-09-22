@@ -41,17 +41,11 @@ const DateForm = () => {
 
   const handleCalculateDischargeDate = () => {
     if (!enlistmentDate || !branch) {
-      addAlert({
-        message: '입대 날짜와 군 선택이 필요합니다!',
-        type: 'warning'
-      });
+      addAlert('입대 날짜와 군 선택이 필요합니다!', 'warning');
       return;
     }
-
-    addAlert({
-      message: '전역일이 계산되었습니다!',
-      type: 'success'
-    });
+    // 전역일 계산 로직 추가
+    addAlert('전역일이 계산되었습니다!', 'success');
   };
 
   return (
