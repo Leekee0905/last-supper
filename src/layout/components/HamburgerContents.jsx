@@ -9,12 +9,12 @@ const HamburgerContents = () => {
       <div className="flex flex-col items-start space-y-4 pl-4">
         {hasLoggedIn ? (
           <>
-            <HamburgerItem icon={'mypage'} text="마이페이지" />
+            <HamburgerItem icon="mypage" text="마이페이지" />
             <HamburgerItem icon="logout" text="로그아웃" />
           </>
         ) : (
           <>
-            <HamburgerItem icon={'login'} text={'로그인'} />
+            <HamburgerItem icon="login" text="로그인" />
             <HamburgerItem icon="signup" text="회원가입" />
           </>
         )}

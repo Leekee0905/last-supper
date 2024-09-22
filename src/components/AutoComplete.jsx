@@ -3,6 +3,7 @@ import { FiSearch } from 'react-icons/fi';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import useRestaurantsStore from '../store/useRestaurantsInfo';
 
+// 상수 파일로 분리
 const OPTION_LIST = [
   '3사단',
   '5사단',
@@ -30,14 +31,18 @@ const OPTION_LIST = [
 const AutoComplete = ({ mode }) => {
   const [filteredOptions, setFilteredOptions] = useState([]);
   const [searchInput, setSearchInput] = useState('');
-  const [searchParams, setSearchParams] = useSearchParams();
+  //NOTE searchParams 미사용
+  const [_, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
+
+  //변수명
   const { setIsOpen } = useRestaurantsStore((state) => state);
 
   const handleSearch = (e) => {
     e.preventDefault();
     if (searchInput.trim() === '') return;
     //입력값이 비슷한 신교대나 훈련소를 찾아서 검색 ex)육군=>육군훈련소, 공군=>공군교육사령부
+
     const keyword = OPTION_LIST.find((e) => e.includes(searchInput));
     if (!OPTION_LIST.includes(keyword)) {
       alert('존재하지 않는 교육대입니다.');
