@@ -26,6 +26,7 @@ export const getUserProfile = async () => {
   }
 };
 
+//try catch
 export const updateProfile = async (formData) => {
   const token = JSON.parse(localStorage.getItem('userStorage'))?.state.user.accessToken;
   const response = await authApi.patch('/profile', formData, {

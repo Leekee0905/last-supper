@@ -15,6 +15,11 @@ const MyActivityList = ({ log, mode, updateMutate, removeMutate }) => {
     }
   }, [editReview]);
 
+  // 리뷰 수정 뮤테이트
+  const { mutate: updateMyReviewMutate } = useMyActivityUpdateMutate(REVIEWS_QUERY_KEY);
+  // 즐겨찾기 및 리뷰 삭제 함수
+  const { mutate: removeMyActivityMutate } = useMyActivityRemoveMutate(queryKey);
+
   // 리뷰 내용 수정 함수
   const handleReviewChange = (e, id) => {
     e.preventDefault();
@@ -27,6 +32,7 @@ const MyActivityList = ({ log, mode, updateMutate, removeMutate }) => {
     }
   };
 
+  // NOTE early return
   // 즐겨찾기, 리뷰 삭제 함수
   const removeMyActivity = (logId) => {
     if (confirm(`${mode}를 삭제하시겠습니까?`)) {

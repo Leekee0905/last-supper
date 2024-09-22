@@ -7,7 +7,8 @@ import EventTimeline from './EventTimeline';
 import useCalculatorStore from '../../../../store/useCalculatorStore';
 
 const Calculator = () => {
-  const { branch, enlistmentDate, dischargeDate, setBranch, setEnlistmentDate, setDischargeDate } = useCalculatorStore();
+  const { branch, enlistmentDate, dischargeDate, setBranch, setEnlistmentDate, setDischargeDate } =
+    useCalculatorStore();
   const [currentRank, setCurrentRank] = useState('이병');
   const [progress, setProgress] = useState(0);
 
@@ -15,7 +16,7 @@ const Calculator = () => {
     army: 18,
     navy: 20,
     airForce: 21,
-    marines: 18,
+    marines: 18
   };
 
   const calculateDischargeDate = () => {
@@ -25,13 +26,13 @@ const Calculator = () => {
     enlistment.setMonth(enlistment.getMonth() + serviceMonths);
     setDischargeDate(enlistment.toLocaleDateString());
   };
-
+  // NOTE ranks도 상수로 뻅시다
   const ranks = [
     { label: '이병', months: 0 },
     { label: '일병', months: 2 },
     { label: '상병', months: 8 },
     { label: '병장', months: 15 },
-    { label: '전역', months: serviceDurations[branch] },
+    { label: '전역', months: serviceDurations[branch] }
   ];
 
   const calculateRankProgress = () => {
@@ -64,16 +65,12 @@ const Calculator = () => {
         <EventTimeline />
       </div>
 
-      <div className="mt-10 w-full md:w-2/3 bg-gray-200 rounded-lg shadow-md p-6 flex flex-col justify-center" style={{ height: '625px' }}>
-        <h2 className="text-2xl md:text-3xl font-bold mb-6 text-center text-gray-800 transition-colors duration-300 hover:text-blue-600">군별 전역일 계산기</h2>
+      <div className="mt-10 w-full h-full md:w-2/3 bg-gray-200 rounded-lg shadow-md p-6 flex flex-col justify-center">
+        <h2 className="text-2xl md:text-3xl font-bold mb-6 text-center text-gray-800 transition-colors duration-300 hover:text-blue-600">
+          군별 전역일 계산기
+        </h2>
 
-        <DateForm
-          branch={branch}
-          setBranch={setBranch}
-          enlistmentDate={enlistmentDate}
-          setEnlistmentDate={setEnlistmentDate}
-          calculateDischargeDate={calculateDischargeDate}
-        />
+        <DateForm calculateDischargeDate={calculateDischargeDate} />
 
         {dischargeDate && (
           <div className="mt-8 text-center">
@@ -83,7 +80,7 @@ const Calculator = () => {
           </div>
         )}
 
-        <div className="mt-8 flex flex-col items-start w-full"> 
+        <div className="mt-8 flex flex-col items-start w-full">
           <ProcessBar progress={progress} className="w-full" />
           <RankTags rank={currentRank} enlistmentDate={enlistmentDate} branch={branch} />
         </div>
