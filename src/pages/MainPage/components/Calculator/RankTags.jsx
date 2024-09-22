@@ -23,17 +23,16 @@ const RankTags = ({ enlistmentDate }) => {
   const elapsedMonths = calculateElapsedMonths();
 
   return (
-    <div className="flex flex-col items-center gap-2">
+    <div className="flex flex-col items-center gap-2 w-full">
       {ranks.map(({ label, months }) => (
         <div
           key={label}
-          className={`p-4 rounded-lg shadow-md transition duration-300 
+          className={`p-4 rounded-lg shadow-md transition duration-300 w-full
             ${
               months <= elapsedMonths
                 ? 'bg-gradient-to-r from-green-400 to-blue-500 text-white'
                 : 'bg-gray-200 text-gray-700'
             }`}
-          style={{ width: '752px' }}
         >
           <span className="font-semibold">{label}</span> - 입대 후 {months}개월
         </div>
