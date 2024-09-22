@@ -55,7 +55,7 @@ const Alert = () => {
   );
 };
 
-export const AlertProvider = ({ children }) => {
+const AlertProvider = ({ children }) => {
   return (
     <>
       {children}
