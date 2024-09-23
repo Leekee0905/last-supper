@@ -9,8 +9,8 @@ const MyActivities = ({ queryKey }) => {
   const { userId } = useUserStore((state) => state.user);
 
   const [page, setPage] = useState(1);
-  const { data: activityLogs, totalDatas } = useGetMyActivitiesQuery(queryKey, userId, page).data;
-  const totalPages = Math.ceil(totalDatas / 6);
+  const { data } = useGetMyActivitiesQuery(queryKey, userId, page);
+  const { data: activityLogs, pages: totalPages } = data;
 
   return (
     <>
@@ -32,7 +32,7 @@ const MyActivities = ({ queryKey }) => {
         )}
       </ul>
       <div className="h-6">
-        {activityLogs?.length && <Pagination currentPage={page} totalPages={totalPages} setPage={setPage} />}
+        {!!activityLogs?.length && <Pagination currentPage={page} totalPages={totalPages} setPage={setPage} />}
       </div>
     </>
   );
