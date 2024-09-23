@@ -1,12 +1,11 @@
 import axios from 'axios';
 
-// url env로 변경
 export const authApi = axios.create({
-  baseURL: 'https://moneyfulpublicpolicy.co.kr'
+  baseURL: import.meta.env.VITE_MONEYFUL_API_KEY
 });
-// url env로 변경
+
 export const jsonApi = axios.create({
-  baseURL: 'https://temporal-unequaled-tithonia.glitch.me'
+  baseURL: import.meta.env.VITE_GLICH_API_KEY
 });
 
 jsonApi.interceptors.request.use(
