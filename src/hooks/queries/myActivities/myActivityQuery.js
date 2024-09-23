@@ -58,7 +58,7 @@ export const useMyActivityUpdateMutate = (queryKey, userId, page) => {
 };
 
 // 리뷰 닉네임 수정 mutation
-export const useReviewNicknameUpdateMutate = (queryKey, userId) => {
+export const useReviewNicknameUpdateMutate = (queryKey) => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: ({ targetId, nickName }) => updateReviewNickname({ queryKey, targetId, nickName }),
