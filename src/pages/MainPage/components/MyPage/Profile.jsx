@@ -11,8 +11,7 @@ const Profile = () => {
   const { user } = useUserStore((state) => state);
   const { mutate: updateNickname } = useUpdateProfileQuery();
   const { mutate: reviewsNicknameUpdate } = useReviewNicknameUpdateMutate(REVIEWS_QUERY_KEY);
-  // const { data: myReviews } = useGetMyActivitiesQuery(REVIEWS_QUERY_KEY, user.userId).data;
-  const myReviews = [];
+  const { data: myReviews } = useGetMyActivitiesQuery(REVIEWS_QUERY_KEY, user.userId);
 
   const [nickname, setNickname] = useState('');
 
