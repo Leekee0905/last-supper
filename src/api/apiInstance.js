@@ -1,12 +1,13 @@
 import axios from 'axios';
 
-// url env로 변경
 export const authApi = axios.create({
-  baseURL: 'https://moneyfulpublicpolicy.co.kr'
+  baseURL: import.meta.env.VITE_MONEYFUL_API_KEY
 });
-// url env로 변경
+
+// http:localhost:4000
+// import.meta.env.VITE_GLICH_API_KEY
 export const jsonApi = axios.create({
-  baseURL: 'https://temporal-unequaled-tithonia.glitch.me'
+  baseURL: 'http://localhost:4000'
 });
 
 jsonApi.interceptors.request.use(
@@ -19,10 +20,7 @@ jsonApi.interceptors.request.use(
 );
 
 jsonApi.interceptors.response.use(
-  (response) => {
-    const totalDatas = response.headers['x-total-count'];
-    return { ...response, totalDatas };
-  },
+  (response) => response,
   (error) => {
     console.error('response error', error);
     alert(error.message);
