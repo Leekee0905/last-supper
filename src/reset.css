@@ -8,17 +8,6 @@
     --dark-khaki-color: #536349;
   }
 
-  /* @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css'); */
-
-  /* @font-face {
-  font-family: 'Pretendard';
-  src: url('') format('woff2');
-  font-weight: 900;
-  font-disp */
-  /* * {
-    font-family: '바른공군체'
-  } */
-
   @keyframes slr {
     0% {
       opacity: 0;
