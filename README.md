@@ -110,32 +110,38 @@
 ![로그인](https://github.com/user-attachments/assets/aa3139ce-d913-4ff0-a069-04730d0f2beb)
 
 ### 회원가입
-![회원가입](https://github.com/user-attachments/assets/2ec163d5-9c8d-4d43-9a92-9d0507c3b3ad)
+![회원가입](https://github.com/user-attachments/assets/2ec163d5-9c8d-4d43-9a92-9d0507c3b3ad)  
 
 REST API를 통한 로그인과 회원가입을 구현하였습니다.
 
 ## 2️⃣ 훈련소 기반 위치 검색
-![검색](https://github.com/user-attachments/assets/5e33d30c-3135-4435-83cf-89ebce7d609b)
+![검색](https://github.com/user-attachments/assets/5e33d30c-3135-4435-83cf-89ebce7d609b)  
+
 검색어 입력시 훈련소 리스트에 입력값을 비교하여 존재하는 훈련소의 리스트를 출력해줍니다.
 
 ## 3️⃣ 즐겨찾기
-![즐겨찾기](https://github.com/user-attachments/assets/f5e0ab1c-6c64-4433-bd2b-e6a18941047a)
+![즐겨찾기](https://github.com/user-attachments/assets/f5e0ab1c-6c64-4433-bd2b-e6a18941047a)  
+
 별 버튼을 눌러 즐겨찾기를 할 수 있습니다.
 
 ## 4️⃣ 댓글
-![리뷰](https://github.com/user-attachments/assets/3b5b8f50-5c7c-40c5-ba14-1e56376c8bb3)
+![리뷰](https://github.com/user-attachments/assets/3b5b8f50-5c7c-40c5-ba14-1e56376c8bb3)  
+
 리뷰 CRUD를 통해 작성, 수정, 삭제를 할 수 있습니다.
 
 ## 5️⃣ 마이페이지
 ### 내 리뷰
-![image](https://github.com/user-attachments/assets/b7214981-7ff4-41f6-9639-db7338540ab7)
+![image](https://github.com/user-attachments/assets/b7214981-7ff4-41f6-9639-db7338540ab7)  
+
 본인이 작성한 리뷰를 확인하고 수정, 삭제할 수 있습니다.
 ### 즐겨찾기
-![image](https://github.com/user-attachments/assets/5c71914f-0796-4f36-91bf-abac4bf586dd)
+![image](https://github.com/user-attachments/assets/5c71914f-0796-4f36-91bf-abac4bf586dd)  
+
 본인이 즐겨찾기한 음식점을 볼 수 있습니다.
 
 ## 6️⃣ 전역일 계산기
-![전역일계산기](https://github.com/user-attachments/assets/3206bcea-87f6-444b-b84a-376ad8ab2443)
+![전역일계산기](https://github.com/user-attachments/assets/3206bcea-87f6-444b-b84a-376ad8ab2443)  
+
 전역일을 계산하는 모달입니다.
 
 # 💥 트러블 슈팅
