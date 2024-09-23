@@ -7,9 +7,6 @@ export const useGetMyActivitiesQuery = (type, userId, page) => {
   return useQuery({
     queryKey: queryKeys.boardController.MyActivity(type, userId, page),
     queryFn: (signal) => getMyActivities(signal),
-    select: ({ data, pages }) => {
-      return { data, pages };
-    },
     placeholderData: keepPreviousData,
     suspense: true,
     onError: (error) => alert(error.response.data.message)
