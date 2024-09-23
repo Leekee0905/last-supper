@@ -18,7 +18,7 @@ const Profile = () => {
   const handleNicknameChange = (e) => {
     e.preventDefault();
     updateNickname({ nickname });
-    myReviews.forEach((review) => reviewsNicknameUpdate({ targetId: review.id, nickName: nickname }));
+    // myReviews.forEach((review) => reviewsNicknameUpdate({ targetId: review.id, nickName: nickname }));
     setNickname('');
   };
 
