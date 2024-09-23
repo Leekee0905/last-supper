@@ -3,9 +3,11 @@ import { PiStarFill } from 'react-icons/pi';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { addMyActivity, getMyActivity, removeMyActivity } from '../../../../api/myActivitesApi';
 import useUserStore from '../../../../store/useUserStore';
+import { useAlertStore } from '../../../../store/useAlertStore';
 
 const Favorite = ({ detailInfo }) => {
   const { user, hasAuthenticated } = useUserStore((state) => state);
+  const addAlert = useAlertStore((state) => state.addAlert);
   const queryClient = useQueryClient();
   const styleBtn = 'text-yellow-500 text-[24px]';
 
@@ -82,6 +84,7 @@ const Favorite = ({ detailInfo }) => {
         queryKey: 'favorites',
         id: data.id
       });
+      addAlert('즐겨찾기에 삭제 되었습니다.', 'success');
     } else {
       addFunc({
         queryKey: 'favorites',
@@ -95,7 +98,7 @@ const Favorite = ({ detailInfo }) => {
           favorite: true
         }
       });
-      alert('즐겨찾기에 추가 되었습니다.');
+      addAlert('즐겨찾기에 추가 되었습니다.', 'success');
     }
   };
 
