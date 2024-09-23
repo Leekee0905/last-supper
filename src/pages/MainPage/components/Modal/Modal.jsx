@@ -17,7 +17,6 @@ const Modal = ({ children, contentStyle, isLoading }) => {
       transform: 'translate(-50%, -50%)',
       minWidth: '80%',
       minHeight: '80%',
-      padding: '0 0 5vh 3vw',
       animation: 'slr 0.5s ease forwards',
       backgroundColor: 'var(--dark-khaki-color)',
       color: 'white',
