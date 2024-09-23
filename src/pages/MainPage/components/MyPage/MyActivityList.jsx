@@ -12,8 +12,8 @@ import useUserStore from '../../../../store/useUserStore';
 const MyActivityList = ({ log, mode, queryKey, page }) => {
   const [editReview, setEditReview] = useState(false);
   const [editReviewInput, setEditReviewInput] = useState('');
-  const addAlert = useAlertStore((state) => state.addAlert);
   const { userId } = useUserStore((state) => state.user);
+  const addAlert = useAlertStore((state) => state.addAlert);
 
   const { mutate: updateReviewMutate } = useMyActivityUpdateMutate(queryKey, userId, page);
   const { mutate: removeMyactivityMutate } = useMyActivityRemoveMutate(queryKey, userId, page);
@@ -30,34 +30,41 @@ const MyActivityList = ({ log, mode, queryKey, page }) => {
   // 리뷰 내용 수정 함수
   const handleReviewChange = (e, id) => {
     e.preventDefault();
-    if (confirm('리뷰 내용을 수정하시겠습니까?')) {
-      updateReviewMutate({ id, content: editReviewInput });
-      setEditReview(false);
-      addAlert('리뷰 내용이 수정되었습니다.', 'success');
-    } else {
-      addAlert('리뷰 내용이 수정을 취소하였습니다.', 'success');
-    }
-    alert('리뷰 내용이 수정을 취소하였습니다.');
+    Swal.fire({
+      title: '리뷰 내용을 수정하시겠습니까?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: '수정',
+      cancelButtonText: '취소'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        updateReviewMutate({ id, content: editReviewInput });
+        setEditReview(false);
+        addAlert('리뷰 내용이 수정되었습니다.', 'success');
+      } else {
+        addAlert('리뷰 내용이 수정을 취소하였습니다.');
+      }
+    });
   };
 
   // 즐겨찾기, 리뷰 삭제 함수
   const removeMyActivity = (logId) => {
     Swal.fire({
       title: `${mode}를 삭제하시겠습니까?`,
-      text: '정말 삭제하시겠습니까? 되돌릴 수 없습니다.',
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: '삭제!',
+      confirmButtonText: '삭제',
       cancelButtonText: '취소'
     }).then((result) => {
       if (result.isConfirmed) {
-        addAlert(`${mode}가 삭제되었습니다.`, 'success');
         removeMyactivityMutate(logId);
-        return;
+        addAlert(`${mode}가 삭제되었습니다.`, 'success');
       } else {
-        addAlert('삭제를 취소하였습니다.', 'success');
+        addAlert('삭제를 취소하였습니다.', 'error');
       }
     });
   };
@@ -66,7 +73,7 @@ const MyActivityList = ({ log, mode, queryKey, page }) => {
     <>
       <IoRestaurantSharp className="text-2xl w-[24px]" />
       <main className="h-full grow relative">
-        <div className="absolute top-[8%] flex w-full justify-between pr-[1vw]">
+        <div className="absolute top-[10%] flex w-full justify-between pr-[1vw]">
           <h4 className="truncate w-4/5">{log.storeName}</h4>
           <div className="flex gap-[1vw] text-xl">
             {mode === '내 리뷰' && (
@@ -90,10 +97,8 @@ const MyActivityList = ({ log, mode, queryKey, page }) => {
         </div>
         {mode === '즐겨찾기' ? (
           <>
-            <p className="absolute top-11 overflow-auto h-2/5">주소 : {log.storeAddress}</p>
-            <p className="absolute bottom-1 h-1/5 w-full truncate">
-              <small>전화번호 : {log.storePhone}</small>
-            </p>
+            <p className="absolute top-12 text-xl overflow-auto h-2/5">주소 : {log.storeAddress}</p>
+            <p className="absolute bottom-2 h-1/5 w-full truncate">전화번호 : {log.storePhone}</p>
           </>
         ) : (
           <>
@@ -113,7 +118,7 @@ const MyActivityList = ({ log, mode, queryKey, page }) => {
                 </button>
               </form>
             ) : (
-              <p className="absolute top-12 overflow-auto h-1/2">{log.review}</p>
+              <p className="absolute w-[82%] top-12 overflow-auto h-1/2">{log.review}</p>
             )}
           </>
         )}

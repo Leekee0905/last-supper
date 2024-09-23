@@ -5,7 +5,6 @@ import { createRoot } from 'react-dom/client';
 import Router from './shared/Router';
 import LoadingModal from './components/LoadingModal';
 import { AlertProvider } from './styles/CustomAlert/AlertProvider';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -19,7 +18,6 @@ createRoot(document.getElementById('root')).render(
   <QueryClientProvider client={queryClient}>
     <AlertProvider>
       <Suspense fallback={<LoadingModal />}>
-        <ReactQueryDevtools />
         <Router />
       </Suspense>
     </AlertProvider>

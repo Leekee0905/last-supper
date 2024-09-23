@@ -9,19 +9,19 @@ const MyActivities = ({ queryKey }) => {
   const { userId } = useUserStore((state) => state.user);
 
   const [page, setPage] = useState(1);
-  const { data: activityLogs, totalDatas } = useGetMyActivitiesQuery(queryKey, userId, page).data;
-  const totalPages = Math.ceil(totalDatas / 6);
+  const { data } = useGetMyActivitiesQuery(queryKey, userId, page);
+  const { data: activityLogs, pages: totalPages } = data;
 
   return (
     <>
       <h3>{mode}</h3>
-      <ol className="grid justify-items-center grid-cols-2 grid-rows-3 h-full rounded gap-4 p-4 bg-white">
+      <ul className="grid justify-items-center grid-cols-2 grid-rows-3 h-full rounded gap-4 p-4 bg-white">
         {activityLogs?.length ? (
           activityLogs.map((log) => {
             return (
               <li
                 key={log.id}
-                className="flex shadow-md flex-row w-full items-center pl-4 rounded justify gap-3 bg-[var(--khaki-color)] break-all relative"
+                className="flex shadow-md flex-row w-full items-center pl-4 rounded justify gap-3 bg-[--khaki-color] break-all relative"
               >
                 <MyActivityList log={log} mode={mode} queryKey={queryKey} page={page} />
               </li>
@@ -30,9 +30,9 @@ const MyActivities = ({ queryKey }) => {
         ) : (
           <p className={guideStyle}>등록한 {mode}가 없습니다.</p>
         )}
-      </ol>
+      </ul>
       <div className="h-6">
-        {activityLogs?.length && <Pagination currentPage={page} totalPages={totalPages} setPage={setPage} />}
+        {!!activityLogs?.length && <Pagination currentPage={page} totalPages={totalPages} setPage={setPage} />}
       </div>
     </>
   );
