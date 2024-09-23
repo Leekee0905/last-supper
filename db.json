@@ -340,6 +340,39 @@
       "storePhone": "055-546-5205",
       "review": "너는 지옥",
       "date": "2024. 9. 23. 오전 11:39:08"
+    },
+    {
+      "id": "ec58",
+      "userId": "hot56677",
+      "nickName": "해돌이",
+      "storeId": "1528282879",
+      "storeName": "고기굽는남자 칠곡3지구점",
+      "storeAddress": "대구 북구 동천동 903-1",
+      "storePhone": "053-323-5933",
+      "review": "고기 먹고싶다..",
+      "date": "2024. 9. 23. 오전 11:45:01"
+    },
+    {
+      "id": "c39a",
+      "userId": "hot56677",
+      "nickName": "해돌이",
+      "storeId": "11985970",
+      "storeName": "강원도집 칠곡점",
+      "storeAddress": "대구 북구 학정동 282-13",
+      "storePhone": "053-312-7828",
+      "review": "마! 대구아이가!",
+      "date": "2024. 9. 23. 오전 11:45:15"
+    },
+    {
+      "id": "ae58",
+      "userId": "hot56677",
+      "nickName": "해돌이",
+      "storeId": "18671103",
+      "storeName": "초원",
+      "storeAddress": "대구 북구 동천동 970-1",
+      "storePhone": "053-311-1137",
+      "review": "여기는 초원",
+      "date": "2024. 9. 23. 오전 11:45:28"
     }
   ]
 }
