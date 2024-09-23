@@ -32,7 +32,7 @@ const MyActivities = ({ queryKey }) => {
         )}
       </ul>
       <div className="h-6">
-        {activityLogs?.length && <Pagination currentPage={page} totalPages={totalPages} setPage={setPage} />}
+        {!!activityLogs?.length && <Pagination currentPage={page} totalPages={totalPages} setPage={setPage} />}
       </div>
     </>
   );

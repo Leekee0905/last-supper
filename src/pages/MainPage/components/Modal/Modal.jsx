@@ -33,7 +33,7 @@ const Modal = ({ children, contentStyle, isLoading }) => {
       {isLoading || (
         <div className="flex justify-end h-[5vh] pt-[1vh] pr-[1vw]">
           <button onClick={() => setHasModalOpen(false)}>
-            <FiX className="text-3xl hover:text-[var(--khaki-color)] active:opacity-50" />
+            <FiX className="text-3xl hover:text-[--khaki-color] active:opacity-50" />
           </button>
         </div>
       )}
