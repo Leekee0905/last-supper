@@ -87,6 +87,83 @@
       "storePhone": "",
       "review": "asfdasfasd",
       "date": "2024. 9. 23. 오전 11:26:55"
+    },
+    {
+      "id": "4a11",
+      "userId": "hee6968",
+      "nickName": "SHB",
+      "storeId": "1785694600",
+      "storeName": "쿠우쿠우 진주점",
+      "storeAddress": "경남 진주시 충무공동 134",
+      "storePhone": "055-761-6275",
+      "review": "쿠우쿠우 6접시 딱대~",
+      "date": "2024. 9. 23. 오전 11:33:53"
+    },
+    {
+      "id": "289f",
+      "userId": "hee6968",
+      "nickName": "SHB",
+      "storeId": "1485813133",
+      "storeName": "육장장이 충무공점",
+      "storeAddress": "경남 진주시 충무공동 287-3",
+      "storePhone": "055-762-6102",
+      "review": "B프리미엄 코스 추천드립니다!!",
+      "date": "2024. 9. 23. 오전 11:38:06"
+    },
+    {
+      "id": "e14f",
+      "userId": "hee6968",
+      "nickName": "SHB",
+      "storeId": "1586249126",
+      "storeName": "고기원칙 진주혁신도시점",
+      "storeAddress": "경남 진주시 충무공동 287-9",
+      "storePhone": "055-761-9297",
+      "review": "고기고기 고기남자~",
+      "date": "2024. 9. 23. 오전 11:38:32"
+    },
+    {
+      "id": "7a84",
+      "userId": "hee6968",
+      "nickName": "SHB",
+      "storeId": "155583928",
+      "storeName": "경성옥 진주본점",
+      "storeAddress": "경남 진주시 충무공동 289-1",
+      "storePhone": "055-753-5435",
+      "review": "경성크리처",
+      "date": "2024. 9. 23. 오전 11:38:46"
+    },
+    {
+      "id": "df75",
+      "userId": "hee6968",
+      "nickName": "SHB",
+      "storeId": "848519947",
+      "storeName": "금산골 진주혁신도시점",
+      "storeAddress": "경남 진주시 충무공동 284-7",
+      "storePhone": "0507-1404-6201",
+      "review": "백두산 정기뻗은 삼천리 강산~",
+      "date": "2024. 9. 23. 오전 11:39:50"
+    },
+    {
+      "id": "8e2f",
+      "userId": "hee6968",
+      "nickName": "SHB",
+      "storeId": "14575876",
+      "storeName": "소문난부자돼지국밥 본점",
+      "storeAddress": "대구 북구 읍내동 495-3",
+      "storePhone": "053-321-6945",
+      "review": "국밥은 순댓국밥이죠~",
+      "date": "2024. 9. 23. 오전 11:40:15"
+    },
+    {
+      "id": "da74",
+      "userId": "hee6968",
+      "nickName": "SHB",
+      "storeId": "17150172",
+      "storeName": "석경 본점",
+      "storeAddress": "대구 북구 학정동 935-8",
+      "storePhone": "053-321-0415",
+      "review": "석원석원석원서겅서겅서겅석경!",
+      "date": "2024. 9. 23. 오전 11:42:05"
     }
   ]
 }
