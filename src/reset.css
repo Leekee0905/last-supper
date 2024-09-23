@@ -19,17 +19,17 @@
   }
 
   h2 {
-    font-size: 32px;
+    font-size: 36px;
     font-weight: 600;
   }
 
   h3 {
-    font-size: 28px;
+    font-size: 32px;
     font-weight: 500;
   }
 
   h4 {
-    font-size: 24px;
+    font-size: 28px;
     font-weight: 400;
   }
 
@@ -41,7 +41,7 @@
 
 @layer components {
   .my-page-nav {
-    font-size: 24px;
+    font-size: 26px;
     position: relative;
 
     span {
